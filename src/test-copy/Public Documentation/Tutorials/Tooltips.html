@@ -1,0 +1,696 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Tooltips</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="331a2f56-a4a1-4901-8c58-c8a49168c9d2" class="page sans"><header><h1 class="page-title"><strong>Tooltips</strong></h1></header><div class="page-body"><p id="d03e5963-409f-4292-b229-b3180e952677" class>Tooltips are used in a chart for contextual information. Muze creates tooltip automatically for you based on the variables assigned in encoding channel. You can further modify the behaviour and presentation of Tooltip.</p><h2 id="9c1e6edd-708c-4eac-901a-daa0b29e609e" class><strong>Tooltip Modes</strong></h2><p id="c9cbb575-8d2f-4294-8968-6cd663652275" class>By changing the&#xA0;<code>mode</code>&#xA0;from&#xA0;<code>config</code>, you can configure how tooltips appear on the chart. There are two modes in which the tooltip operates:</p><ul id="8ceebe36-9bfb-4029-abc9-2a6ec7696c81" class="bulleted-list"><li><code>fragmented</code></li></ul><ul id="26186ac0-8068-48c2-b1f2-57cd1aca8afc" class="bulleted-list"><li><code>consolidated</code></li></ul><p id="e351b95a-b15d-49ed-8273-e5db5330c252" class>We&apos;ll take a look at both of them separately:</p><p id="43189f59-d062-4815-bfff-279e6262dccc" class>The fragmented tooltip breaks the tooltip into multiple tooltips for multiple points, while the consolidated tooltip displays a single tooltip for a set of points, consolidating the data present in all of them.</p><p id="9e83c807-ca92-424d-b899-73fbb20ddbb4" class>Let&apos;s draw a stacked bar chart showing the distribution of Cylinders by Origin. To do so, we&apos;ll&#xA0;<code>color</code>&#xA0;the chart using&#xA0;<em>Origin</em></p><figure id="f4f37d11-ae7f-427d-b74f-a976eb12f52f" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:36px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="fda9d393-b4af-4a48-9080-21562a33a096" class="code"><code>// Data is fetch from https://muzejs.org/static/cars.json and is assigned to data variable.
+// Schema is fetched from https://muzejs.org/static/cars-schema.json is assigned to schema variable.
+  
+// Retrieves the DataModel from muze namespace. Muze recognizes DataModel as a first class source of data.
+let DataModel = muze.DataModel;
+// Create an instance of DataModel using the data and schema.
+let rootData = new DataModel(data, schema);
+
+// Create a new variable which will keep count of cars per cylinder for a particular origin
+const dmWithCount = rootData.calculateVariable(
+  	{
+        name: &apos;CountVehicle&apos;,
+        type: &apos;measure&apos;,
+        defAggFn: &apos;count&apos;, // When ever aggregation happens, it counts the number of elements in the bin
+        numberFormat: val =&gt; parseInt(val, 10)
+    },
+    [&apos;Name&apos;, () =&gt; 1]
+);
+
+// Create an environment for future rendering
+let env = muze(); 
+// Create an instance of canvas which houses the visualization
+let canvas = env.canvas();
+
+canvas
+	.rows([&apos;CountVehicle&apos;]) // CountVehicle goes in y axis
+  	.columns([&apos;Cylinders&apos;]) // Cylinders goes in x-axis
+  	.color(&apos;Origin&apos;) // Colors encoding using the Origin field
+ 	.data(dmWithCount)
+   	.layers([{mark: &apos;bar&apos;,encoding: { y: &apos;CountVehicle&apos; },transform: { type: &apos;stack&apos; }}]) 
+  	.width(600)
+  	.height(400)
+	.title(&apos;Vehicle count by Cylinders by Origin&apos;)
+	.subtitle(&apos;For year 1970 - 1982&apos;)
+  	.mount(&apos;#chart-container&apos;); // Set the chart mount point</code></pre><p id="fe7e327a-bc83-4ed3-abcc-0de31cdb1620" class>When we hover on the stacked bar chart, it shows a tooltip for all the three&#xA0;<em>Cylinders</em>&#xA0;in the We can change the mode to&#xA0;<code>fragmented</code>&#xA0;to get multiple tooltips for each of the stacks:</p><figure id="82bd2408-bd8c-4e7d-ae81-4b9e36bb444d" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:48px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="4ae270aa-3a01-43f2-8b92-fc94b46e94f9" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+canvas
+    .data(dm)
+    .width(600)
+    .height(400)
+    .config({
+        interaction: {
+            tooltip: {
+                mode: &apos;fragmented&apos;
+            }
+        }
+    })
+    .color(&apos;Cylinders&apos;)
+    .rows([&apos;Horsepower&apos;])
+    .columns([&apos;Origin&apos;])
+    .mount(node);
+});</code></pre><h2 id="bf9b90c0-5928-4498-870a-71884b54f54e" class><strong>Formatting the tooltip</strong></h2><p id="0d1135b9-b561-4693-a634-e6b70d5cbe42" class>We can format the content and presentation of tooltip based on how we wish it to be. For instance, you may choose to add or remove information shown in the tooltip or show some different information completely.</p><figure id="f0be0508-4c89-4c71-9bd9-d50e69d5d87f" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:72px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="f6f3cc0d-7277-4c29-bd13-0f6b7ce75b70" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+const html = muze.Operators.html;
+
+canvas
+    .data(dm)
+    .width(600)
+    .height(800)
+    .config({
+        interaction: {
+            tooltip: {
+                formatter: (dataModel, config, context) =&gt; {
+                    const colorAxis = context.axes.color[0];
+                    const tooltipData = dataModel.getData().data;
+                    const fieldConfig = dataModel.getFieldsConfig();
+
+                    let tooltipContent = &apos;&apos;;
+                    tooltipData.forEach((dataArray, i) =&gt; {
+                        const originVal = dataArray[fieldConfig.Origin.index];
+                        const hpVal = dataArray[fieldConfig.Horsepower.index];
+                        const cylVal = dataArray[fieldConfig.Cylinders.index];
+                      	const l = colorAxis.getRawColor(cylVal)[2]; // luminance
+                        tooltipContent += `
+			${i ? &apos;&apos; : `&lt;h3 style=&quot;background-color:#EAEAEA&quot;&gt;Country: ${originVal}&lt;/h3&gt;`}
+			&lt;div style=&quot;background: ${colorAxis.getColor(cylVal)}; padding: 4px 8px; color: ${l &gt; 0.45 ? &apos;black&apos; : &apos;white&apos; };&quot;&gt;
+				&lt;u&gt;${cylVal} Cylinders&lt;/u&gt; cars with an average power of &lt;b&gt;${hpVal} HP&lt;/b&gt;
+			&lt;/div&gt;
+			`;
+                        tooltipContent += &apos;&lt;br&gt;&apos;;
+                    });
+                    return html`${tooltipContent}`;
+                }
+            }
+        }
+    })
+    .color(&apos;Cylinders&apos;)
+    .rows([&apos;Horsepower&apos;])
+    .columns([&apos;Origin&apos;])
+    .mount(node);
+});</code></pre><p id="9f12eccb-cc94-4c6a-8fd2-3cc0376c546f" class>As you can see, we have now formatted the tooltip, but in order to do that we had to write a bunch of code. Let&apos;s break it down:</p><p id="f6c08b32-5ebb-4e72-b259-6f5d9b2a4f87" class>The&#xA0;<code>tooltip</code>&#xA0;property in&#xA0;<code>config</code>&#xA0;accetps a&#xA0;<code>formatter</code>&#xA0;property where we can assign function to give definition of content and its presentation. This function is called with a&#xA0;<a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a>&#xA0;which is a data source to tooltip. Usually this DataModel contains the point for which the tooltip is shown. We can extract and transform the data by doing</p><pre id="604cb2c7-67f1-48d4-8100-f9d7ef52a2f4" class="code"><code>const tooltipData = dataModel.getData().data; // Gets the data in 2D array format</code></pre><p id="4d6cdc7c-abba-4ad8-bae3-48065b2943fd" class>The syntax of tooltipData is following</p><pre id="7112fa09-6be8-4087-b272-9e1ea5e41955" class="code"><code>[[&quot;USA&quot;, 158.13084112149534, &quot;8&quot;],
+[&quot;USA&quot;, 98.32432432432432, &quot;6&quot;],
+[&quot;USA&quot;, 77.58333333333333, &quot;4&quot;]]</code></pre><p id="3dccef6e-abb9-4fde-9ca9-318e2542f8a8" class>Now that we have the serialized version of data in 2D array, we need to know which column represents which variable. In order to retrieve that information we call the following&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/link/to/fields/config">api</a></mark>&#xA0;of&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a></mark></p><pre id="c8c02c0b-d88d-4241-8dec-05a1a633c694" class="code"><code>const fieldConfig = dataModel.getFieldsConfig();</code></pre><p id="6ffd1342-3f64-4d4a-a37e-6006078f8928" class>The above function returns the configuration in the following manner</p><pre id="d398a4f1-5eac-4150-8f21-989c8a3e550b" class="code"><code>{
+  &quot;Origin&quot;: {
+    &quot;index&quot;: 0,
+    &quot;def&quot;: {
+      &quot;name&quot;: &quot;Origin&quot;,
+      &quot;type&quot;: &quot;dimension&quot;,
+      &quot;subtype&quot;: &quot;categorical&quot;
+    }
+  },
+  &quot;Horsepower&quot;: {
+    &quot;index&quot;: 1,
+    &quot;def&quot;: {
+      &quot;name&quot;: &quot;Horsepower&quot;,
+      &quot;type&quot;: &quot;measure&quot;,
+      &quot;subtype&quot;: null
+    }
+  },
+  &quot;Cylinders&quot;: {
+    &quot;index&quot;: 2,
+    &quot;def&quot;: {
+      &quot;name&quot;: &quot;Cylinders&quot;,
+      &quot;type&quot;: &quot;dimension&quot;,
+      &quot;subtype&quot;: &quot;categorical&quot;
+    }
+  }
+}</code></pre><p id="bd6a4ba5-59d4-4a99-bfcf-0ce56085ab20" class>Clearly the index property defines the position of the variable in the serialized data.</p><p id="c1c3aa99-280b-40c3-958c-9badbe3517c1" class>Once we have the above two information available rest of work is pretty straight forward. All we have to do is to extract the values of variable, prepare and decorate the content.</p><p id="ea79c0b1-7b7d-409d-9229-be08a31b8383" class>Since the instance of DataModel passed to&#xA0;<code>formatter</code>&#xA0;function contains information about the point for which tooltip will be displayed, we can easily retrieve values of variables associated with the point.</p><pre id="38fa88d1-2efa-43d0-a35d-3987adce9f59" class="code"><code>tooltipData.forEach((dataArray) =&gt; {
+    const originVal = dataArray[fieldConfig.Origin.index];
+    const hpVal = dataArray[fieldConfig.Horsepower.index];
+    const cylVal = dataArray[fieldConfig.Cylinders.index];</code></pre><p id="f231144e-5769-48e5-b251-86dcfba2a601" class>Once the content is retrieved, the next step is decoration of the content</p><pre id="e21bc5b5-c885-4978-a5e0-0fce1052552b" class="code"><code>tooltipContent += `
+    ${i ? &apos;&apos; : `&lt;h3 style=&quot;background-color:#EAEAEA&quot;&gt;Country: ${originVal}&lt;/h3&gt;`}
+    &lt;div style=&quot;background: ${colorAxis.getColor(cylVal)}; padding: 4px 8px; color: white;&quot;&gt;
+        &lt;u&gt;${cylVal} Cylinders&lt;/u&gt; cars with an average power of &lt;b&gt;${hpVal} HP&lt;/b&gt;
+    &lt;/div&gt;
+`;</code></pre><p id="29661df4-cffc-4ed0-b31b-9fa4515d501d" class>If you read the above code carefully you will realize, that the background color of tooltip items are taken from legend.</p><p id="813b481c-0d40-4f7c-b9e6-dd52e90034b9" class>Formatter function needs to return the html content with a tagged template&#xA0;<code>muze.Operators.html</code></p><pre id="b75f958e-168c-4a96-9f5e-cdb25336aee5" class="code"><code>return html`${tooltipContent}`;</code></pre></div></article></body></html>

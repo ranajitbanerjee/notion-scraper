@@ -1,0 +1,726 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Changing Plot Type</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7eebbdec-9f46-406b-b46a-f32d292ee9fa" class="page sans"><header><h1 class="page-title"><strong>Changing Plot Type</strong></h1></header><div class="page-body"><p id="1ffa88f7-b1c8-4219-a5cf-41ae7b1a8462" class><mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-muze">Muze</a></mark>&#xA0;has support for a number of atomic plot types. Plot types in Muze are called&#xA0;<strong>mark</strong>. Though Muze automatically figures out the mark based on the input fields, you can override that by mentioning which mark to use.</p><p id="caa7e62b-bf6d-438a-aff2-411d870b5100" class>Muze currently supports the following marks:</p><ul id="851616e5-49f0-4a82-a941-c122bd9ea9d6" class="bulleted-list"><li><a href="#228db7c7291442afb0d630507748a7b3">Bar</a></li></ul><ul id="66a14ab0-c705-4d2b-8013-1e26d87cae94" class="bulleted-list"><li>Line</li></ul><ul id="b653bce0-b80a-4b00-a6b3-dc79056838ab" class="bulleted-list"><li>Area</li></ul><ul id="072a7bbb-af6c-4e30-bfdb-95b6bc174dda" class="bulleted-list"><li>Point</li></ul><ul id="8373691f-e9ec-4f59-acb9-300c84bb8fae" class="bulleted-list"><li>Tick</li></ul><ul id="f457cb16-41d7-42be-8070-6e2f9ae5552f" class="bulleted-list"><li>Text</li></ul><p id="b3bfc340-c781-4753-a252-91f3cba6d253" class>Muze takes inspiration from&#xA0;<mark class="highlight-blue"><a href="http://byrneslab.net/classes/biol607/readings/wickham_layered-grammar.pdf">Layered Grammar of Graphics</a></mark>&#xA0;which has direct impact on the API, terminology and philosophy of Muze.</p><p id="382a1022-cee0-45f3-bbab-83c80db393dc" class>In this document we will see how to achieve the most common chart type we have seen in visualization. This tutorial is a precursor to&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/composing-layers">layer composition</a></mark>&#xA0;where you can create composite charts on your own using the same mental model without having to depend on vendor.</p><h2 id="a79bd10f-4829-479e-b4b4-9d79c5046c3f" class><strong>Data</strong></h2><p id="cad009e2-b668-4122-97c6-27167c6afdbf" class>We will be using&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/static/cars.json">cars.json</a></mark>&#xA0;data for illustration purpose.</p><h2 id="2f4215ad-7b33-41f7-9a28-957def903523" class><strong>Lets create a simple bar chart</strong></h2><p id="bd777fba-f1ec-4a3a-8f3f-dd4761cef168" class>As you have seen before, following is a simple vertical bar chart.</p><figure id="2b64b32f-063e-49c3-ac5c-4cca01cc59de" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:36px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="ea200529-5d4b-42ab-89fe-80f7620fd2e0" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(dm)
+    .width(600)
+    .height(400)
+    .rows([&apos;Miles_per_Gallon&apos;]) /* Gets plotted on y-axis */
+    .columns([&apos;Origin&apos;])  /* Gets plotted on x-axis */
+    .mount(&apos;#chart-container&apos;);</code></pre><p id="2abe548c-bb6e-45db-aaf9-0af74a2ac0dc" class>As you can see, we have not mentioned what chart to render in the code. Muze understands what kind of field is getting assigned to which axis and based on that it decides which mark is appropriate for plotting. Here a&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel#providing-the-schema-of-the-data-to-datamodel">dimension</a></mark>&#xA0;(<em>Origin</em>) is getting assigned to x-axis and a&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel#providing-the-schema-of-the-data-to-datamodel">measure&#xA0;</a></mark>(<em>Miles_per_Gallon</em>) is getting assigned to y-axis. Hence it creates a chart with bar mark.&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-muze#putting-it-all-together">This table</a></mark>&#xA0;shows the mapping between variables assignment to encoding channels and mark type.</p><h2 id="228db7c7-2914-42af-b0d6-30507748a7b3" class><strong>Making a horizontal bar chart</strong></h2><p id="5a7a2fbf-5a55-4557-ab08-0ece8913f262" class>We can convert a vertical bar chart to a horizontal bar chart by just substituting the&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>.</p><figure id="3a05d84e-bd7a-4149-b2d1-199cec038480" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:36px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="95b311ee-6e0d-422a-a548-fb4bf9f80b90" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(dm)
+    .width(600)
+    .height(400)
+    .columns([&apos;Miles_per_Gallon&apos;]) /* Gets plotted on y-axis */
+    .rows([&apos;Origin&apos;])  /* Gets plotted on x-axis */
+    .mount(&apos;#chart-container&apos;);</code></pre><p id="6ff5365e-ca09-406f-846c-beca31b153b4" class>Now with this example, y-axis gets a dimensional field and x-axis gets a measure field. Since a&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel#providing-the-schema-of-the-data-to-datamodel">dimension</a></mark>&#xA0;is mapped to y-axis, a band scale is created for y-axis and a continuous axis gets created for x-axis which houses a&#xA0;<a href="https://muzejs.org/docs/introduction-to-datamodel#providing-the-schema-of-the-data-to-datamodel">measure</a>. Hence the orientation of bar chart gets changed from vertical to horizontal.</p><h2 id="b72deef7-b8cb-4bad-819e-ded8daa39ab8" class><strong>Making a stacked bar chart</strong></h2><p id="b1e5e54a-1240-4a27-bff6-804a8699724f" class>Adding a&#xA0;<code>color</code>&#xA0;encoding to the first chart will transform it into a stacked bar chart. The bars are stacked based on the value of the field assigned to&#xA0;<code>color</code>&#xA0;encoding channel. But we wont be doing that directly, as the previous data is not appropriate for stack column. We have calculated a new variable which displays the count of cars per region (<em>Origin</em>) by&#xA0;<em>Cylinders</em>&#xA0;using<mark class="highlight-blue">&#xA0;</mark><mark class="highlight-blue"><a href="https://muzejs.org/docs/datamodel-operators">DataModel&apos;s operator</a></mark>. We will be using this data to render the stacked bar chart.</p><figure id="6701e0d9-a7cf-4f40-bbb7-5718d5389153" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:36px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="aaa47c8c-e4cc-48d1-99c8-407edf352800" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const carCountDM = dm.calculateVariable({
+    name: &apos;carCount&apos;,
+    type: &apos;measure&apos;
+}, [&apos;Name&apos;, () =&gt; 1]) /* Here we create a new variable with an initial value 1. When we assign fields
+	to encoding channels, Muze internally perfroms groupBy. This new variable gets grouped with
+    the default aggregation function &apos;sum&apos; which gives us the count of cars */
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(carCountDM)
+    .width(600)
+    .height(400)
+    .color(&apos;Cylinders&apos;)
+    .rows([&apos;carCount&apos;]) /* Gets plotted on y-axis */
+    .columns([&apos;Origin&apos;])  /* Gets plotted on x-axis */
+    .mount(&apos;#chart-container&apos;);</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1a8b2c93-390e-4603-ae0b-ac2784542bee"><div style="font-size:1.5em"><span class="icon">&#x2705;</span></div><div style="width:100%"><mark class="highlight-teal"><strong>Not all data are suitable for stacking
+</strong></mark>Not all kind of data are suitable for stacking. In the above we had to create a new field so that stacking makes sense. If your data already have a field for which stacking makes sense, there is no need of transformation.
+
+You can remove the code responsible for creating the new variable and render a stacked chart.
+<code>canvas.data(dm);</code>
+<code>canvas.color(&apos;Cylinders&apos;);</code>
+<code>canvas.rows([&apos;Acceleration&apos;]);</code>
+<code>canvas.columns([&apos;Origin&apos;]);</code>
+If you read the chart you will realize that it does not makes sense.</div></figure><h2 id="5e3a848b-db69-4b14-a9dd-51447fbba2f1" class><strong>Making a grouped bar chart</strong></h2><p id="5d526dd7-2dfb-4164-a810-45dc721d04e4" class>When we created a stacked chart, we just added a field to&#xA0;<code>color</code>&#xA0;encoding channel. Internally Muze took some decisions and rendered a stacked bar chart.&#xA0;<code>stack</code>&#xA0;is a transformation Muze choose by default to render a chart when a field is assigned to&#xA0;<code>color</code>,&#xA0;<code>shape</code>&#xA0;or&#xA0;<code>size</code>.</p><p id="7bed725b-6414-4d6f-826e-92fac0f25a12" class>We have to be explicit when we need a&#xA0;<code>group</code>&#xA0;(or dodge) transformed chart</p><figure id="3bb03fc7-4ddb-4fab-805d-041c35c2c029" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:60px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="62393ece-8e92-44b2-ac21-469163772aff" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(dm)
+    .width(600)
+    .height(400)
+    .columns([&apos;Miles_per_Gallon&apos;]) /* Gets plotted on y-axis */
+    .rows([&apos;Origin&apos;])  /* Gets plotted on x-axis */
+  	.color(&apos;Cylinders&apos;)
+	.layers([{
+    	mark: &apos;bar&apos;,
+      	transform: { type: &apos;group&apos; } // By default stack transform is selected
+    }])
+    .mount(&apos;#chart-container&apos;);</code></pre><p id="d723c80c-7c74-46ad-999d-8f6bd1f3777a" class>In the stacked bar example we had not called the&#xA0;<code>layer</code>&#xA0;method which allowed Muze to push the default layer configuration</p><pre id="53bf7e6e-2b6e-49c2-a58e-4252c5a79c07" class="code"><code>.layers([{
+    mark: &apos;bar&apos;,
+    transform: { type: &apos;stack&apos; } // By default stack transform is selected
+}])</code></pre><p id="11b28d52-a561-4ac7-aa37-ea430588b5fa" class>Layer is a powerful concept which we are going to explore later in this&#xA0;<a href="https://muzejs.org/docs/composing-layers">page</a>.</p><h2 id="5f56a3b5-f994-4822-bd3e-23fb0963210f" class><strong>Making a Scatter Chart</strong></h2><p id="a8369d1b-3215-4fd5-a7ec-8a7b8d18c65a" class>Let&apos;s move on from bar charts and make a scatter chart. In order to create a scatter chart, we supply measures in both rows and columns.</p><figure id="46c8c8eb-c623-4b96-8325-ad82bdf5b02b" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:72px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="670d9370-de45-44db-8893-3e18789caab0" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(dm)
+    .width(600)
+    .height(400)
+    .columns([&apos;Miles_per_Gallon&apos;]) /* Gets plotted on y-axis */
+    .rows([&apos;Horsepower&apos;])  /* Gets plotted on x-axis */
+  	.detail([&apos;Name&apos;])
+    .mount(&apos;#chart-container&apos;);</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="bd7c4933-bc18-42b9-bf10-d530267577dc"><div style="font-size:1.5em"><span class="icon">&#x26A0;&#xFE0F;</span></div><div style="width:100%"><mark class="highlight-yellow"><strong>Controlling granularity of data
+</strong></mark>If you do not provide the fields in the&#xA0;<code>detail</code>&#xA0;method, it will plot a single point with aggregated information. With&#xA0;<code>detail</code>&#xA0;method you are essentially controlling the granularity of data to be displayed in the scatter plot.</div></figure><h2 id="01a11ac8-30f1-4315-a977-5f30fbffccae" class><strong>Creating a Scatter Plot with Shapes</strong></h2><p id="ba9e3b18-a0a2-4e5a-a2a0-9ad3182ae5b2" class>We can change the shape of the points by assigning a field to&#xA0;<code>shape</code>&#xA0;encoding channel.</p><figure id="5ff78c94-b0f6-4512-af14-59adc3330aee" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:48px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="1d7c3d9f-204a-4ce9-96a8-e82206a37daa" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(dm)
+    .width(600)
+    .height(400)
+    .columns([&apos;Miles_per_Gallon&apos;]) /* Gets plotted on y-axis */
+    .rows([&apos;Horsepower&apos;])  /* Gets plotted on x-axis */
+  	.shape(&apos;Origin&apos;)
+  	.detail([&apos;Name&apos;])
+    .mount(&apos;#chart-container&apos;);</code></pre><p id="73dc121f-614f-486d-90c8-8d681ece5982" class><code>color</code>,&#xA0;<code>shape</code>&#xA0;and&#xA0;<code>size</code>&#xA0;are called retinal encoding. Learn more about&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/retinal-encoding">retinal encoding here</a></mark><mark class="highlight-blue">.</mark></p><h2 id="4483fa24-646e-4918-b92b-33a7e41ce151" class><strong>Creating A Bubble Chart</strong></h2><p id="1f2cecdf-7194-4408-91aa-75ed9346de4a" class>We can also choose to create a bubble chart instead of a scatter plot with shapes by adding a field to the&#xA0;<code>size</code>&#xA0;encoding channel.</p><figure id="ad3935ed-ed8c-44f7-b1dd-13c24e1e26ba" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:72px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="f4810b20-4a86-407f-b159-ada14b14e7a7" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(dm)
+    .width(600)
+    .height(400)
+    .columns([&apos;Cylinders&apos;])
+  	.size(&apos;Weight_in_lbs&apos;)
+  	.color(&apos;Weight_in_lbs&apos;)
+    .rows([&apos;Horsepower&apos;])
+  	.detail([&apos;Maker&apos;])
+  	.layers([{ mark: &apos;point&apos; }])
+    .mount(&apos;#chart-container&apos;);</code></pre><h2 id="941ae2de-6d21-4c38-9c40-e0f30e515a51" class><strong>Creating a line chart</strong></h2><p id="73cd86bf-07fc-4b52-afd4-56ebb9d0dd21" class>In order to create a line chart, map a&#xA0;<a href="https://muzejs.org/docs/introduction-to-datamodel#providing-the-schema-of-the-data-to-datamodel">temporal</a>&#xA0;field to any of the axes. Temporal field is a special type of&#xA0;<a href="https://muzejs.org/docs/introduction-to-datamodel#providing-the-schema-of-the-data-to-datamodel">dimension</a>&#xA0;which represents datetime. A Line chart shows trend over time, hence a temporal variable is needed to show a line chart</p><figure id="c5bb045d-62ad-4956-a8d8-e36372019df6" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:36px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="a973909a-ceb5-4569-b735-c81aaaa999e4" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(dm)
+    .width(600)
+    .height(400)
+    .rows([&apos;Acceleration&apos;])
+    .columns([&apos;Year&apos;])
+    .mount(&apos;#chart-container&apos;);</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="5a449c10-9ae3-4e1c-9f77-9ff432e5bc8f"><div style="font-size:1.5em"><span class="icon">&#x2705;</span></div><div style="width:100%"><mark class="highlight-teal"><strong>Try it
+</strong></mark>Line and area charts are very similar. While line shows trends over time, area shows change of volume. Both are measured across time.
+
+Try adding the following line at the end to change line chart to area chart
+<code> canvas.layers([{ mark: &apos;area&apos; }])
+</code>
+You can also change the mark to&#xA0;`bar`,&#xA0;`point`&#xA0;etc... to get a sense of how intuitive it is to have a visualization driven by data.</div></figure><h2 id="5fdac768-e3ea-4701-9ea4-2407db5e34c1" class><strong>Creating a pie chart</strong></h2><p id="8b96bebf-fa42-447b-b447-49b1a9169b5c" class>We can create a pie chart using Muze and it is slightly different from the normal charts (since they dont have x and y axes). We do not need to specify Rows and Columns here and a pie chart only needs the&#xA0;<code>angle</code>&#xA0;or&#xA0;<code>radius</code>&#xA0;and&#xA0;<code>color</code>&#xA0;encodings to render.</p><figure id="6a8acc18-69ef-4de9-a688-6c1c2f57adc5" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:84px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="e9970531-bd58-416d-a7d5-c2af542e4dc2" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const carCountDM = dm.calculateVariable({
+    name: &apos;carCount&apos;,
+    type: &apos;measure&apos;
+}, [&apos;Name&apos;, () =&gt; 1]);
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+    .data(carCountDM)
+    .width(600)
+    .height(400)
+  	.layers([{
+    	mark: &apos;arc&apos;,
+      	encoding:{
+        	angle: &apos;carCount&apos;
+        }
+    }])
+	.color(&apos;Origin&apos;)
+	.rows([])
+	.columns([])
+    .mount(&apos;#chart-container&apos;);</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1ecbfd98-3b23-47d5-a7b9-bd3e07d22181"><div style="font-size:1.5em"><span class="icon">&#x26A0;&#xFE0F;</span></div><div style="width:100%"><strong><mark class="highlight-yellow">Not all data are suitable for pie</mark></strong>
+Just like stacked bar, not all data are suitable for pie. Here in&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/static/cars.json">cars.json</a></mark> data there is no field which we can use to form a meaningful pie chart. Hence we have calculated count of cars per country <em>Origin</em> which could be plotted in a pie chart.
+Had&#xA0;<em>carCount</em>&#xA0;variable been present in data, we wouldn&apos;t have calculated a new variable.</div></figure><h2 id="2575285a-c729-4292-a0a7-bab1d21df13c" class><strong>Wrapping up</strong></h2><p id="85b3b9da-6c42-4265-b069-d014956cfc83" class>In this tutorial we learnt how we can achieve various chart types using a consistent mental model. In the&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/Trendlines">next tutoria</a></mark><a href="https://muzejs.org/docs/Trendlines">l</a>&#xA0;we will see how we scale this idea of&#xA0;<strong>mark</strong>&#xA0;to create trendline in a chart.</p><p id="c303ce94-c47a-44cf-8c52-50458bfc5c01" class>
+</p></div></article></body></html>

@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Legends</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4824ac15-b2a2-4ac8-ad2e-cdabc7b92277" class="page sans"><header><h1 class="page-title"><strong>Legends</strong></h1></header><div class="page-body"><p id="8f9509d2-521b-45d9-a486-71a8f1a1f779" class>In this section, we will get a fair understanding of how legend work in Muze. There are three&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/retinal-encoding">retinal encodings channels</a></mark>&#xA0;that Muze uses to assign fields to encode more information to visualization, which are:</p><ul id="e13133e9-9cf4-4211-901f-ad027866d0a0" class="bulleted-list"><li><code>color</code></li></ul><ul id="47f7748c-71e4-4c05-9a35-42a94fab34a7" class="bulleted-list"><li><code>shape</code></li></ul><ul id="9a3efd61-d5dd-4b07-9f28-90e9e0d3b4bb" class="bulleted-list"><li><code>size</code></li></ul><p id="81ad8a9f-9d67-4af7-9776-a8059ae92167" class>Every time we provide a field to any of the retinal encoding channel, Muze creates a scale internally and then draw a legend form the scale automatically.</p><h2 id="54403ea2-fa21-4cf2-be55-1475d778e983" class><strong>Color Legend</strong></h2><p id="089f4754-9a4e-4a06-b16f-b3265901e001" class>Color legend is created when&#xA0;<code>color</code>&#xA0;scale is created by assigning a variable in&#xA0;<code>color</code>&#xA0;encoding channel.</p><h3 id="9a316dc7-a976-47f6-bb6b-d8f430d84770" class><strong>Discrete</strong></h3><p id="155090b6-279c-4a96-99de-d0ef0541fbaf" class>A discrete legend is creates when we assign a&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel#dimension">dimension</a></mark>&#xA0;to&#xA0;<code>color</code>&#xA0;channel. Thus, a categorical (values which can&apos;t be interpolated ) domain is created for the scale. Each item in the legend represents a unique&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/dimensional-values-and-faceting">dimensional value</a></mark>.</p><p id="0b28eebe-7549-4cbc-84f0-ece27a91d1aa" class>For example, if we needed to see the distribution of&#xA0;<em>Horsepower</em>&#xA0;and&#xA0;<em>Displacement</em>&#xA0;by&#xA0;<em>Origin</em>, and instead of&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/rows-columns-and-layout-variations">faceting</a></mark>&#xA0;the chart, we could add an encoding for&#xA0;<em>Origin</em>&#xA0;using the&#xA0;<code>color</code>&#xA0;channel.</p><figure id="44f655f1-f4f1-44f2-954f-1500804c1d5b" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:60px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="6815cc7a-637d-42c8-9fd3-9c75aa9f9441" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+  		.data(dm)
+		.width(700)
+		.height(400)
+        .rows([&apos;Horsepower&apos;])
+        .columns([&apos;Displacement&apos;])
+  		.color(&apos;Origin&apos;)
+  		.detail([&apos;Name&apos;])
+		.mount(&apos;#chart-container&apos;) /* Attaching the canvas to DOM element */</code></pre><p id="55b3d222-aeef-4429-81da-43d9e3e6e638" class>Notice that in order to indicate what each color in the chart represents, a legend is created. Thus the legends act as the references for the&#xA0;<code>color</code>&#xA0;retinal encoding.</p><h3 id="056df771-74f1-43a9-a2f3-e3e03e6a25bd" class><strong>Gradient color legend</strong></h3><p id="9bdbbf1d-b667-4d1e-9081-3900283bede7" class>When a&#xA0;<a href="https://muzejs.org/docs/introduction-to-datamodel#measure">measure</a>&#xA0;field is assigned to the&#xA0;<code>color</code>&#xA0;encoding channel, we get a gradient color legend. A gradient legend maps continuous domain to a continuous range of interpolated colors based on the range of colors provided.</p><p id="ad1d064e-606c-4e33-92d9-33c246b1f5bd" class>We consider the distribution of&#xA0;<em>Horsepower</em>&#xA0;vs the&#xA0;<em>Weight (in lbs)</em>. As such, if we wanted to see how good the mileage on those cars are, we can color them by&#xA0;<em>Miles_per_Gallon</em>, which will give us an indication of the optimal&#xA0;<em>Horsepower</em>&#xA0;and&#xA0;<em>Weights</em>&#xA0;which give efficient&#xA0;<em>Mileage</em>:</p><figure id="81ed7f67-7ffa-4135-8ffb-08c1a8310543" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:72px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="092bbef8-58a3-4f97-bc06-f4091872b22a" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+  
+canvas
+  		.data(dm)
+		.width(800)
+		.height(400)
+        .rows([&apos;Horsepower&apos;])
+        .columns([&apos;Weight_in_lbs&apos;])
+  		.color(&apos;Miles_per_Gallon&apos;)
+  		.detail([&apos;Name&apos;])
+		.mount(&apos;#chart-container&apos;) /* Attaching the canvas to DOM element */</code></pre><p id="223ebf62-afe8-4bca-b0dd-cc34909656c9" class>Notice that the colors of the points start from a whitish color to a deep blue color, indicating the increase in the values of the color field (i.e.,&#xA0;<em>Miles_per_Gallon</em>).</p><h3 id="84f390e3-1068-4ca9-a586-8631d31fc475" class><strong>Step color legend</strong></h3><p id="64857888-1174-4703-ab1b-cfe033d31e17" class>The step color legend is a variant of the gradient legend, wherein the range is a discrete set of colors for each step created in the domain. You can specify the number of&#xA0;<code>steps</code>&#xA0;or the stops itself:</p><p id="0bcf6af0-0ed2-4435-9366-c1f2da902192" class>We consider the distribution of&#xA0;<em>Horsepower</em>&#xA0;vs the&#xA0;<em>Weight_in_lbs</em>. As such, if we wanted to see how good the mileage on those cars are, we can color them by&#xA0;<em>Miles_per_Gallon</em>. But this time, we&apos;ll group the range of mileage in 5 buckets to get a sense of ranges of&#xA0;<em>Horsepower</em>&#xA0;and&#xA0;<em>Weight_in_lbs</em>&#xA0;values which can provide high&#xA0;<em>Miles_per_gallon</em>.</p><figure id="343fc55a-ae2a-4220-a891-31518bb0c596" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:48px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="a7ce0ed8-d21c-48f5-90ea-f1ed2a1425ab" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+ 
+canvas
+  		.data(dm)
+		.width(800)
+		.height(400)
+        .rows([&apos;Horsepower&apos;])
+        .columns([&apos;Weight_in_lbs&apos;])
+    	.color({
+  			field: &apos;Miles_per_Gallon&apos;,
+  			step: true,
+  			stops: 5
+		})
+  		.detail([&apos;Name&apos;])
+		.mount(&apos;#chart-container&apos;) /* Attaching the canvas to DOM element */</code></pre><h2 id="08a651e9-3f1f-4a49-8311-11d86cb2cab0" class><strong>Customizing number of stops and color</strong></h2><p id="436da5d7-6c76-4455-9cfa-0bfdf9b13d42" class>For a gradient legend you can specify the stops of a scale and color for those stops</p><figure id="3cc20d32-6e6d-43bc-b3dc-b3afc12585d8" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:48px" src="https://muzejs.org/static/images/copy.svg"></a></figure><figure id="32ded21a-224a-49f4-af44-c1613f9ec3ea" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="3f5ed436-e8c9-4bdc-b3b4-795db8af8f38" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+ 
+canvas
+  		.data(dm)
+		.width(800)
+		.height(400)
+        .rows([&apos;Horsepower&apos;])
+        .columns([&apos;Weight_in_lbs&apos;])
+  		.color({ 
+			field: &apos;Miles_per_Gallon&apos;,
+  			stops: 3,
+  			range: [&apos;#ff5722&apos;, &apos;#009688&apos;]
+		})
+  		.detail([&apos;Name&apos;])
+		.mount(&apos;#chart-container&apos;) /* Attaching the canvas to DOM element */</code></pre><p id="cc4d8c6c-e189-4ad0-8b95-e45193612d06" class>Alternatively for step legend also you can change the stops:</p><p id="695b7aa7-80e2-450e-b13c-9e605e5f05c7" class>
+</p><figure id="5f2d470b-e2bf-4a52-a74c-9600cfe44f6d" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:48px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="761f91ed-bc90-4ea2-ae8c-814f57ad35fb" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+  
+canvas
+  		.data(dm)
+		.width(800)
+		.height(400)
+        .rows([&apos;Horsepower&apos;])
+        .columns([&apos;Weight_in_lbs&apos;])
+  		.color({
+  			field: &apos;Miles_per_Gallon&apos;,
+  			step: true,
+  			stops: [15, 30]
+		})
+  		.detail([&apos;Name&apos;])
+		.mount(&apos;#chart-container&apos;) /* Attaching the canvas to DOM element */</code></pre><h2 id="b4164045-6aec-4fda-b582-65132dd466e2" class><strong>Shape and size legend</strong></h2><p id="861e4a93-c8b0-43d6-8ac0-778a3a5a719e" class>Shape and size&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/retinal-encoding">retinal encoding</a></mark>&#xA0;also works in the similar way. Only difference is&#xA0;<code>shape</code>&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/retinal-encoding">retinal encoding</a></mark>&#xA0;channel can&apos;t take a&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel#measure">measure</a></mark>&#xA0;field as value. Learn more about shape and size retinal encoding&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/docs/retinal-encoding#shape-encoding">here</a></mark>.</p><h2 id="3b732a44-78f0-4a56-8e19-6c55a65449a1" class><strong>Legend Configurations</strong></h2><p id="19f18a6f-13b9-4380-a99d-c810ac888e4e" class>Legend also has its own set of configurations, which are applicable for all the legend components:</p><h3 id="38689e64-997a-4b1e-9e82-2b1794c661da" class><code><strong>position</strong></code></h3><p id="9d9c5715-4b78-4605-b3ac-a9ecf767ccc8" class>We can position the legend to TOP, LEFT, RIGHT or BOTTOM of the canvas:</p><pre id="69a5e207-ae9f-4b1a-b2e5-abb962888ea3" class="code"><code>canvas
+    .config({
+        legend: {
+            position: &apos;bottom&apos;
+        }
+    })</code></pre><figure id="a927e08c-6b25-4e66-87c9-4a325d161e91" class="image"><a href="https://muzejs.org/static/images/copy.svg"><img style="width:60px" src="https://muzejs.org/static/images/copy.svg"></a></figure><pre id="c9f50df5-17ef-4b89-99c0-3d9afc72b1e0" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+  		.data(dm)
+		.width(700)
+		.height(400)
+        .rows([&apos;Horsepower&apos;])
+        .columns([&apos;Displacement&apos;])
+  		.color(&apos;Origin&apos;)
+  		.config({
+			legend: { 
+              	position: &apos;bottom&apos;,
+              	color: { /* for color legend */
+              		title: {
+                    	text: &apos;Country&apos;
+                    }
+              	}
+            }
+		})
+  		.detail([&apos;Name&apos;])
+		.mount(&apos;#chart-container&apos;) /* Attaching the canvas to DOM element */</code></pre><p id="bd440285-e4af-4775-9ba9-c1fac596f78a" class>Apart from the configurations applicable to all the legend components, each legend takes in configurations which are applicable for each legend separately:</p><h3 id="47e980af-d84f-4bfd-ba69-75b60eda7603" class><strong>show</strong></h3><p id="bb4c7caf-0727-4bbe-b775-98488e12c062" class>You can choose to show or hide a particular legend</p><h3 id="0955e3e9-4229-4e40-a5ff-09c38ce5f87f" class><strong>item</strong></h3><p id="ac74a796-f4ad-4f8a-a11a-eb25a54f2302" class>You can customise the width, height, and positions of each text and shape in a legend</p><h3 id="5e6b2711-9211-4820-8871-8f498a4f5265" class><strong>margin/border/padding</strong></h3><p id="f4ca8920-4cc8-4557-bbe2-3c953a15c56f" class>You can add your own values of margin, borders and padding that will be applied on the legend</p><h3 id="b241c23a-2c6d-4d4e-a999-e1674e9d0594" class><strong>title</strong></h3><p id="e2b4b24b-05ba-4104-b46d-32438690495b" class>You can provide a title to a particular legend</p></div></article></body></html>

@@ -1,0 +1,634 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Creating your first visualization with Muze</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="526ffb32-71e2-40db-83ca-23d66d86f5c9" class="page sans"><header><h1 class="page-title"><strong>Creating your first visualization with Muze</strong></h1></header><div class="page-body"><p id="8a5af2a0-141f-47cc-ae85-3f342669fdf1" class=""><strong>Table of Content</strong><div class="indented"><nav id="afd4db41-911d-4bcf-9560-0de66693b4c7" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7182d25f-2e2e-4856-875d-5ce0be6c1fc5"><strong>Prerequisite</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ccb150c6-ef45-48ac-9646-7030f3266c38"><strong>Steps to create a visualization</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bdb40ab7-4e48-4259-a8f6-e3498d616bb5"><strong>Preparing and providing data to Muze</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6ccfaa68-0548-4db7-8787-79d9e3dea968"><strong>Setting up a canvas</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7bf51d34-e3ae-4301-ab68-6c278bfeb9e9"><strong>Creating the visualization</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a4eac055-affc-4a00-bc33-233621a8588f"><strong>Configure a visualization</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d28e794f-5323-4648-ac41-483de6c215b1"><strong>Changing the above chart to a multi-series chart (adding another encoding)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8150c941-b296-4cfd-a489-9fb3ed580668"><strong>Changing chart from multi-series to multi-variable</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d0dfeafb-c092-421f-8d8b-3ec3d00788e1"><strong>Let&#x27;s add one more variable to chart</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a1c54baa-d76c-454d-b1d0-7ac32f9b7731"><strong>Wrapping up</strong></a></div></nav></div></p><hr id="67febfc2-4d80-4974-97a0-56b283f7641d"/><p id="cfb40428-3db1-432c-b241-f4ab2bbabd51" class="">
+</p><p id="0e219d0f-1f84-44b8-a7da-b274c61558b8" class="">Muze enables you to create composable, complex &amp; interactive data visualizations for web easily.</p><p id="ffaf785d-0266-467c-85c3-02d9ab10e24d" class="">In this tutorial, we&#x27;ll guide you step-by-step on how to create your first few charts using Muze.</p><hr id="9d9e38a5-4b89-4c7c-937f-44f2bd03d485"/><h2 id="7182d25f-2e2e-4856-875d-5ce0be6c1fc5" class=""><strong>Prerequisite</strong></h2><p id="caf005d1-6d7e-4c8b-b5ca-0dbfe002189e" class="">You need to have muze installed before going ahead with this document. Refer <mark class="highlight-blue"><a href="https://muzejs.org/docs/getting-started#installing-muze-for-your-app-or-project">this section </a></mark>for muze installation.</p><h2 id="ccb150c6-ef45-48ac-9646-7030f3266c38" class=""><strong>Steps to create a visualization</strong></h2><p id="055849f2-02c2-4a46-b438-370af63430ca" class="">To create a visualization using Muze, the following steps are involved:</p><ol id="70f4c024-33bd-4594-95cc-3665b8ebf632" class="numbered-list" start="1"><li>Load your data in Muze <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a></mark></li></ol><ol id="8beab633-0f92-4406-9a3c-e08aedf63f2e" class="numbered-list" start="2"><li>Retrieve <code>canvas</code> from muze</li></ol><ol id="59427986-28b2-4fed-880b-44658ac34133" class="numbered-list" start="3"><li>Provide fields in <code>rows</code> &amp; <code>columns</code> for <code>canvas</code> which gets translated to visualization.</li></ol><h3 id="bdb40ab7-4e48-4259-a8f6-e3498d616bb5" class=""><strong>Preparing and providing data to Muze</strong></h3><p id="c1a97c68-bd87-47c5-bcbf-b6e2927ebfc2" class="">Muze recognizes <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a></mark> as first class source of data. To use Muze, you need to load your data and provide to DataModel in one of the 3 default formats:</p><ul id="80f6b414-7d23-4996-b818-14989666f60f" class="bulleted-list"><li>Delimited data (e.g., CSV or TSV)</li></ul><ul id="80fafce1-edb0-4492-a2d5-95bc9123a101" class="bulleted-list"><li>Flat JSON structure</li></ul><ul id="7fc34792-483e-432c-8e5b-eabe56f8e7cd" class="bulleted-list"><li>JavaScript 2D Arrays</li></ul><p id="b0a30365-ab80-4c08-9a02-237c78fa1585" class="">In this article we will be using <mark class="highlight-blue"><a href="https://muzejs.org/static/cars.json">cars.json</a></mark> data for illustration purpose.</p><p id="51b1f66e-4a54-4444-9c7f-e93abc2dad6d" class="">You can load this JSON data via a network call (AJAX etc.) or by importing an existing dataset present in your JavaScript source file. For instance, we are using the <code>loadData</code> to load the data. This function is written by us and only available in this page.</p><p id="f69bd2ed-09c3-49b8-8582-96965076594c" class=""><mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a></mark> needs a data and schema. <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel#providing-the-schema-of-the-data-to-datamodel">Schema</a></mark> identifies variables from data and defines characteristics of the variables. Variables are nothing but the columns in a tabular data format. If you see <mark class="highlight-blue"><a href="https://muzejs.org/static/cars.json">cars.json</a></mark> data, you will see there are 10 variables (columns in tabular format) present in the data (for a FlatJSON format, those columns becomes keys of an object).</p><p id="1d3be079-ff32-4a36-b0ae-7694dae9ddfa" class="">Here&#x27;s how the loaded DataModel looks like, when converted to a table:</p><p id="caf3d553-3859-4c21-8f9a-d7b08fe3ef43" class="">
+</p><div id="52230130-d9ed-4906-b926-c244aade6518" class="collection-content"><h4 class="collection-title">cars</h4><table class="collection-content"><thead><tr><th>__id</th><th>Name</th><th>Maker</th><th>Miles_per_Gallon</th><th>Displacement</th><th>Horsepower</th><th>Weight_in_lbs</th><th>Acceleration</th><th>Origin</th><th>Cylinders</th><th>Year</th></tr></thead><tbody><tr id="cfd627af-04fe-42b3-a5a7-5d40ed4c45cd"><td class="cell-title"><a href="Creating%20your%20first%20visualization%20with%20Muze/cars/Untitled.html">Untitled</a></td><td class="cell-V,K]">chevrolet chevelle malibu</td><td class="cell-[s&#x27;f">chevrolet</td><td class="cell-D&lt;&lt;b">18</td><td class="cell-0z(L">307</td><td class="cell-p&amp;d$">130</td><td class="cell-EL&#x27;5">3504</td><td class="cell-(mZ3">12</td><td class="cell-Ic~r"><span class="selected-value">USA</span></td><td class="cell-W.3&quot;">8</td><td class="cell-b.sf">-19800000</td></tr><tr id="32869c55-3b0d-459c-89ef-efcf49ebcf37"><td class="cell-title"><a href="Creating%20your%20first%20visualization%20with%20Muze/cars/Untitled%201.html">Untitled</a></td><td class="cell-V,K]">buick skylark 320</td><td class="cell-[s&#x27;f">buick</td><td class="cell-D&lt;&lt;b">15</td><td class="cell-0z(L">350</td><td class="cell-p&amp;d$">165</td><td class="cell-EL&#x27;5">3693</td><td class="cell-(mZ3">11.5</td><td class="cell-Ic~r"><span class="selected-value">USA</span></td><td class="cell-W.3&quot;">8</td><td class="cell-b.sf">-19800000</td></tr><tr id="acebb680-31a3-4ba0-9fa4-a372bf5f6e79"><td class="cell-title"><a href="Creating%20your%20first%20visualization%20with%20Muze/cars/Untitled%202.html">Untitled</a></td><td class="cell-V,K]">plymouth satellite</td><td class="cell-[s&#x27;f">plymouth</td><td class="cell-D&lt;&lt;b">18</td><td class="cell-0z(L">318</td><td class="cell-p&amp;d$">150</td><td class="cell-EL&#x27;5">3436</td><td class="cell-(mZ3">11</td><td class="cell-Ic~r"><span class="selected-value">USA</span></td><td class="cell-W.3&quot;">8</td><td class="cell-b.sf">-19800000</td></tr><tr id="37ba7a22-0be1-4990-bf27-01c41bea9ed3"><td class="cell-title"><a href="Creating%20your%20first%20visualization%20with%20Muze/cars/Untitled%203.html">Untitled</a></td><td class="cell-V,K]">amc rebel sst</td><td class="cell-[s&#x27;f">amc</td><td class="cell-D&lt;&lt;b">16</td><td class="cell-0z(L">304</td><td class="cell-p&amp;d$">150</td><td class="cell-EL&#x27;5">3433</td><td class="cell-(mZ3">12</td><td class="cell-Ic~r"><span class="selected-value">USA</span></td><td class="cell-W.3&quot;">8</td><td class="cell-b.sf">-19800000</td></tr><tr id="8b1dacc3-d14f-4b87-9434-a4acb1f5c16b"><td class="cell-title"><a href="Creating%20your%20first%20visualization%20with%20Muze/cars/Untitled%204.html">Untitled</a></td><td class="cell-V,K]">ford torino</td><td class="cell-[s&#x27;f">ford</td><td class="cell-D&lt;&lt;b">17</td><td class="cell-0z(L">302</td><td class="cell-p&amp;d$">140</td><td class="cell-EL&#x27;5">3449</td><td class="cell-(mZ3">10.5</td><td class="cell-Ic~r"><span class="selected-value">USA</span></td><td class="cell-W.3&quot;">8</td><td class="cell-b.sf">-19800000</td></tr><tr id="3ed9509f-ec48-48be-86bb-9c3623748ea4"><td class="cell-title"><a href="Creating%20your%20first%20visualization%20with%20Muze/cars/Untitled%205.html">Untitled</a></td><td class="cell-V,K]"></td><td class="cell-[s&#x27;f"></td><td class="cell-D&lt;&lt;b"></td><td class="cell-0z(L"></td><td class="cell-p&amp;d$"></td><td class="cell-EL&#x27;5"></td><td class="cell-(mZ3"></td><td class="cell-Ic~r"></td><td class="cell-W.3&quot;"></td><td class="cell-b.sf"></td></tr><tr id="37f8937b-7734-46b9-847a-990eedf76593"><td class="cell-title"><a href="Creating%20your%20first%20visualization%20with%20Muze/cars/Untitled%206.html">Untitled</a></td><td class="cell-V,K]"></td><td class="cell-[s&#x27;f"></td><td class="cell-D&lt;&lt;b"></td><td class="cell-0z(L"></td><td class="cell-p&amp;d$"></td><td class="cell-EL&#x27;5"></td><td class="cell-(mZ3"></td><td class="cell-Ic~r"></td><td class="cell-W.3&quot;"></td><td class="cell-b.sf"></td></tr></tbody></table></div><pre id="8de606af-e10a-4337-959f-f62a6958ba91" class="code"><code>Promise.all([loadData(&#x27;/static/cars.json&#x27;), loadData(&#x27;/static/cars-schema.json&#x27;)]).then((resp) =&gt; {
+  	const data = resp[0];
+  	const schema = resp[1];
+  	const DataModel = muze.DataModel;
+		const dm = new DataModel(data, schema);
+  
+  	printDM(dm);
+})</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="5fed447d-1a6f-4738-bca4-63b6a2b06421"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Methods like <code>loadData</code>, <code>printDM</code> are utility method we created for ease of use. These methods are available only in muze&#x27;s documentation and example page only.</div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="791b6e95-6668-4dcc-8368-a0a1738c5f70"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Throughout the document we talk about different variables from data getting assigned to x-axis, y-axis, color-axis etc. Sometimes variables, fields and columns are used interchangeably.
+
+Variables are from raw data which gets translated to fields in DataModel. But all of these are just columns of a tabular data format.</div></figure><p id="57436923-0150-4904-ac98-6277d44ddcff" class="">
+</p><h3 id="6ccfaa68-0548-4db7-8787-79d9e3dea968" class=""><strong>Setting up a canvas</strong></h3><p id="57f23c63-cccb-4401-817e-862fa2b35b7a" class="">To create a visualization using Muze, you first need to create an<mark class="highlight-blue"> </mark><mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-muze#creating-our-first-visualization">environment</a></mark><mark class="highlight-blue">,</mark> and then a <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-muze#setting-up-the-canvas-dimensions">canvas</a></mark>. A canvas is a logical container for your visualization, and needs to provided a width and height. The code for same is shown below:</p><pre id="a3ca7c3f-d299-4b63-ab39-bd537b963d93" class="code"><code>const env = muze(); //Initialize the Muze environment
+const canvas = env.canvas(); //Create a container canvas
+canvas
+    .width(600) //Specify width of visualization (canvas) in pixels
+    .height(450) //Specify height of visualization (canvas) in pixels</code></pre><p id="14282ef8-7f3c-45ae-8e43-4a8edea60706" class="">
+</p><h3 id="7bf51d34-e3ae-4301-ab68-6c278bfeb9e9" class=""><strong>Creating the visualization</strong></h3><p id="46a39fa3-e8a4-4702-b3ad-3a9e9065634c" class="">Now that we&#x27;ve a canvas and instance of<mark class="highlight-blue"> </mark><mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a></mark> ready, we will begin visualizing this data. Muze provides constructs for you to assign variables from data to encodings channels for visualization.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f1896c68-2449-4336-b75a-ddbb378b2351"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Encodings are nothing but x-axis, y-axis, facets, color-axis, shape-axis, size-axis. You can assign variables from data (fields from DataModel) in encoding channel. Like you can assign Miles_per_gallon to x-axis, and Year to y-axis to get a Mileage vs Year chart</div></figure><p id="d05ebd0c-f92c-4904-ab53-46637c924483" class="">
+</p><p id="4c4d63b2-12e2-48e9-9f53-fe29b56473cf" class="">Muze expects fields from DataModel to be provided to the canvas as either <code>rows</code> or <code>columns</code>. In addition, it needs a DOM node where you want your visualization to be mounted.</p><p id="8bbb5a5d-84e4-41d5-931c-ff4b5d55be4c" class="">Let&#x27;s create the chart below. The code for it is present after the chart.</p><figure id="618f1e96-3675-480f-9d2c-03c690e051f3"><div class="source"><a href="https://codepen.io/chartsdotcom/pen/RwNarrj">https://codepen.io/chartsdotcom/pen/RwNarrj</a></div></figure><pre id="78c42d7c-2e05-418c-b61a-ee92c88a0d63" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+  	.data(dm)
+		.width(600)
+		.height(400)
+		.rows([&#x27;Miles_per_Gallon&#x27;]) /* Gets plotted on y-axis */
+		.columns([&#x27;Year&#x27;])  /* Gets plotted on x-axis */
+		.mount(&#x27;#chart-container&#x27;) /* Attaching the canvas to DOM element */</code></pre><p id="3234ea41-1fc1-4656-b67b-f53b9b3ed23d" class="">One thing you may be wondering is - how did Muze plot a line chart, when you didn&#x27;t specify anything? Well, Muze understands the possible options for the set of fields provided and based on that, it automatically renders the most viable chart for it, in this case, since <em>Year</em> is a temporal field, it&#x27;s best to plot a line chart (to show trend across time). You can also change plot type, if you want to override system defined plot type. <mark class="highlight-blue"><a href="https://muzejs.org/docs/changing-plot-types">This tutorial explains more about rendering different plot types</a></mark><mark class="highlight-blue">.</mark></p><h2 id="a4eac055-affc-4a00-bc33-233621a8588f" class=""><strong>Configure a visualization</strong></h2><p id="56079644-5f90-4a7c-923d-f597aa59e5d2" class="">Once you create your first visualization, configuring a visualization is just tweaking different encoding channels with different variable.</p><h3 id="d28e794f-5323-4648-ac41-483de6c215b1" class=""><strong>Changing the above chart to a multi-series chart (adding another encoding)</strong></h3><p id="135abacf-9a4b-45f9-b09f-f4b7d8a4e755" class="">We can transform our previous chart (single-series) into a multi-series line chart by adding the <code>color</code> encoding. It accepts a field from the DataModel instance by which it colors the lines, as shown below:</p><pre id="a68ff81f-5884-445f-9da2-7bbbfa36ab3c" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+  		.data(dm)
+		.width(600)
+		.height(400)
+		.rows([&#x27;Miles_per_Gallon&#x27;])
+		.columns([&#x27;Year&#x27;])
+  		.color(&#x27;Origin&#x27;) /* Field using which the lines will be colored */
+		.mount(&#x27;#chart-container&#x27;)</code></pre><p id="91825ca5-f715-4c8a-8efd-0a307f839ea9" class="">Notice how we get three lines (one for each coutry), each line representing an <em>Origin</em> in the multi line chart.</p><h3 id="8150c941-b296-4cfd-a489-9fb3ed580668" class=""><strong>Changing chart from multi-series to multi-variable</strong></h3><p id="8e569659-6d59-4fe4-87b5-e2973876d17b" class="">Instead of coloring each series by Origin, we could even split our visualization by a particular field into multiple rows (panels). Check out the code right after the visualization to see how to do it.</p><pre id="aab6d48f-7bb1-4a76-b234-681f8188390a" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+  		.data(dm)
+		.width(600)
+		.height(450)
+		.rows([&#x27;Origin&#x27;, &#x27;Miles_per_Gallon&#x27;]) /* The viz gets faceted by Origin field */
+		.columns([&#x27;Year&#x27;])
+		.mount(&#x27;#chart-container&#x27;)</code></pre><p id="e541a770-ceb3-4f5b-8466-9035dc606a62" class="">What we have done is called faceting. The above is an example of faceting by rows.</p><h3 id="d0dfeafb-c092-421f-8d8b-3ec3d00788e1" class=""><strong>Let&#x27;s add one more variable to chart</strong></h3><p id="da88f5e7-4da0-4a98-af5a-0e15eb9183e4" class="">Let&#x27;s add one more variable, <em>Cylinders</em>, to the chart, to see how Muze handles it. We are going to take the above example and going to add a color encoding by Cylinders. This will create a multi-panel + multi-series line chart for each of the splits made in the rows:</p><pre id="2eaa365a-1b0c-49e3-8919-f80b99d2c627" class="code"><code>// DataModel instance is created from https://muzejs.org/static/cars.json data,
+// https://muzejs.org/static/cars-schema.json schema and assigned to variable dm.
+
+const env = muze();
+const canvas = env.canvas();
+
+canvas
+  	.data(dm)
+		.width(600)
+		.height(450)
+		.rows([&#x27;Origin&#x27;, &#x27;Miles_per_Gallon&#x27;])
+		.columns([&#x27;Year&#x27;])
+  	.color(&#x27;Cylinders&#x27;)
+		.mount(&#x27;#chart-container&#x27;)</code></pre><p id="8d5c3b8c-186a-4dcc-b877-101fe1d6b469" class="">So you just saw how easy it is to create complex visualizations with Muze, without having to change anything in your visualization code. All you had to do was map the right fields from instance of <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a></mark> to right encoding channels of <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-muze">Muze</a></mark> .</p><h2 id="a1c54baa-d76c-454d-b1d0-7ac32f9b7731" class=""><strong>Wrapping up</strong></h2><p id="e04769ad-ec94-4921-982a-b4d020a73da9" class="">We learnt how to make a simple chart using two fields from the data. Then, we added <mark class="highlight-blue"><a href="https://muzejs.org/docs/retinal-encoding">retinal encodings</a></mark> (<code>color</code>) to the plot to create a multi series chart. Then, we added fields to canvas which created multi panel visualizations.</p><p id="995eadc9-e230-4907-bfc8-ce33f522909d" class="">All these are just the tip of the iceberg. Muze has the power to do a lot more besides changing plot types or adding encodings.</p><p id="52abac5e-56a7-44ac-8f9b-869ee1a3bb62" class="">In order to fully understand the power of data driven visualizations, you can go through the <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-muze">concepts</a></mark> of Muze. If you wish to understand the DataModel and what other formats it supports or how it operates, read about the <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel concepts</a></mark>.</p><p id="36a78a13-b2e8-4301-9dcd-a43f2519e170" class="">From here you can read how you can <mark class="highlight-blue"><a href="https://muzejs.org/docs/docs/using-data-from-arrays-or-csv">get started with Muze using different data formats</a></mark>. You can also checkout the <mark class="highlight-blue"><a href="https://muzejs.org/examples">examples</a></mark> and then see <mark class="highlight-blue"><a href="https://muzejs.org/docs/Use-existing-muze-samples-with-your-data">here how you can use those examples in your application</a></mark>.</p><p id="5e0c177c-d5ad-4148-8ad5-25f41c3fb82c" class="">
+</p></div></article></body></html>

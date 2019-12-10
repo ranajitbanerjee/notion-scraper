@@ -1,0 +1,1187 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Global Configuration</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f144b2ae-9c22-4fd9-9156-2ce0f7662ee1" class="page sans"><header><h1 class="page-title"><strong>Global Configuration</strong></h1></header><div class="page-body"><p id="11c3256f-0e88-402a-b6b8-cf32bd3661de" class>Apart from the components and their respective configurations, there are a set of configurations you can provide which will be globally applicable for the environment where you have set your canvases for. You can provide configurations to each canvas individually which will be applied separately on one canvas.</p><p id="2e879dd1-e734-4010-9abc-61a18dc959c8" class>Let&apos;s deep dive into each configuration one by one:</p><h3 id="e8c59cdc-54a9-427d-8ecc-9ced6165a4f3" class><strong>GridLines</strong></h3><p id="ca07b9eb-37ce-46f6-92c4-9cbe69cd3236" class>You can choose to show or hide the GridLines:</p><figure id="77d9ee7a-88c4-4f81-a6fa-4eedc0aa31fd" class="image"><a href><img src></a></figure><pre id="0ccad685-4b55-4e86-9f39-7ecb40adde3c" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+		.rows([&apos;Horsepower&apos;])
+  		.config({
+          gridLines: {
+            x: {
+              show: false
+            }
+          }
+        })
+		.columns([&apos;Origin&apos;])
+		.mount(node);
+
+})</code></pre><p id="5fc893eb-f6f2-49f6-b425-93cefc940309" class>Gridlines are now hidden for the <strong>x-axis.</strong></p><h3 id="ce44b1d0-5a64-433e-9e7c-f821ff43ac82" class><strong>GridBands</strong></h3><p id="9c970112-f2df-4a3a-ba9b-8ea90fc10792" class>You can choose to show the grid bands:</p><pre id="d01b53d7-1b52-41f4-af6c-3f58accc2951" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+		.rows([&apos;Horsepower&apos;])
+  		.config({
+          gridBands: {
+            x: {
+              show: true
+            }
+          }
+        })
+		.columns([&apos;Origin&apos;])
+		.mount(node);
+
+})</code></pre><h3 id="0e4a7b7b-6152-4b42-a3c3-30a517d4d38d" class><strong>Border</strong></h3><p id="e9f22ab8-ea93-44a8-b15f-561c1856d60a" class>You can add and/or remove borders from Muze by stating exactly the set of borders you want to show. In addition, you can set the color, width and style for those borders:</p><pre id="2a88c504-174e-4c7b-b336-96e0854af0af" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+		.config({
+			border: {
+              width: 2,
+              style: &apos;dashed&apos;,
+              color: &apos;red&apos;
+          },
+		})
+		.rows([&apos;Cylinders&apos;])
+		.columns([&apos;Horsepower&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><p id="cf73d968-68fc-4dd7-9d19-7fb87d81e1a3" class>There are three different types of borders,&#xA0;<strong>Rows, Columns</strong>&#xA0;and the&#xA0;<strong>Values.</strong>&#xA0;Row Matrices have borders in between each of the rows, while Column Matrices have borders between the columns and finally, each of the Cells in the Value Matrices can be separated using those borders. By default, Muze creates borders for the matrices based on the kind of visualization is made using the fields. Let&apos;s go through them one by</p><ul id="073970a0-4d4f-475e-9837-11f0b366d4c8" class="bulleted-list"><li><strong>showRowBorders</strong>&#xA0;:&#xA0;<code>You can specify the top and bottom borders for the rows which will separate each of the rows from one another as shown below:</code></li></ul><figure id="7c425929-67dc-401d-b195-504804878962" class="image"><a href><img src></a></figure><pre id="3f32672a-543a-4b04-9651-967831d6b469" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+		.config({
+  			border: {
+				showRowBorders: {
+					top: false,
+					bottom: false
+				}
+			}
+		})
+		.rows([&apos;Horsepower&apos;])
+			.columns([&apos;Origin&apos;,&apos;Cylinders&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><ul id="99df668d-362e-4aed-b5bd-e76225a6a70c" class="bulleted-list"><li><strong>showColBorders</strong> : Similar to Row Borders are the Column Borders, which create borders between multiple sets of columns. We use to establish this. Let&apos;s switch off the borders :</li></ul><figure id="ea19116d-523b-4e41-b3d8-17701e2ff6d1" class="image"><a href><img src></a></figure><pre id="4c86b657-2aa1-4ad7-a2d9-1072fbb476c7" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+		.config({
+  			border: {
+				showColBorders: {
+					left: false,
+					right: false
+				}
+			}
+		})
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;,&apos;Cylinders&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><ul id="80db5c2b-64c6-4941-ae77-8109e1db03f5" class="bulleted-list"><li><strong>showValueBorders</strong> : The value borders are applicable to the value cells(i.e., the cells that show the chart):</li></ul><figure id="3a16653c-b3b4-4bbd-aa58-bd3d1bfc90ec" class="image"><a href><img src></a></figure><pre id="72a8560b-10bf-4b88-a2b3-ac6545965cc7" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+		.config({
+          border: {
+            showValueBorders: {
+              top: false,
+              bottom: false,
+              left: false,
+              right: false
+            }
+          }
+        })
+		.rows([&apos;Cylinders&apos;,&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;,&apos;Cylinders&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><p id="e2dc2946-bf87-4186-9130-e6506f5565cb" class>As you can see, the value borders are now removed. We will now remove all the borders:</p><figure id="f509be07-1948-4034-9a66-ef92fc8d8486" class="image"><a href><img src></a></figure><pre id="7a2b0077-7494-4b34-ae9e-d41eec765796" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+		.config({
+          border: {
+            showValueBorders: {
+              top: false,
+              bottom: false,
+              left: false,
+              right: false
+            },
+            showRowBorders: {
+              top: false,
+              bottom: false,
+            },
+            showColBorders: {
+              left: false,
+              right: false
+            }
+          }
+        })
+		.rows([&apos;Cylinders&apos;,&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;,&apos;Cylinders&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><h3 id="7e49f950-558b-4ac2-84fb-458e7732477c" class><strong>Interaction</strong></h3><p id="5ceab1fd-7e6b-4449-8765-094e7d104b3d" class>Muze provides a set of configurations for interaction, especially for auto connected charts where the interaction can be used for information for multiple charts at a time.</p><p id="f02df36c-2426-4c76-b35a-c5d6cb4b15cb" class>The configurations for interactions</p><h3 id="2073e42d-666f-4eec-a2ef-e1f847ea2629" class><strong>Tooltip</strong></h3><p id="3e7fd8f2-c183-4eda-8487-0fd87ad15c58" class>There are two modes in which the tooltip operates:</p><ul id="eacc1ebd-fbb9-42a2-bc93-a79a62816c39" class="bulleted-list"><li><strong>Fragmented</strong></li></ul><ul id="a5a59220-da9d-4679-9218-8838dbf3ce9f" class="bulleted-list"><li><strong>Consolidated</strong><p id="f6f3b480-5dba-42fb-bf05-72f7abb1e355" class>By changing the mode, you can configure how the tooltips appear on the chart. The fragmented tooltip breaks the tooltip into multiple tooltips for multiple points, while the consolidated tooltip displays a single tooltip for a set of points, consolidating the data present in all of them.</p><p id="134e4271-36b9-4f82-a25c-f982132d2e48" class>For instance:</p><p id="bcb46fbe-a373-4ec0-a16d-88ea94f29533" class><em>Let&apos;s draw a stacked bar chart showing the distribution of the Horsepower by Origin and Cylinders:</em></p><p id="30c6859d-c508-44fa-b155-e67553d3539c" class>To do so, we&apos;ll color the chart using Cylinders</p><figure id="1da89710-663d-41cd-be7f-19d90eaf808c" class="image"><a href><img src></a></figure><pre id="32a21790-6194-4096-973c-c18253bbb28f" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+  		.color(&apos;Cylinders&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre></li></ul><p id="cb297650-c632-4e10-a2fc-220c6e460419" class>As we can see from the figure, the hovered stacked bar shows a tooltip for all the three&#xA0;<em>Cylinders</em>&#xA0;in the We can change the mode to&#xA0;<strong>fragmented</strong>&#xA0;to get multiple tooltips for each of the stacks:</p><figure id="a728b439-7955-420a-bfad-9e1c5f9780d2" class="image"><a href><img src></a></figure><pre id="bf834bc5-beb6-4919-bc40-d65f8620448d" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+  		.config({
+          interaction: {
+            tooltip: {
+              mode: &apos;fragmented&apos;
+            }
+          }
+        })
+  		.color(&apos;Cylinders&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><p id="4a38b483-15ff-496e-9d85-8ba2f93fb886" class>In addition to changing modes, we can format the tooltip based on how we wish it to be:&#xA0;<em>For instance, you may choose to add or remove information shown in the tooltip or show some different information completely, you could do it for every chart.</em></p><p id="f6ce27b5-9a2d-4bb8-8626-9058b6ed05d9" class><strong>Note:</strong>&#xA0;In order to use the tooltip formatter, you need to understand how the DataModel works so that you can effectively use the provided data set and modify it using the DataModel APIs. Let&apos;s take a simple example:</p><pre id="753c80f9-5fdd-4c84-916b-3e788ea9dc4e" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const html = muze.Operators.html;
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+  		.config({
+          interaction: {
+            tooltip: {
+              formatter: (dataModel) =&gt; {
+                const tooltipData = dataModel.getData().data;
+                const fieldConfig = dataModel.getFieldsConfig();
+                let tooltipContent = &apos;&apos;;
+                tooltipData.forEach((dataArray) =&gt; {
+                  const originVal = dataArray[fieldConfig.Origin.index];
+                  const hpVal = dataArray[fieldConfig.Horsepower.index];
+                  const cylVal = dataArray[fieldConfig.Cylinders.index];
+                  tooltipContent += `&lt;p&gt;&lt;b&gt;${originVal}&lt;/b&gt; produces cars with &lt;b&gt;${cylVal} Cylinders&lt;/b&gt; with an average power of &lt;b&gt;${hpVal} HP&lt;/b&gt;`;
+                  tooltipContent += &apos;&lt;br&gt;&apos;;
+                });
+                return html`${tooltipContent}`;
+              }
+            }
+          }
+        })
+  		.color(&apos;Cylinders&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><p id="d9512315-ed8f-4d50-9418-8a69d4e263f7" class>As you can see, we have now formatted the tooltip, but in order to do that we had to write a bunch of code. Let&apos;s break it down:</p><p id="88dae207-255f-4774-82f1-b76d8763360a" class>The tooltip formatter provides the DataModel attached to that tooltip. We can extract the data and configuration of the fields attached to it:</p><pre id="d3f15da4-1082-4c09-bb47-4ef0d980c853" class="code"><code>const tooltipData = dataModel.getData().data;
+    const fieldConfig = dataModel.getFieldsConfig();</code></pre><p id="b912e2ee-26ac-4e33-b129-822fce63da0d" class>Once we have the data attached to the tooltip, we can now arrange them as per we want. Considering that we get multiple rows attached to the tooltip(which will definitely be the case when the tooltip is consolidated), we&apos;ll loop over the entire dataset to format the values we need:</p><pre id="65248c98-ed40-41b0-acb4-99dd9970c88f" class="code"><code>tooltipData.forEach((dataArray) =&gt; {
+        const originVal = dataArray[fieldConfig.Origin.index];
+        const hpVal = dataArray[fieldConfig.Horsepower.index];
+        const cylVal = dataArray[fieldConfig.Cylinders.index];
+        tooltipContent += `&lt;p&gt;&lt;b&gt;${originVal}&lt;/b&gt; produces cars with &lt;b&gt;${cylVal} Cylinders&lt;/b&gt; with an average power of &lt;b&gt;${hpVal} HP&lt;/b&gt;`;
+        tooltipContent += &apos;&lt;br&gt;&apos;;
+    });</code></pre><p id="0aff7fd0-b7a5-485e-9786-d99bc7c40b8e" class>Using the field Configs, we can get the values of the data attached to every row and we can format them as per we want. This formatting can be done in the form a DOM string which you can parse using the dataArray operator:</p><pre id="be5ebbbd-3080-4480-a3c7-2b6428e38bdb" class="code"><code>return html`${tooltipContent}`; /* Normal string to DOM string */</code></pre><h3 id="ee41eb07-63d3-437e-8af3-7f34727d65ed" class><strong>Axes</strong></h3><pre id="d0b8fc49-a72d-49f0-a1e5-cb0e38cb3011" class="code"><code>You can provide the configurations for the axes as presented above. Each of the set of axes receives a configuration:</code></pre><p id="f08f90c5-0838-408d-9fa8-a7435cec7a7a" class>canvas .config({ axes: { x: { /* X-axis configuration&#xA0;<em>/ }, y: { /</em>&#xA0;Y-axis configuration */ } } })</p><p id="78168378-2475-4807-81f2-f9d704d2d18e" class>Following are the configurations axis supports:</p><ul id="2668154b-8b2e-494d-87bb-82c64fb34ba8" class="bulleted-list"><li><strong>show</strong></li></ul><p id="325c26ed-ffdf-4cf8-8771-79cd40e455c0" class>Optionally, you can choose to hide the axes and prevent them from being drawn by just providing&#xA0;<strong>false</strong>&#xA0;for this configuration:</p><ul id="646894c4-2882-41ef-a2ed-be185e5c6c81" class="bulleted-list"><li><strong>showAxisName</strong></li></ul><p id="d594473c-2729-4a77-aa31-c1e2dc9a6e2d" class>You can choose to show or hide the title of the axis, i.e., its name. By default the name of the axis is the name of the field provided for the axis:</p><ul id="3b1004e7-8039-4c1f-9235-7d20e9df6411" class="bulleted-list"><li><strong>axisNamePadding</strong></li></ul><p id="e0da2dfb-d7d2-44c0-97a7-dbdce9175f28" class>You can increase or decrease the padding between the axis ticks and the name of the axis:</p><ul id="b22fa2d7-de12-4fc9-a926-c10d98e2502b" class="bulleted-list"><li><strong>axisNamePadding</strong></li></ul><p id="73013b2b-3191-47ba-9a04-e871b9c61b96" class>You can increase or decrease the padding between the axis ticks and the name of the axis:</p><ul id="1eb25115-3326-4e70-9c43-b854e4004202" class="bulleted-list"><li><strong>padding</strong></li></ul><p id="7696b30a-56b1-4f68-93a5-0f2fe61136a1" class>This is the padding between the ticks of the axis,&#xA0;<strong>if it is not a linear axis</strong>. Each of the ticks accept a padding value between&#xA0;<strong>0 and 1,</strong>&#xA0;where 0 represents no padding and and 1 is the maximum padding that can be applied, as displayed below:</p><ul id="383a9a36-b15e-4df9-9c3d-6ee4b19cb1fe" class="bulleted-list"><li><strong>showInnerTicks</strong></li></ul><p id="929d3541-a289-4d62-900d-f4faacb2bc58" class>This allows to display ticks for the axis. By default, the&#xA0;<strong>linear axes</strong>&#xA0;always display the ticks and the&#xA0;<strong>band axes and time axes</strong>&#xA0;hide these ticks as we can see in the above examples. We can choose to show or hide them</p><ul id="3f6d1822-207f-4f21-8aa9-464190caa8d0" class="bulleted-list"><li><strong>numberOfTicks</strong></li></ul><p id="d4bf6441-8a8b-4c14-8350-b2d943d16037" class>You can provide the number of ticks for an axis in Muze. The given number is a hint, not an upper bound on the number of returned ticks.</p><ul id="fe44c5f7-08cc-444f-9970-cb9be1708307" class="bulleted-list"><li><strong>tickFormat</strong></li></ul><p id="702cb7b9-22b8-47f8-89fb-40855fe6308a" class>You can quickly change the tick format for the particular axis, by providing your set of formatting for the ticks in the axis. Each label will be available for formatting and thus you can provide as many custom labels as you want:</p><pre id="019aad57-51e8-4952-ac35-9607ad77c8a5" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+  		.config({
+          axes:{
+            x:{
+              show: false,
+              padding: 0
+            },
+            y: {
+              showAxisName: false,
+              numberOfTicks:5
+            }
+          }
+        })
+  		.color(&apos;Cylinders&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><h3 id="9d9dfe45-1da1-46b1-8d12-ba9e6fda28a8" class><strong>Legends</strong></h3><p id="f4391eae-41ca-4f2a-965d-cb40e5ddd577" class>Legends in canvas accept configurations separately for each of the type of legends as well as a common configuration for each. Let&apos;s understand the common configurations first:</p><p id="5eff5100-bf67-491e-8b0d-6525c9c99800" class><strong>Common Legend Configs :</strong></p><h3 id="0ca573ee-d2e0-4747-aa94-fa0a68dd8a87" class><strong>position</strong></h3><p id="23ab1c25-edce-45c0-88eb-43fb52ec6e78" class>You can position the canvases either to the&#xA0;<strong>left, right, top</strong>&#xA0;or&#xA0;<strong>bottom</strong>&#xA0;of the canvases:</p><figure id="13a2ee0b-bf8d-49f6-8a28-df55e671e4a8" class="image"><a href><img src></a></figure><pre id="85f0438b-4b31-4f30-a0af-1098a5ed1d6c" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+        .config({
+        	legend:{
+       		   position: &apos;top&apos;
+    	    }
+     	 })
+  		.color(&apos;Cylinders&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><p id="55b2bb31-22e4-41cf-bb95-bc98213d33bb" class>Apart from the common configurations, each legend receives its own set of configurations based on the kind of legend it is. You can provide their configurations in this way :</p><pre id="fc596813-1261-49b9-a756-0c6d39e56d5b" class="code"><code>canvas
+             .legends({
+                     color:{
+                             /* Color Legend Configurations */
+                     },
+                     shape:{
+                             /* Shape Legend Configurations */
+                     },
+                     size:{
+                             /* Size Legend Configurations */
+                     },  
+             })</code></pre><p id="2f24b527-b660-478e-a691-a3a47269440d" class><strong>Configurations for each of the legends:</strong></p><h3 id="178bcddc-7ca0-4634-8ed6-209f246f0e38" class><strong>title</strong></h3><p id="ae91d7ef-c18b-4ec2-a070-4d6a1d27ef04" class><strong>text</strong></p><p id="b48cced6-05dc-4c2c-afad-6f38cb2da363" class>You can provide the text for the title of the legend. By default the legend automatically takes the text from the name of the field attached to it.</p><p id="31f3bfe8-893c-48bc-9204-6938760e4691" class><em>For instance, if we make a color legend from Origin, we get the header as &apos;Origin&apos;. We can override this by putting our own text:</em></p><figure id="6ec48a9a-a8c5-41d7-88e2-9dd73368fbc7" class="image"><a href><img src></a></figure><pre id="3fdb093e-d4e5-47e4-80e8-f28534031718" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+   	.config({
+          legend:{
+          color:{
+            title: {
+              text: &apos;Countries&apos;
+			  }
+            }
+          },
+        })
+  		.color(&apos;Origin&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><p id="6acb755a-429e-4881-b933-443aaaf5e2c5" class><strong>orientation</strong></p><p id="22a93323-af5d-4696-ac3b-21f7ad90cdeb" class>You can change the orientation of the title as left, right and center. By default, the value is center. Let&apos;s change this orientation:</p><figure id="d5bad218-6980-470f-848f-09de9a79dc5e" class="image"><a href><img src></a></figure><pre id="9af52f0a-43e7-430b-aff0-95d9ef53fff6" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+   	.config({
+          legend:{
+         color:{
+           title: {
+             orientation: &apos;left&apos;
+           }
+         },
+          },
+        })
+  		.color(&apos;Origin&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><h3 id="1ca6bf92-027f-4d92-a6d0-b35cd2e18570" class><strong>Item</strong></h3><p id="a97e1160-7e74-4917-ab39-9657ed1d2c7a" class><strong>icon</strong></p><ul id="e3cbafd9-a94c-48d0-8fbc-dc0f01d3d1c8" class="bulleted-list"><li><em>className</em><p id="a7501cbf-716f-4b27-8f27-7c10b0600fa9" class>You can apply your own class names to the icon to provide your own set of CSS.</p></li></ul><ul id="e8b82000-e61f-43fb-8822-f86a2e6da473" class="bulleted-list"><li><em>type</em><p id="accb9a83-9ad3-4baf-a4ed-460ef572c758" class>The type of icon decides what the shape will be.&#xA0;<strong>This configuration is only valid for Color Legends,</strong>&#xA0;since the shape legend&apos;s shape cannot be changed and the size legend displays areas of the shape and thus are best viewed as a circle. For instance, if we want to change the icon to a&#xA0;<strong>cross</strong>:</p><figure id="e5c6154d-84f6-45ef-a74a-679433b613f5" class="image"><a href><img src></a></figure><pre id="6fb2830e-23bb-44a5-841f-d3db8da704b1" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+   		.config({
+          legend:{
+            color:{
+              item: {
+                icon: {
+                type: &apos;cross&apos;
+              }
+            }
+          },
+          },
+        })
+  		.color(&apos;Origin&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre><p id="4ee91822-77b5-4cf5-a872-cf5f2b6a9a14" class>
+</p><ul id="1123675b-3b45-4220-901a-ec8717e0570b" class="bulleted-list"><li><em>height</em><p id="040f85b4-b2a3-408d-a2dc-4e875eb45f43" class>Specifying the height, you can change the height of the icon, which defaults to 20</p></li></ul><ul id="77ce2b08-90ff-4a77-905e-c5ff81c3e09c" class="bulleted-list"><li><em>width</em><p id="7588b0e3-9c55-4db7-9c0f-6c6280320304" class>Specifying the width, you can change the height of the icon, which defaults to 20</p></li></ul><p id="6982d1e6-821a-4ef4-a980-8c3a9d55017a" class><strong>Text</strong></p><ul id="27134710-1f8d-492b-9a50-fe7fcdd9b401" class="bulleted-list"><li><em>orientation</em><p id="d21b30f7-a9fb-45d7-b017-8434473167d0" class>You can change the orientation of the text in a legend and make it appear to the&#xA0;<strong>top, left, bottom</strong>&#xA0;and&#xA0;<strong>right</strong>&#xA0;of the icon in the item of the legend.</p><pre id="36ae5ba0-3b27-4eb7-aea3-d1a00d63deb0" class="code"><code>canvas
+    .legends({
+        color:{
+            item: {
+                text {
+                    orientation: &apos;left&apos;
+                    }
+                }
+            },
+     })</code></pre><figure id="027de0d5-fb28-408d-bdf8-89fcd3d3ea86" class="image"><a href><img src></a></figure><pre id="16099ea3-980c-46f6-8e75-13f2e50bf776" class="code"><code>loadData(&apos;/static/cars.json&apos;)
+  .then((res) =&gt; {
+let node = document.getElementById(&apos;chart-container&apos;);
+const env = muze();
+const canvas = env.canvas();
+const DataModel = muze.DataModel;
+
+const schema = [
+	{ name: &apos;Name&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Miles_per_Gallon&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Cylinders&apos;, type: &apos;dimension&apos; },
+	{ name: &apos;Displacement&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Horsepower&apos;, type: &apos;measure&apos;, defAggFn: &apos;max&apos; },
+	{ name: &apos;Weight_in_lbs&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Acceleration&apos;, type: &apos;measure&apos;, defAggFn: &apos;avg&apos; },
+	{ name: &apos;Year&apos;, type: &apos;dimension&apos;, subtype: &apos;temporal&apos;, format: &apos;%Y-%m-%d&apos; },
+	{ name: &apos;Origin&apos;, type: &apos;dimension&apos; } /* by default dimension */
+];
+const dataModelInstance = new DataModel(res, schema);
+
+canvas
+  		.data(dataModelInstance)
+		.width(600)
+		.height(400)
+   		.config({
+          legend:{
+            color:{
+              item: {
+                text: {
+                orientation: &apos;left&apos;
+              }
+            }
+          },
+          },
+        })
+  		.color(&apos;Origin&apos;)
+		.rows([&apos;Horsepower&apos;])
+		.columns([&apos;Origin&apos;])
+		.mount(node) /* Attaching the canvas to DOM element */
+})</code></pre></li></ul></li></ul></div></article></body></html>

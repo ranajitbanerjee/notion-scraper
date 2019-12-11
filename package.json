@@ -43,7 +43,7 @@
         "webpack-dev-server": "2.4.2"
     },
     "scripts": {
-        "process": "node ./src/index.js",
+        "build": "node ./src/index.js",
         "lint": "eslint ./src"
     },
     "dependencies": {

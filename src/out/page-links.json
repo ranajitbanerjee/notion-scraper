@@ -1,11 +1,19 @@
 {
+    "Data Stories": {
+        "title": "Data Stories",
+        "path": "./Data Stories.html"
+    },
     "Advanced Guide": {
         "subPages": {
+            "Trend Lines and Reference Zones": {
+                "title": "Trend Lines and Reference Zones",
+                "path": "./Advanced Guide/Trend Lines and Reference Zones.html"
+            },
             "Interaction": {
                 "subPages": {
-                    "Creating a Custom Interaction": {
-                        "title": "Creating a Custom Interaction",
-                        "path": "./Advanced Guide/Interaction/Creating a Custom Interaction.html"
+                    "Behaviours": {
+                        "title": "Behaviours",
+                        "path": "./Advanced Guide/Interaction/Behaviours.html"
                     },
                     "Dissociation of Behavioural and Physical Actions": {
                         "title": "Dissociation of Behavioural and Physical Actions",
@@ -15,154 +23,83 @@
                         "title": "Dissociation of Side Effects and Behavioural Actio",
                         "path": "./Advanced Guide/Interaction/Dissociation of Side Effects and Behavioural Actio.html"
                     },
-                    "Establishing Cross Interaction": {
-                        "title": "Establishing Cross Interaction",
-                        "path": "./Advanced Guide/Interaction/Establishing Cross Interaction.html"
-                    },
-                    "Behaviours": {
-                        "title": "Behaviours",
-                        "path": "./Advanced Guide/Interaction/Behaviours.html"
-                    },
-                    "Mapping a Behaviour to a Physical Action": {
-                        "title": "Mapping a Behaviour to a Physical Action",
-                        "path": "./Advanced Guide/Interaction/Mapping a Behaviour to a Physical Action.html"
-                    },
                     "Interaction Model": {
                         "title": "Interaction Model",
                         "path": "./Advanced Guide/Interaction/Interaction Model.html"
+                    },
+                    "Establishing Cross Interaction": {
+                        "title": "Establishing Cross Interaction",
+                        "path": "./Advanced Guide/Interaction/Establishing Cross Interaction.html"
                     },
                     "Physical Actions": {
                         "title": "Physical Actions",
                         "path": "./Advanced Guide/Interaction/Physical Actions.html"
                     },
+                    "Creating a Custom Interaction": {
+                        "title": "Creating a Custom Interaction",
+                        "path": "./Advanced Guide/Interaction/Creating a Custom Interaction.html"
+                    },
                     "Registering Behaviours": {
                         "title": "Registering Behaviours",
                         "path": "./Advanced Guide/Interaction/Registering Behaviours.html"
+                    },
+                    "Side Effects": {
+                        "title": "Side Effects",
+                        "path": "./Advanced Guide/Interaction/Side Effects.html"
                     },
                     "Registering Side Effects": {
                         "title": "Registering Side Effects",
                         "path": "./Advanced Guide/Interaction/Registering Side Effects.html"
                     },
+                    "Mapping a Behaviour to a Physical Action": {
+                        "title": "Mapping a Behaviour to a Physical Action",
+                        "path": "./Advanced Guide/Interaction/Mapping a Behaviour to a Physical Action.html"
+                    },
                     "Registering Physical Actions": {
                         "title": "Registering Physical Actions",
                         "path": "./Advanced Guide/Interaction/Registering Physical Actions.html"
-                    },
-                    "Side Effects": {
-                        "title": "Side Effects",
-                        "path": "./Advanced Guide/Interaction/Side Effects.html"
                     }
                 },
                 "path": "./Advanced Guide/Interaction.html"
-            },
-            "Trend Lines and Reference Zones": {
-                "title": "Trend Lines and Reference Zones",
-                "path": "./Advanced Guide/Trend Lines and Reference Zones.html"
             }
         },
         "path": "./Advanced Guide.html"
     },
-    "Concepts": {
-        "subPages": {
-            "DataModel": {
-                "subPages": {
-                    "Operators": {
-                        "title": "Operators",
-                        "path": "./Concepts/DataModel/Operators.html"
-                    },
-                    "Introducing DataModel": {
-                        "title": "Introducing DataModel",
-                        "path": "./Concepts/DataModel/Introducing DataModel.html"
-                    }
-                },
-                "path": "./Concepts/DataModel.html"
-            },
-            "Muze": {
-                "subPages": {
-                    "Dimensional Values and Faceting": {
-                        "title": "Dimensional Values and Faceting",
-                        "path": "./Concepts/Muze/Dimensional Values and Faceting.html"
-                    },
-                    "Composing Layers": {
-                        "title": "Composing Layers",
-                        "path": "./Concepts/Muze/Composing Layers.html"
-                    },
-                    "Legends": {
-                        "title": "Legends",
-                        "path": "./Concepts/Muze/Legends.html"
-                    },
-                    "Retinal Encoding": {
-                        "title": "Retinal Encoding",
-                        "path": "./Concepts/Muze/Retinal Encoding.html"
-                    },
-                    "Introducing Layers": {
-                        "title": "Introducing Layers",
-                        "path": "./Concepts/Muze/Introducing Layers.html"
-                    },
-                    "Global Configuration": {
-                        "title": "Global Configuration",
-                        "path": "./Concepts/Muze/Global Configuration.html"
-                    },
-                    "Introducing Muze": {
-                        "title": "Introducing Muze",
-                        "path": "./Concepts/Muze/Introducing Muze.html"
-                    },
-                    "Rows Columns Layout Variations": {
-                        "title": "Rows Columns Layout Variations",
-                        "path": "./Concepts/Muze/Rows Columns Layout Variations.html"
-                    },
-                    "Title and Subtitle": {
-                        "title": "Title and Subtitle",
-                        "path": "./Concepts/Muze/Title and Subtitle.html"
-                    }
-                },
-                "path": "./Concepts/Muze.html"
-            }
-        },
-        "path": "./Concepts.html"
-    },
-    "Data Stories": {
-        "title": "Data Stories",
-        "path": "./Data Stories.html"
-    },
     "API Reference": {
         "subPages": {
+            "Muze": {
+                "title": "Muze",
+                "path": "./API Reference/Muze.html"
+            },
             "Datamodel": {
                 "subPages": {
-                    "Dateformat": {
-                        "title": "Dateformat",
-                        "path": "./API Reference/Datamodel/Dateformat.html"
-                    },
-                    "Datamodel": {
-                        "title": "Datamodel",
-                        "path": "./API Reference/Datamodel/Datamodel.html"
+                    "Preparator Function": {
+                        "title": "Preparator Function",
+                        "path": "./API Reference/Datamodel/Preparator Function.html"
                     },
                     "Operators": {
                         "title": "Operators",
                         "path": "./API Reference/Datamodel/Operators.html"
                     },
-                    "Preparator Function": {
-                        "title": "Preparator Function",
-                        "path": "./API Reference/Datamodel/Preparator Function.html"
+                    "Datamodel": {
+                        "title": "Datamodel",
+                        "path": "./API Reference/Datamodel/Datamodel.html"
                     },
-                    "Reducer Store": {
-                        "title": "Reducer Store",
-                        "path": "./API Reference/Datamodel/Reducer Store.html"
+                    "Dateformat": {
+                        "title": "Dateformat",
+                        "path": "./API Reference/Datamodel/Dateformat.html"
                     },
                     "Enums": {
                         "title": "Enums",
                         "path": "./API Reference/Datamodel/Enums.html"
                     },
-                    "Relation": {
-                        "title": "Relation",
-                        "path": "./API Reference/Datamodel/Relation.html"
-                    },
                     "Reducer": {
                         "title": "Reducer",
                         "path": "./API Reference/Datamodel/Reducer.html"
                     },
-                    "Schema": {
-                        "title": "Schema",
-                        "path": "./API Reference/Datamodel/Schema.html"
+                    "Reducer Store": {
+                        "title": "Reducer Store",
+                        "path": "./API Reference/Datamodel/Reducer Store.html"
                     },
                     "Value": {
                         "title": "Value",
@@ -172,41 +109,104 @@
                         "title": "Variable Resolver",
                         "path": "./API Reference/Datamodel/Variable Resolver.html"
                     },
+                    "Schema": {
+                        "title": "Schema",
+                        "path": "./API Reference/Datamodel/Schema.html"
+                    },
+                    "Relation": {
+                        "title": "Relation",
+                        "path": "./API Reference/Datamodel/Relation.html"
+                    },
                     "Selection Predicate": {
                         "title": "Selection Predicate",
                         "path": "./API Reference/Datamodel/Selection Predicate.html"
                     }
                 },
                 "path": "./API Reference/Datamodel.html"
-            },
-            "Muze": {
-                "title": "Muze",
-                "path": "./API Reference/Muze.html"
             }
         },
         "path": "./API Reference.html"
     },
+    "Concepts": {
+        "subPages": {
+            "Muze": {
+                "subPages": {
+                    "Composing Layers": {
+                        "title": "Composing Layers",
+                        "path": "./Concepts/Muze/Composing Layers.html"
+                    },
+                    "Global Configuration": {
+                        "title": "Global Configuration",
+                        "path": "./Concepts/Muze/Global Configuration.html"
+                    },
+                    "Introducing Muze": {
+                        "title": "Introducing Muze",
+                        "path": "./Concepts/Muze/Introducing Muze.html"
+                    },
+                    "Introducing Layers": {
+                        "title": "Introducing Layers",
+                        "path": "./Concepts/Muze/Introducing Layers.html"
+                    },
+                    "Dimensional Values and Faceting": {
+                        "title": "Dimensional Values and Faceting",
+                        "path": "./Concepts/Muze/Dimensional Values and Faceting.html"
+                    },
+                    "Rows Columns Layout Variations": {
+                        "title": "Rows Columns Layout Variations",
+                        "path": "./Concepts/Muze/Rows Columns Layout Variations.html"
+                    },
+                    "Title and Subtitle": {
+                        "title": "Title and Subtitle",
+                        "path": "./Concepts/Muze/Title and Subtitle.html"
+                    },
+                    "Legends": {
+                        "title": "Legends",
+                        "path": "./Concepts/Muze/Legends.html"
+                    },
+                    "Retinal Encoding": {
+                        "title": "Retinal Encoding",
+                        "path": "./Concepts/Muze/Retinal Encoding.html"
+                    }
+                },
+                "path": "./Concepts/Muze.html"
+            },
+            "DataModel": {
+                "subPages": {
+                    "Introducing DataModel": {
+                        "title": "Introducing DataModel",
+                        "path": "./Concepts/DataModel/Introducing DataModel.html"
+                    },
+                    "Operators": {
+                        "title": "Operators",
+                        "path": "./Concepts/DataModel/Operators.html"
+                    }
+                },
+                "path": "./Concepts/DataModel.html"
+            }
+        },
+        "path": "./Concepts.html"
+    },
     "Tutorials": {
         "subPages": {
-            "Use existing Muze Samples with your data": {
-                "title": "Use existing Muze Samples with your data",
-                "path": "./Tutorials/Use existing Muze Samples with your data.html"
-            },
-            "Tooltips": {
-                "title": "Tooltips",
-                "path": "./Tutorials/Tooltips.html"
+            "Creating your first visualization with Muze": {
+                "title": "Creating your first visualization with Muze",
+                "path": "./Tutorials/Creating your first visualization with Muze.html"
             },
             "Changing Plot Type": {
                 "title": "Changing Plot Type",
                 "path": "./Tutorials/Changing Plot Type.html"
             },
+            "Tooltips": {
+                "title": "Tooltips",
+                "path": "./Tutorials/Tooltips.html"
+            },
+            "Use existing Muze Samples with your data": {
+                "title": "Use existing Muze Samples with your data",
+                "path": "./Tutorials/Use existing Muze Samples with your data.html"
+            },
             "Using Data From Arrays or CSVs in Muze": {
                 "title": "Using Data From Arrays or CSVs in Muze",
                 "path": "./Tutorials/Using Data From Arrays or CSVs in Muze.html"
-            },
-            "Creating your first visualization with Muze": {
-                "title": "Creating your first visualization with Muze",
-                "path": "./Tutorials/Creating your first visualization with Muze.html"
             }
         },
         "path": "./Tutorials.html"

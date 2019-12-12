@@ -11,12 +11,12 @@ const TABLE_ID = '__id';
 const PAGE_LINK_CLASS = '.link-to-page';
 const CODE_PEN_HEIGHT = 500;
 const args = process.argv.slice(2, process.argv.length);
-let [inputDir, outDirPath = `${__dirname}/out` ] = args;
-console.log('args', args);
+let [inputDir, outDirPath] = args;
 inputDir = path.resolve(inputDir);
+outDirPath = outDirPath || `${path.dirname(inputDir)}/out`;
 outDirPath = path.resolve(outDirPath);
 const rootDirName = path.basename(inputDir);
-let rootDirPath = '';
+let rootDirPath = inputDir;
 
 const santizeElement = (elem, $) => {
     const textContent = elem.text();
@@ -115,7 +115,7 @@ async function processFiles (files, dir, outDir, jsonObj) {
 async function traverseDirectory (dir, jsonObj = {}) {
     try {
         const files = await readdir(dir);
-        const newDir = `${outDirPath}${dir.replace(`${__dirname}`, '')}`;
+        const newDir = `${outDirPath}${dir.replace(`${inputDir}`, '')}`;
         await mkdir(newDir);
         await processFiles(files, dir, newDir, jsonObj);
     }  catch (e) {
@@ -125,15 +125,13 @@ async function traverseDirectory (dir, jsonObj = {}) {
 
 removeDir(outDirPath);
 
-mkdir(outDirPath).then(() => {
-    const json = {};
-    traverseDirectory(inputDir, json).then(() => {
-        const jsonStr = JSON.stringify(json, null, 4);
+const json = {};
+traverseDirectory(inputDir, json).then(() => {
+    const jsonStr = JSON.stringify(json, null, 4);
 
-        if (jsonStr) {
-            writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
-                console.log('Done');
-            });
-        }
-    });
+    if (jsonStr) {
+        writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
+            console.log('Done');
+        });
+    }
 });

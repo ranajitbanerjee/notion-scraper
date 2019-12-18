@@ -9,7 +9,7 @@ const removeDir = require('./dir-remove');
 const replaceLink = require('./replace-link');
 const TABLE_ID = '__id';
 const PAGE_LINK_CLASS = '.link-to-page';
-const CODE_PEN_HEIGHT = 500;
+const CODE_PEN_HEIGHT = 600;
 const args = process.argv.slice(2, process.argv.length);
 let [inputDir, outDirPath] = args;
 inputDir = path.resolve(inputDir);
@@ -51,12 +51,25 @@ const removeTableIds = ($) => {
     columnTh.remove();
 };
 
+const addHighLightJSResources = ($) => {
+    const { IFRAME_ASSETS_PATH ,LOCAL_CSS, LOCAL_SCRIPT} = process.env;
+
+    const cssList = fs.readdirSync(path.resolve(LOCAL_CSS));
+    const scriptList = fs.readdirSync(path.resolve(LOCAL_SCRIPT));
+  
+    cssList.forEach(css => $('head').append(`<link rel="stylesheet" href="${IFRAME_ASSETS_PATH}/css/${css}">`));
+    scriptList.forEach(js => $('head').append(`<script src="${IFRAME_ASSETS_PATH}/js/${js}"></script>`));
+    scriptList.forEach(js => $('body').after('<script>hljs.initHighlightingOnLoad();</script>'));   
+}
+
 const sanitizeHtml = filePath => new Promise((res, rej) => {
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) throw rej(err);
         const $ = cheerio.load(data);
         const hasLinks = $(PAGE_LINK_CLASS);
         removeTableIds($);
+        
+        addHighLightJSResources($);
         normalizeCodeBlocks($).then(() => {
             res({
                 html: $.html(),

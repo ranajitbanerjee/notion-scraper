@@ -1,0 +1,577 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Registering Behaviours</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/static/iframe-docs/css/github.css"><link rel="stylesheet" href="/static/iframe-docs/css/style.css"><script src="/static/iframe-docs/js/highlight.pack.js"></script><script src="/static/iframe-docs/js/test.js"></script></head><body><article id="9e886a67-3005-4584-a360-76a88e1d7ec4" class="page sans"><header><h1 class="page-title"><strong>Registering Behaviours</strong></h1></header><div class="page-body"><p id="084b4f92-1e15-419c-b6a4-6c2847e87aef" class><strong>Table of Contents</strong></p><div class="indented"><nav id="efd63ea7-0cf9-4f23-9207-e505002608fc" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5d44756c-4a9c-44bf-85db-bae2dd6f0304"><strong>How do you register a behaviour?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8b4b2189-434e-4f45-aec5-ba70571f9035"><strong>Getting the base class and the Action Model</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5810c058-74ce-445e-b121-d7b8d1e93aa6"><strong>Using the base class to create a new behaviour</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b5c04b06-63e2-45e0-92c9-7e77ae0cdc28"><strong>Adding Behavioural Properties</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#00d187bd-7168-4701-b33e-894d191c3f4a"><strong>Resetting the add set:</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#69f12346-7ed4-48e3-bab2-efa64ba16294"><strong>Updating the entry set:</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d024656b-eb86-41dc-8a0f-32ef6e2506ea"><strong>Wrapping Up</strong></a></div></nav><p id="31584f3f-1e64-43eb-a890-e426ca261703" class>
+</p></div><p></p><hr id="7054f50e-07e4-4b6e-8c92-9acad48fe84d"><p id="5ed69a38-4c9d-4f77-9674-9eb709f60410" class>In this section, we will learn how we can register a set of behaviours to get custom interactions in the canvas. When registering behaviours, they can be dispatched either by mapping them with a physical action or directly dispatching them. Any side effects that will be mapped to these behaviours will be applied automatically.</p><p id="fb810ec7-e087-485b-9055-44f3d1c220f7" class>We will be using the&#xA0;<mark class="highlight-blue"><a href="https://muzejs.org/static/cars.json">cars.json</a></mark>&#xA0;data to understand how to register behaviours.</p><h2 id="5d44756c-4a9c-44bf-85db-bae2dd6f0304" class><strong>How do you register a behaviour?</strong></h2><p id="4264e220-0fd0-4f9a-9682-4858557a98ee" class>In order to register a behaviour, we will use the standard classes provided for Behaviours by Muze. Let us understand how this works with a simple example.</p><p id="425d4492-c362-4409-969e-86006e72acbb" class>For instance, the normal&#xA0;<code>select</code>&#xA0;behaviour retains all the selections. We will register a&#xA0;<code>SingleSelectBehaviour</code>&#xA0;that will always only select one and only one mark in the plot( be it a bar or a point). This way, it will not retain the selections made every time this behaviour is called.</p><h2 id="8b4b2189-434e-4f45-aec5-ba70571f9035" class><strong>Getting the base class and the Action Model</strong></h2><p id="b3c0c9ac-faa9-4376-9920-e18ec3f179e9" class>In order to add a behaviour, we need to use the base class provided by Muze. This base class contains the properties required for us to add a behaviour. To get it, we call the&#xA0;<code>GenericBehaviour</code>&#xA0;class from&#xA0;<code>muze.Behaviours.standards</code>&#xA0;:</p><pre id="cc8b7fbc-55ef-424d-823c-b314a56c2212" class="code"><code>const GenericBehaviour = muze.Behaviours.standards.GenericBehaviour</code></pre><p id="81d546d3-8fd6-42b8-8f79-5f8793be1fde" class>We also need the&#xA0;<code>ActionModel</code>&#xA0;which handles the interaction model between the canvases</p><pre id="ab698796-a157-4809-9b47-da2938febe66" class="code"><code>const ActionModel = muze.ActionModel</code></pre><h2 id="5810c058-74ce-445e-b121-d7b8d1e93aa6" class><strong>Using the base class to create a new behaviour</strong></h2><p id="b3a2c461-2f6a-485f-8e58-324ff6214445" class>To register an action we will create a new class that will be inherited from the&#xA0;<code>GenericBehaviour</code>&#xA0;class. We will use the&#xA0;<code>registerBehaviouralActions</code>&#xA0;method provided by the&#xA0;<code>ActionModel</code>&#xA0;for this:</p><pre id="c489ec40-e8f0-4933-aef2-9076fdf53ed2" class="code"><code>ActionModel
+    .for(canvas)
+    .registerBehaviouralActions(class SingleSelectBehaviour extends GenericBehaviour {
+          static formalName() {
+              return &apos;singleSelect&apos;;
+          }
+})</code></pre><p id="35113316-6d2e-43cf-bb2b-0e74931a243e" class>As you can see, we have registered a behavioural action by declaring a new class:&#xA0;<code>SingleSelectBehaviour</code>&#xA0;which is a subclass of the&#xA0;<code>GenericBehaviour</code>&#xA0;class. We also have to provide a&#xA0;<strong>formal name</strong>&#xA0;to the class, which we have given here as&#xA0;<code>singleSelect.</code></p><p id="d75bf9a9-a168-4cdf-8773-91b79cf9e03d" class><strong>This formal name is very important as this is what identifies this behaviour.</strong></p><h2 id="b5c04b06-63e2-45e0-92c9-7e77ae0cdc28" class><strong>Adding Behavioural Properties</strong></h2><p id="8bb1b358-2a0a-4645-862c-4cf2f9810989" class>Recall, the objective of a behaviour is to set the selection and rejection sets, which together form the complete set. The&#xA0;<code>setSelectionSet</code>&#xA0;method provides the necessary information to the set this information.</p><p id="7dc8e617-5ba8-48b9-8343-ebeafd6776fa" class>Once we have declared the class with the formal name, we will use the&#xA0;<code>setSelectionSet</code>&#xA0;method to set the selection and rejection sets. Here, we get the&#xA0;<code>addSet</code>&#xA0;and&#xA0;<code>selectionSet</code>&#xA0;(which is information about the complete set).</p><p id="9cb7801d-ef72-4334-a3f3-9c0a5c0b96c2" class>The&#xA0;<code>addSet</code>&#xA0;consists of the set of rows that have been newly interacted with. This should essentially form the new entry set. The&#xA0;<code>selectionSet</code>&#xA0;consists of the information about the complete set and hence contains all the rows of the DataModel with their selection and rejection information.</p><p id="4d92b0f2-8c29-413f-aa83-be652d6bd1d5" class>In order to change the selection and rejection sets, Muze provides some properties for the&#xA0;<code>selectionSet</code>. Updating this set automatically updates the rejection set(since, the rejection set is the set of rows not present in the complete set, there is no need to store it separately. Only the entry and exit sets are stored). Following are the set of methods provided:</p><ul id="e15117a3-b671-42f7-ad4e-6f6218ebad8b" class="bulleted-list"><li><code>add(set)</code>: Updates the selection set. It adds the new entries to the New Entry Set and updates the Old Entry Set. Consequently, also adds the elements not in the selection set to the Exit Set</li></ul><ul id="eb039061-a78d-4404-99f7-db64adfc449c" class="bulleted-list"><li><code>remove(set)</code>: Updates the rejection set. It adds the new entries to the New Exit Set and updates the Old Exit Set. Consequently, also adds the elements not in the rejection set to the Entry Set</li></ul><ul id="6be4e519-c4b7-4d70-bdba-e55499c71545" class="bulleted-list"><li><code>reset()</code>: Resets the selection and rejection sets making them empty</li></ul><ul id="724ded19-36dc-4bdd-ae29-73b32ab90630" class="bulleted-list"><li><code>updateEntry()</code>: Updates the selection set by pushing already present entries to the Old Entry Set</li></ul><ul id="98afbd36-d5e7-4dcd-80ed-3c03000a766e" class="bulleted-list"><li><code>updateExit()</code>: Updates the rejection set by pushing already present entries to the Old Exit Set</li></ul><ul id="504a725e-6199-44ef-8f7e-4112374fe802" class="bulleted-list"><li><code>getSets()</code>: Gets the details of all the sets present</li></ul><p id="9eec77df-e958-4d9e-8234-250565eab0fc" class>Let&apos;s look at the code for the&#xA0;<code>SingleSelectBehaviour</code>&apos;s&#xA0;<code>setSelectionSet</code>&#xA0;method:</p><pre id="106aed86-a70d-426e-8471-b2ecfb1114e5" class="code"><code>setSelectionSet (addSet, selectionSet) {
+    selectionSet.reset();
+    selectionSet.add(addSet);
+    return selectionSet;
+}</code></pre><p id="a3576b50-cd86-45f6-aee8-7deb2918cc93" class>In order to apply single selection on the canvas, we have to remove the existing selection set(i.e., the previous selection) and add the new entries to the selection set. Let&apos;s break the code down to get a deeper understanding of what we have done here:</p><h2 id="00d187bd-7168-4701-b33e-894d191c3f4a" class><strong>Resetting the add set:</strong></h2><p id="e32f93fb-179f-47de-871c-457622ef0a14" class>Our first step is to reset the selection set if no selections are made. This brings the selection set to the empty condition and This removes all the elements from all the Entry and Exit sets</p><pre id="72523e8a-b10b-46aa-b739-cd2985880ae0" class="code"><code>selectionSet.reset();       // Resetting the selection set to empty</code></pre><h2 id="69f12346-7ed4-48e3-bab2-efa64ba16294" class><strong>Updating the entry set:</strong></h2><p id="713562a9-17a4-414c-9fb5-1be3042b6865" class>We will reset the selection set first to empty since only new entries are needed for single select. Otherwise, we will add the new elements to the New Entry Set.</p><pre id="db175a87-24f5-464e-af9b-42db56232c36" class="code"><code>selectionSet.reset(); /* empty selection */
+selectionSet.add(addSet); /* add new entries to the new entry set */</code></pre><p id="1dc3c634-0055-4f4b-aaae-fd905a900b3b" class>It is to note that registering a behaviour is not enough. It is also necessary to map them to a trigger(physical action or dynamic dispatch) and map a side effect with them. The code, along with the resultant behaviour can be found below.</p><figure id="a4b52542-0449-440e-95a9-ef645896a4dc"><div class="source"><iframe id="cp_embed_rNaWZPg" src="https://codepen.io/chartshq/embed/preview/rNaWZPg?height=600&amp;slug-hash=rNaWZPg&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true" title="updating-empty-set" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><h2 id="d024656b-eb86-41dc-8a0f-32ef6e2506ea" class><strong>Wrapping Up</strong></h2><p id="f4c4957d-8926-4f86-a1d8-9b523ec3d8a3" class>In this section, we got a basic understanding of how to register behaviours. To summarize</p><ul id="533df6fd-7b6e-4f4b-b4e4-eae83f38cbcb" class="bulleted-list"><li>The main objective of a behavioural action is to create the selection and rejection sets</li></ul><ul id="807cf021-59e8-43ec-91b2-e8e2689a6334" class="bulleted-list"><li>You can create your own behaviour by extending the&#xA0;<code>GenericBehaviour</code>&#xA0;class available from Muze</li></ul><ul id="3bccd6aa-8541-432c-8dbf-384eb11e1799" class="bulleted-list"><li>Every registered behaviour must have a&#xA0;<strong>formal name</strong></li></ul><ul id="4b86eedc-df12-4411-9a17-b3a62bd30b0b" class="bulleted-list"><li>The&#xA0;<code>setSelectionSet</code>&#xA0;method accepts an&#xA0;<code>addSet</code>&#xA0;and a&#xA0;<code>selectionSet</code>&#xA0;to form the selection and rejection sets.</li></ul></div></article></body><script>hljs.initHighlightingOnLoad();</script><script>hljs.initHighlightingOnLoad();</script></html>

@@ -1,0 +1,780 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Canvas</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/static/iframe-docs/css/github.css"><link rel="stylesheet" href="/static/iframe-docs/css/style.css"><script src="/static/iframe-docs/js/highlight.pack.js"></script><script src="/static/iframe-docs/js/test.js"></script></head><body><article id="96a81cc3-58af-4833-8367-76a345094ea8" class="page sans"><header><h1 class="page-title">Canvas</h1></header><div class="page-body"><p id="71b41131-4d9f-4bc5-9380-0a036f0b3b8d" class><strong>Table of Contents</strong></p><nav id="a70b8e64-2506-4e9c-bd06-4d781dd199c8" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d2d1c1cf-a31b-4f88-8b6a-4ed71ba61bbe"><mark class="highlight-purple"><code>rows</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dce74950-1612-42ae-a588-15c5af924c2e"><mark class="highlight-purple"><code>columns</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0f7049d7-ca49-41fd-a9a2-84bc2619c288"><mark class="highlight-purple"><code>color</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#965a0795-0db7-46b2-8546-42b6c11e9d65"><mark class="highlight-purple"><code>size</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5761b2f1-4413-451d-9e65-17799a355f41"><mark class="highlight-purple"><code>shape</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6b6a0bb9-b1e6-4b9e-9f38-915e48ca2cc5"><mark class="highlight-purple"><code>detail</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#847d80cd-7643-4c9c-8fe3-4bdf5e63e26d"><mark class="highlight-purple"><code>layers</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5158782e-523a-44c8-9396-68bcae2ed732"><mark class="highlight-purple"><code>mount</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fe8fe1ad-4d03-489c-bf37-163ecf442632"><mark class="highlight-purple"><code>title</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7899a012-305f-43a6-b67f-80565c15999a"><mark class="highlight-purple"><code>subtitle</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7cfebecb-0977-43fd-8f09-8885b97c0322"><mark class="highlight-purple"><strong><code>once</code></strong></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8759af66-f716-4cde-8a32-89a45fefebbe"><mark class="highlight-purple"><code>firebolt</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#702a5341-073e-45c3-9154-2ef09d8e9b72"><mark class="highlight-purple"><code>transform</code></mark></a></div></nav><p id="9adb0e05-fc14-4440-8b42-9b0b3287a829" class>
+</p><p id="6dd0bfa2-ecba-4c4b-a497-5233aaf07337" class>Canvas is a logical component which houses a visualization by taking multiple variable in different encoding channel. Canvas manages lifecycle of many other logical component and exposes one consistent interface for creation of chart. Canvas is intialized from environment with settings from environment and singleton dependencies.</p><p id="d4f192d3-fe0a-49cd-bd35-88a160d0162e" class>To create an instance of canvas,</p><pre id="cd5b3fee-e1ad-4cca-a514-9d640eea6784" class="code"><code>const env = Muze();
+
+const canvas = env.canvas();</code></pre><p id="9f47c81b-8d96-4802-b46a-dcffac2d5df7" class>All methods from <a href="Environment.html">Environment</a>  except <code>canvas</code>  are also available in this component.</p><h2 id="d2d1c1cf-a31b-4f88-8b6a-4ed71ba61bbe" class><mark class="highlight-purple"><code>rows</code></mark></h2><p id="457d3254-e91f-41a8-b1c2-59000c8ac105" class>Gets or sets an array of fields which will be used to create the left and right facets and axis.</p><p id="da27b481-1250-491c-832e-0197ad807ffb" class>When used as a setter,</p><blockquote id="414e319f-39be-41f5-9275-449cab747a2e" class>Syntax: <code>rows(fieldsArr)</code></blockquote><pre id="58a8648e-b404-4610-99c3-2fe93a4f432b" class="code"><code>parameters
+	- fieldsArr:
+			required: true
+			type: Array
+			description: Array of fields required to create the left and right part of the chart.			</code></pre><p id="5c696f76-9096-4d71-ab35-5fb49f10470c" class><strong>Returns</strong></p><p id="3c79c38d-05a5-4914-b2b9-fce860fb10c3" class>Instance of canvas</p><p id="ebdf710a-1934-465f-bf7a-570c763a1d63" class><strong>Usage </strong></p><pre id="99a5e503-9516-465d-87c8-815935e78693" class="code"><code>const env = muze();
+const canvas = env.canvas();
+
+canvas.rows([&apos;Horsepower&apos;, &apos;Acceleration&apos;]);</code></pre><p id="0aa29643-587b-4be3-9553-a4dfb36b9ea2" class><strong>Example</strong></p><figure id="ccef056f-0723-4556-8df2-a300a756ea00"><div class="source"><iframe id="cp_embed_KKwMmyz" src="https://codepen.io/chartshq/embed/preview/KKwMmyz?height=600&amp;slug-hash=KKwMmyz&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true" title="Canvas Rows Example" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="afecf0eb-47d0-4673-bc97-cdf00e2013b2" class>Alternatively, a nested array can also be passed in arguments which will contain two arrays. First array of fields will be used for creating the left facets and axis and the second array will be used for creating the right facets and axis.</p><p id="e46db9e6-c086-4f28-94fe-f43f85c3af1b" class><strong>Usage</strong></p><pre id="b4a7536a-9865-480f-aff7-9fc92948650c" class="code"><code>const env = muze();
+const canvas = env.canvas();
+
+// Creates a dual axis with horsepower in the left y axis and acceleration in the
+// right y-axis.
+canvas.rows([[&apos;Horsepower&apos;], [ &apos;Acceleration&apos;]]);</code></pre><p id="e6342ef9-269f-4d44-8cd0-af58cd7305e6" class><strong>Example</strong></p><p id="96a2db6d-5b8e-42e5-8445-e8b287134d78" class>
+</p><p id="eb2bd428-829d-478a-95c2-03238d46b3be" class>When used as a getter,</p><blockquote id="0e7acac4-13dd-4858-b29a-5e5bcd49c179" class>Syntax: <code>rows()</code></blockquote><h2 id="dce74950-1612-42ae-a588-15c5af924c2e" class><mark class="highlight-purple"><code>columns</code></mark></h2><p id="747e4b81-2dbf-4b10-abdf-ecc1b37033ff" class>Gets or sets an array of fields which will be used to create the top and bottom facets and axis.</p><p id="0b37c23d-97f1-48c5-bde3-73f747a970a9" class>When used as setter,</p><blockquote id="def223b5-6b1e-4937-a172-1d0174b8a5ea" class>Syntax: <code>columns(fieldsArr)</code></blockquote><pre id="545ffbe1-7137-49d6-a376-89bcb7c8ee14" class="code"><code>parameters
+	- fieldsArr:
+			required: true
+			type: Array
+			description: Array of fields required to create the top and bottom facets and axis.		</code></pre><p id="91713e68-5e9e-4fb5-bc55-8fe69b1e4cda" class><strong>Returns</strong></p><p id="6b813d0c-f2be-4d54-af04-d35593eab18b" class>Instance of canvas</p><p id="d2ca398a-3516-43c0-807c-5ded369e9489" class><strong>Usage</strong></p><pre id="47df4405-a19f-43c0-8cb3-552e41c4321b" class="code"><code>const env = muze();
+const canvas = env.canvas();
+
+canvas.columns([&apos;Horsepower&apos;]);</code></pre><p id="66b1a016-1d0a-4913-a46d-93e8fdf5e9d7" class><strong>Example</strong></p><p id="068c1053-812d-4f05-9933-ebef7dc13286" class>
+</p><p id="8b994dd7-8c75-4a64-bc31-9e4543e57ca7" class>Alternatively, a nested array can also be passed in arguments which will contain two arrays. First array of fields will be used for creating the left facets and axis and the second array will be used for creating the right facets and axis.</p><p id="69a99c4a-87ee-4866-8465-71dbee6c7b83" class><strong>Usage</strong></p><pre id="8c5411f2-ae43-4a39-81a3-f369f3513211" class="code"><code>const env = muze();
+const canvas = env.canvas();
+
+// Creates a dual axis with horsepower in the top x-axis and acceleration in the
+// bottom x-axis.
+canvas.columns([[&apos;Horsepower&apos;], [ &apos;Acceleration&apos;]]);</code></pre><p id="4f46fd03-2c27-4096-b955-5435876e23df" class><strong>Example</strong></p><p id="89291d65-8f2f-4571-978f-4466425b5896" class>
+</p><p id="379fc1d7-f46a-4072-b918-04f2cefedb7a" class>When used as a getter,</p><blockquote id="c7358bc4-eb2c-4443-8cc5-24b3db3a6e89" class>Syntax: <code>columns()</code></blockquote><h2 id="0f7049d7-ca49-41fd-a9a2-84bc2619c288" class><mark class="highlight-purple"><code>color</code></mark></h2><p id="345adcec-92d0-4157-a350-56d7df9cd33e" class>Gets or sets a field in the canvas which will be used to derive the color of the data plots with respect to the value. Setting <code>color</code> automatically creates a legend in the chart.</p><p id="292ba863-2d57-44e5-86a2-e8f1944c7291" class>When used as a setter,</p><blockquote id="405f692c-3da2-4e6c-946b-fefa91439529" class>Syntax: <code>color(colorField)</code></blockquote><pre id="59235d7b-63bc-4425-9163-1e1b589ec1e8" class="code"><code>parameters
+	- colorField:
+			required: true
+			type: string
+			description: Name of the field used to derive the color of the data plots.</code></pre><p id="544d8601-4929-4dac-aed2-50f39f5d16fe" class><strong>Usage</strong></p><pre id="c1c1c3c2-fef9-4204-9fcd-4b841c345aa7" class="code"><code>const env = muze();
+const canvas = env.canvas();
+
+canvas.color(&apos;Origin&apos;);</code></pre><p id="8c8d8dba-95ac-4d31-bd41-72aa7635504b" class><strong>Example</strong></p><p id="9b3474a0-6419-4f6c-8021-a08b15756a47" class>
+</p><p id="0fd83d4c-09ba-4133-832c-73f62cdd2fb1" class>Alternatively, this function can also be passed an object instead of the name of the <code>color</code> field. You can set additional properties like <code>range</code>, <code>step</code> in this object.</p><blockquote id="07623222-7f39-4e15-a164-87f59cd1621c" class>Syntax: <code>color(colorConfig)</code></blockquote><pre id="a5c0b814-ddd2-4377-8897-a5626d8b7d83" class="code"><code>parameters:
+		- colorConfig:
+				required: true
+				type: object
+				description: Object containing the name of the color field and other configurations.
+				parameters:
+						- field:
+								required: true
+								type: string
+								description: Name of the color field.
+						- range:
+								required: false
+								type: Array&lt;string&gt; | string
+								description: An array of color strings or name of the color scheme.
+									See all available <strong>ColorSchemes* </strong>present in muze.
+						- step:
+								required: false
+								type: boolean
+								default: false
+								description: Creates a step legend.
+						- stops:
+								required: false
+								type: number
+								default: 5
+								description: Number of stops. Theis is only valid when step is true.
+						- domain:
+								required: false
+								type: Array&lt;number&gt;
+								description: If specified, it overrides the default color domain which is calculated
+									from the original values in the datamodel.
+						</code></pre><p id="23bce3f4-ad56-4c54-8ccd-b5dbffe4e3c4" class><strong>Usage</strong></p><pre id="648a5345-c907-44c6-8bae-e7964f2e7d8b" class="code"><code>const env = muze();
+const canvas = env.canvas();
+
+canvas.color({
+	field: &apos;Acceleration&apos;,
+	step: true
+});</code></pre><p id="cef2ba55-c6d1-4db7-8f6a-3f1ebd92f99f" class><strong>Example</strong></p><p id="51b8ed01-ba10-4d1b-82a1-9b1060780221" class>
+</p><p id="14887fc3-8f3a-42e4-b88c-d5143885eef0" class><strong>References :-</strong></p><p id="9a694013-8240-41de-8329-63a723b29985" class>*<strong>ColorSchemes - @link</strong></p><h2 id="965a0795-0db7-46b2-8546-42b6c11e9d65" class="block-color-purple"><mark class="highlight-purple"><code>size</code></mark></h2><p id="6f504a9d-1ca9-450f-93ca-20a32082f833" class>Gets or sets a field in the canvas which will be used to derive the size of the plots with respect to the data value. Setting a size field automatically creates a size legend in canvas. </p><p id="d3747e87-9bbf-460a-aacf-b45dd1b5da5f" class>When used as a setter,</p><blockquote id="01ba38b8-d392-42e1-bce0-1a0eabf0b0e3" class>Syntax: <code>size(sizeField)</code></blockquote><pre id="7962b8b6-0a8a-4205-b740-3b54fe9c38d0" class="code"><code>parameters
+		- sizeField:
+				required: true
+				type: string
+				description: Name of size field.</code></pre><p id="921e4193-1946-49fe-a8d0-2ab0e3816633" class>Alternatively, this function can also be passed an object containing the name of the field and other configurations like <code>stops</code>, <code>step</code>, etc.</p><blockquote id="5969d332-c7c2-4f57-b465-d7b594f5495a" class>Syntax: <code>size(sizeConfig)</code></blockquote><pre id="289b7147-e2bb-418a-8b78-08cf2745a0af" class="code"><code>parameters:
+		- sizeConfig:
+				required: true
+				type: object
+				description: Size field configuration.
+				parameters:
+						- field:
+								required: true
+								type: string
+								description:  Name of size field.
+						- stops:
+								required: false
+								type: number
+								description: Number of stops determines the number of intervals which
+									will be calculated from the size field domain.
+						- range:
+								required: false
+								type: Array&lt;number&gt;
+								description: Array of size values.
+						- domain:
+								required: false
+								type: Array&lt;number&gt;
+								description: If specified, it overrides the default size domain which is calculated
+									from the original values in the datamodel.</code></pre><p id="61a0fab0-7a74-438a-8301-9319520c744f" class><strong>Returns</strong></p><p id="73fee95a-f49c-454c-9bc1-99f29539a3ad" class>Instance of canvas.</p><p id="000c386e-21ff-4bba-968b-527315903805" class>When used as a getter,</p><p id="0a1474cf-17e2-4795-94d5-5bb641fbd81d" class>
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f913f88e-efc6-41f7-bc71-833b4d4ad339"><div style="font-size:1.5em"><span class="icon">&#x26A0;&#xFE0F;</span></div><div style="width:100%"><strong>Note</strong>
+Size field is only supported in <code>point</code> layer.</div></figure><h2 id="5761b2f1-4413-451d-9e65-17799a355f41" class="block-color-purple"><mark class="highlight-purple"><code>shape</code></mark></h2><p id="7004e701-586e-4c91-98f8-e819879be3ac" class>Gets or sets a field which will be used to derive the shapes of the plots with respect to the value. Shape field should be of <code>dimension</code> type. Setting shape field automatically creates a shape legend in canvas.</p><p id="03d07f1e-49a9-4ba4-ab87-11acc14e0ee1" class>When used as a setter,</p><blockquote id="4332032a-23d0-454b-82a5-49e85ee5686f" class>Syntax: <code>shape(shapeField)</code></blockquote><pre id="dcacfe69-f174-4f4d-ac66-2cbac1756f00" class="code"><code>parameters:
+		- shapeField
+				required: true
+				type: string
+				description: Name of the shape field.</code></pre><p id="1c9900b4-dce0-4f11-a0ea-aabeaf62e379" class><strong>Returns</strong></p><p id="f0af3b1d-360f-43e6-82df-9778366128b0" class>Instance of canvas</p><p id="00386433-6854-4e36-ac86-9a48d12fda1d" class>When used as a getter,</p><blockquote id="0921148f-e2da-48a2-975b-53de30c991d3" class>Syntax: <code>shape()</code></blockquote><h2 id="6b6a0bb9-b1e6-4b9e-9f38-915e48ca2cc5" class="block-color-purple"><mark class="highlight-purple"><code>detail</code></mark></h2><p id="348851f6-df24-4ffb-b517-3aa3d7618bf9" class>Gets or sets an array of fields which increases the level of detail in the chart. For example, if we plot a measure in x-axis vs a measure in y-axis, then only one point will be shown in the chart as there are no dimensional values. Adding dimensions in the detail fields will increase the granularity of the data which will be displayed in the chart whereas adding measures in detail field will not affect the granularity of the data but they will be shown in the tooltip of the chart.</p><p id="ef37b5d9-a816-47d9-b79d-18df06a40b37" class>When used as a setter,</p><blockquote id="d519dbb0-87e6-4093-9a49-cb3ee6af0cdf" class>Syntax: <code>detail(fieldArr)</code></blockquote><pre id="cdacba1b-dcd1-4048-99d4-ce2901952b95" class="code"><code>parameter:
+		- fieldArr:
+				required: true
+				type: Array
+				description: Array of field names.</code></pre><p id="8dbd51cb-ee8f-42e0-822e-29a43a205ac8" class><strong>Returns</strong></p><p id="ef964e5d-2229-40c2-b281-6f30bdaca0c3" class>Instance of canvas</p><p id="81c467e3-15a3-4f7e-a237-87ca26f79964" class><strong>Usage</strong></p><p id="c113f5b4-f619-47d0-81d2-9761725686ba" class>
+</p><p id="de47e69b-6934-48ff-ae4e-cb09fc2681d8" class>When used as a getter,</p><blockquote id="22e1abc1-5214-4d0b-9787-76f7fa2e15c4" class>Syntax: <code>detail()</code></blockquote><p id="bf04f8a0-6855-4099-a38e-6dec2948b310" class><strong>Returns</strong></p><p id="d3c17cab-e726-4137-b249-b1d174768e29" class>Array of detail fields present in the canvas.</p><h2 id="847d80cd-7643-4c9c-8fe3-4bdf5e63e26d" class="block-color-purple"><mark class="highlight-purple"><code>layers</code></mark></h2><p id="18d9edd6-fa5f-40ba-8c1c-bc389bdc756b" class>Gets or sets an array of layer definitions in the canvas which will be used to create various layers in the canvas. If an empty array is passed in arguments, then it disposes the previous layers and renders a default layer based on the type of fields provided in <code>rows</code> and <code>columns</code>.</p><p id="89303dcd-4ffd-4f77-b78e-d461adec5e55" class>When used as a setter,</p><blockquote id="4f61d36e-35e2-403b-8975-c988ed6e0640" class>Syntax: <code>layers(layerDefinitions)</code></blockquote><pre id="5c8e0944-f679-4a99-a2aa-a38b1da4ed26" class="code"><code>parameters:
+		- layerDefinitions:
+				required: true
+				type: Array&lt;LayerDefinition<strong>&gt;</strong>
+				description: An array of layer definitions</code></pre><p id="20f09480-b1b1-4ab7-ae2c-a83860ceb70a" class>Structure of LayerDefinition :-</p><pre id="5b95b757-05aa-4ae0-9bba-c75164a28572" class="code"><code>type: object
+description: Layer configuration
+parameters:
+		- mark:
+				required: true
+				type: string
+				description: Mark type of layer.
+		- encoding:
+				required: false
+				type: object
+				description: Encoding configuration of layer.
+		- className:
+				required: false
+				type: string
+				description: Custom class name which will be applied to the dom element of layer.
+		- transform:
+				required: false
+				type: object
+				default: {
+					type: &apos;identity&apos;
+				}
+				description: Transform configuration of layer. Depending on the transform type,
+					a grouped or stacked chart is created.
+				parameters:
+						- type:
+								required: false
+								type: string
+								description: Type of transform.
+		- encodingTransform:
+					required: false
+					type: <strong>EncodingTransform*
+					</strong>description: Function which takes encoding values generated by the layer
+						and returns a new array of encoding values.</code></pre><p id="bd938b62-a65a-4a06-8698-04dcc94381dc" class>* <a href="https://www.notion.so/charts/Layers-fa92a2f0863c49e9ad805785ef773e01#c3ddeb65109c466c9c1559f29b7ca85d">EncodingTransform</a></p><p id="8755257f-f773-4d95-bfc7-f5223e1ee367" class><strong>Returns</strong></p><p id="74407fdf-3550-437c-bdce-ed50d310e50e" class>Instance of canvas</p><p id="f07dcfdc-f240-4852-be85-5190b08cf478" class><strong>Usage</strong></p><p id="90876aa9-d7b6-41e0-a4aa-2f08c709b43f" class>
+</p><p id="adcaf17d-fbef-4c67-b336-d3ac2dab673e" class>When used as a getter,</p><blockquote id="a45bd1a7-7255-4e61-aec0-169a95155a9f" class>Syntax: <code>layers()</code></blockquote><p id="1f11d429-642d-4512-8ff5-6c977ba93b76" class><strong>Returns</strong></p><p id="efe28420-437c-4871-8397-fec3770893d3" class>An array of layer definitions.</p><h2 id="5158782e-523a-44c8-9396-68bcae2ed732" class><mark class="highlight-purple"><code>mount</code></mark></h2><p id="88a6ec72-85f4-4f56-9e0f-304e816dac9d" class>Gets or sets the mount point where the canvas will be rendered. Mount point can be a dom node or a css selector like <code>#chart-container</code> or <code>.chart-container</code>.</p><p id="e4fb507a-6ae7-464f-8d29-9c36ea27874d" class>When used as a setter,</p><blockquote id="eb782dc2-85f4-4d0d-bbe8-a597554652c0" class>Syntax: <code>mount(domElement)</code></blockquote><pre id="9584c6ce-6cf3-4a65-bc24-81e026916cf5" class="code"><code>parameters:
+		- domElement
+				required: true
+				type: HTMLElement|CSSSelector
+				description: Raw dom node or an id or class of the dom node.</code></pre><p id="925229d1-7650-46b8-af26-023af0a365d4" class><strong>Returns</strong></p><p id="da71bd46-0560-4c93-9a03-b72fe89bd400" class>Instance of canvas.</p><p id="dff4317f-7242-4b23-a58a-f70b49ad0891" class><strong>Usage</strong></p><p id="bfac3451-d997-476c-9822-be7b2f1f93d5" class>
+</p><p id="a37a2b0e-66c5-4805-a99f-262a703bc00a" class><strong>Example</strong></p><p id="c22299b9-9ebc-4f8c-98b6-5786d4807e56" class>
+</p><p id="21fddffe-50a2-4c4d-815b-f592e6b88fd6" class>When used as a getter,</p><blockquote id="e360053e-4ab0-4f3c-b832-4ee3a8d5f83b" class>Syntax: <code>mount()</code></blockquote><p id="e9e2107a-e2bf-4b3a-8272-0f9b0dcbc482" class><strong>Returns</strong></p><p id="0bd03305-71d7-4277-af58-33fca253ed05" class>Dom node or css selector.</p><h2 id="fe8fe1ad-4d03-489c-bf37-163ecf442632" class="block-color-purple"><mark class="highlight-purple"><code>title</code></mark></h2><p id="7adb2c8b-92bb-4cad-a566-192c281d039b" class>Gets or sets the title of the canvas.</p><p id="5da4ea05-52ac-4ad1-a124-8df1bf90ba03" class>When used as a setter,</p><blockquote id="103069f9-0869-4285-a80b-0e30077abd40" class>Syntax: <code>title(titleString, options)</code></blockquote><pre id="0be160aa-576b-4d8a-bc67-a1c5f8174940" class="code"><code>parameters:
+		- titleString:
+				required: true
+				type: string
+				description: Title of the chart.
+		- options:
+				required: false
+				type: object
+				default: {
+			    position: &apos;top&apos;,
+				  align: &apos;left&apos;,
+			    padding: 4,
+			    className: &apos;muze-title-container&apos;
+				}
+				description: Configuration of title.</code></pre><p id="c40442ba-385f-4c3c-b5a2-fae15e371cf0" class><strong>Returns</strong></p><p id="2652ce83-22f2-4040-a854-fe9e968a0c87" class>Instance of canvas.</p><p id="1deb1125-2cd1-41bd-8073-c2523e508cde" class><strong>Usage</strong></p><p id="dcd87340-3d4e-4ff1-b2a8-4809f537b569" class>
+</p><p id="73f7c248-c6b7-4d52-a01f-98155ae588da" class><strong>Example</strong></p><p id="a7dbf357-4d66-4343-8f3a-2ac84c7f6588" class>
+When used  as a getter,</p><blockquote id="9b40e44f-ba16-4413-8be3-05f33ad7a22c" class>Syntax: <code>title()</code></blockquote><p id="a568fc41-59db-4f0c-b487-64b2d0bd1514" class><strong>Returns</strong></p><p id="74a07fba-4cb5-42a7-b978-cd5bd4e2c398" class>Title of the chart.</p><h2 id="7899a012-305f-43a6-b67f-80565c15999a" class="block-color-purple"><mark class="highlight-purple"><code>subtitle</code></mark></h2><p id="acf5ba53-d50b-4eec-afe2-f761cad351c7" class>Gets or sets the subtitle of the canvas.</p><p id="c8cd737a-7ca8-41da-b8af-b4c6d5ee0b7c" class>When used as a setter,</p><blockquote id="b8bbbca2-07d7-4233-998a-947150003f9b" class>Syntax: <code>subtitle(subtitleString, options)</code></blockquote><pre id="e7609326-841e-4242-8ffd-bbad5279c79b" class="code"><code>parameters:
+		- subtitleString:
+				required: true
+				type: string
+				description: Subtitle of the chart.
+		- options:
+				required: false
+				type: object
+				default: {
+			    position: &apos;top&apos;,
+			    align: &apos;left&apos;,
+			    padding: 16,
+			    maxLines: 2,
+			    className: &apos;muze-subtitle-container&apos;
+				}
+				description: Configuration of subtitle.</code></pre><p id="004add6f-b760-40fd-95ab-09bb43d7f1d8" class><strong>Returns</strong></p><p id="5e71cfed-bc05-41c2-8850-e4d8573db416" class>Instance of canvas.</p><p id="fa596186-5df9-496b-8716-6865966734fb" class><strong>Usage</strong></p><p id="8b448bc1-111d-4d8e-915e-d109f971e564" class>
+</p><p id="ceadabb7-fd22-4993-9158-a4b53d9f318b" class><strong>Example</strong></p><p id="7a7f3e6d-857f-45ef-b278-46f27224e8ec" class>
+When used  as a getter,</p><blockquote id="aff83c4c-a760-4822-97df-788fdeb04cda" class>Syntax: <code>subtitle()</code></blockquote><p id="f0d91731-4215-44cd-8d07-cc3a07d63319" class><strong>Returns</strong></p><p id="fe6f6bfa-f76a-4368-a314-cf8bcc2d0290" class>Subtitle of the chart.</p><h2 id="7cfebecb-0977-43fd-8f09-8885b97c0322" class><mark class="highlight-purple"><strong><code>once</code></strong></mark></h2><p id="a43155b8-9f35-44e9-b04d-36c80a8e9265" class>Takes name of the lifecycle event like <code>canvas.updated</code> or <code>canvas.initialized</code> and returns a promise which gets resolved once the event gets triggered. See <a href="https://www.notion.so/43afa210d6bf4f14bd04c335d82f93ac">Untitled Database</a> for the complete list of lifecycle events present in muze.</p><blockquote id="b495783f-2ad8-478f-9114-fdd9c5d5b8c3" class>Syntax: <code>once(lifecycleEvent)</code></blockquote><pre id="98db88bc-51c7-49ff-9551-f15cf246986d" class="code"><code>parameters:
+		- lifecycleEvent:
+				required: true
+				type: string
+				description: Name of the lifecycle event.</code></pre><p id="a03af6ee-5620-4065-96fc-1871cbaef551" class><strong>Returns</strong></p><p id="34bac1ad-d37a-4f33-9db5-41be07b69abe" class>Promise</p><p id="00b86a76-c5af-4ce2-b6c5-a4d02a91cdc5" class><strong>Usage</strong></p><p id="c7ee8c38-31da-4c2b-b7a7-4365bc9293dc" class><strong>Example</strong></p><p id="6e48ea8c-b8fa-45a0-8697-d084e4ebb1e4" class>
+</p><div id="498b49e2-2622-4487-abf4-5fc7a1b1097a" class="column-list"><div id="7b7eced7-402c-41e9-aaf6-73c4b718c891" style="width:93.75%" class="column"><h2 id="8759af66-f716-4cde-8a32-89a45fefebbe" class><mark class="highlight-purple"><code>firebolt</code></mark></h2><p id="1d38f5e6-b81f-4f6a-b7b2-53ec951c1251" class>Returns the firebolt instance of canvas. See <a href="Firebolt.html">Firebolt</a> for list of apis.</p><p id="def6f5f7-50f9-4283-9912-9b3b555a7d5a" class>
+</p></div><div id="c851a574-b0a6-4764-8785-d94578a07e60" style="width:6.25%" class="column"><p id="5ee0bc75-1eee-4339-8dd7-d09479c813ea" class>
+</p></div></div><h2 id="702a5341-073e-45c3-9154-2ef09d8e9b72" class="block-color-purple"><mark class="highlight-purple"><code>transform</code></mark></h2><p id="68c2290f-b735-456f-94f4-6c190aa58dba" class>Sets data transformation methods for layers. It takes an object where each key is a unique name which can be referred in the layer definition&apos;s <code>source</code> property and the value is a function which takes a datamodel, applies some operations and returns a transformed datamodel. Layers can use the transformed datamodel to create a visualization.</p><blockquote id="d3f977e1-9d0b-42a4-ad05-e52a6c876939" class>Syntax: <code>transform(transformObj)</code></blockquote><pre id="6e28f461-1627-434b-b8a2-1ec679b18a6f" class="code"><code>parameters:
+		- transformObj:
+				required: true
+				type: object
+				description: Data transform configuration.</code></pre><p id="6e414a81-9d78-41da-bd5a-44e6ccc03df2" class><strong>Returns</strong></p><p id="8d9ca2b6-8510-43ef-aec5-73db422bf44f" class>Instance of canvas</p><p id="b5e3a15d-aeb7-4a3d-933a-0954d9a4b799" class><strong>Usage</strong></p><pre id="d545509b-ff9a-4fac-ae93-d5046732a75a" class="code"><code>const env = muze();
+const canvas = env.canvas();
+
+canvas.transform({
+	// Create a named data source which can be used by layers.
+	averageData: (dm) =&gt; dm.groupBy([&apos;&apos;])
+})
+	.layers([{
+			mark: &apos;bar&apos;
+	}, {
+			mark: &apos;text&apos;,
+			// Set the name of the data source defined in transform in source property to
+			// be used by this layer.
+			source: &apos;averageData&apos;
+	}]);</code></pre><p id="440f3a80-e6ff-436b-964c-58a6280acee0" class><strong>Example</strong></p><p id="a3f39140-ac4e-45ad-bc3c-505c899751af" class>
+</p></div></article></body><script>hljs.initHighlightingOnLoad();</script><script>hljs.initHighlightingOnLoad();</script></html>

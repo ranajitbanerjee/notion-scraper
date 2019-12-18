@@ -1,0 +1,634 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Composing Layers</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5f2830bf-b86a-4bd8-b3ca-80410d951d5b" class="page sans"><header><h1 class="page-title"><strong>Composing Layers</strong></h1></header><div class="page-body"><p id="0abf4f43-b2c5-477f-84c3-5c13daf309b8" class=""><strong>Table of Contents</strong><div class="indented"><nav id="a3acdc8f-7085-4cdd-a9a0-c1c462c2480a" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#504923e4-5939-47c6-a930-632d65d0f38d"><strong>Prerequisite</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b0a832eb-05de-4577-99d1-3159a008a4f1"><strong>Data</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#895cc3e0-0008-4ec1-958e-f31b8402d90b"><strong>Creating multiple layers with same data source</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#43beeab4-9518-4b26-b745-f2d5ceed34a1"><strong>Global layers for all fields</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#80e381d5-8fe7-4dad-b882-0f82a8a6ff9a"><strong>Field specific layers</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#348d6694-2d33-48ae-bc18-7dd3658559b2"><strong>Creating multiple layers with different data source</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1ab56338-e484-4290-9395-f7709f3ba887"><strong>Composing a custom mark</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6c2b797a-4e1b-4eed-8ae0-1297593331b3"><strong>Wrapping up</strong></a></div></nav></div></p><hr id="c3059eba-c1c7-4e54-99bd-7817cb8f0eac"/><p id="80ea8af8-0076-4b53-8e77-5dab693c9060" class="">So far, majority of available libraries available in the ecosystem force us to think a visualization as chart type (although there are beautiful exceptions). It&#x27;s prefect to get started in a minutes. But this approach almost always leads to scalability issues very soon.</p><p id="72f2d9bc-ea43-4602-ae68-4882fd392076" class="">Imagine you had a simple bar chart and then you wanted labels on top of the bars , so you probably switch one configuration on from the input data. But what if you need the labels at the bottom of the chart, what if you want to show a bubble at the top of bars at some calculated distance. If the vendor library does not support it, you have to wait for them to write or you have to write the whole visualization on you own. And this is just tip of the iceberg problem.</p><p id="8c4ed867-3da0-4880-97c3-cc53df677c18" class="">Muze&#x27;s atomic marks and composable layers allows to overcome all these situations. You can build almost any visualization you want using this concept. And this is just one of the many usecase.</p><p id="e5520fea-54ff-47c1-a53b-db3da01d51cb" class="">Another powerful use case is, you can have any custom layers and compose it with any different layers. Imagine markers of your visualization, annotations are saved as separate files and on demand you attach those layers with existing bar / line / area layer to achieve same functionality everywhere.</p><h2 id="504923e4-5939-47c6-a930-632d65d0f38d" class=""><strong>Prerequisite</strong></h2><p id="13966e3a-1d12-4fcf-92b4-4d5250761a9f" class="">You need the knowledge of <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-layers">basic layer</a></mark> before reading this document. Go ahead and read <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-layers">basic layer</a></mark> first before continuing further.</p><h2 id="b0a832eb-05de-4577-99d1-3159a008a4f1" class=""><strong>Data</strong></h2><p id="d518614c-2a68-4fa9-bf60-0b191aaf88ce" class="">We will be using <mark class="highlight-blue"><a href="https://muzejs.org/static/cars.json">cars.json</a></mark> data for illustration.</p><h2 id="895cc3e0-0008-4ec1-958e-f31b8402d90b" class=""><strong>Creating multiple layers with same data source</strong></h2><p id="7a60c65c-b6e8-4133-a2e7-cec8385973f7" class="">Remember we mentioned</p><p id="c0ca4d0b-8934-4a07-bae3-75cd07f85bd5" class=""><mark class="highlight-blue_background">layer = data + mark</mark></p><p id="e29adb29-469e-463f-b608-94ac43f58eeb" class="">The following example creates multiple layer with same data source</p><h3 id="43beeab4-9518-4b26-b745-f2d5ceed34a1" class=""><strong>Global layers for all fields</strong></h3><p id="ee61199f-1990-4365-9475-98b49dbea343" class="">Here we are just gonna instruct Muze to render a chart using two layers with mark <strong>line</strong> and <strong>point</strong></p><figure id="4bb43aa7-8114-4328-8132-2e9e06ee7caa"><div class="source"><a href="https://codepen.io/chartshq/pen/jOEroJr">https://codepen.io/chartshq/pen/jOEroJr</a></div></figure><p id="a686ded2-c28f-49c6-a6ad-fe4604a47687" class="">As you can see, both the point and line layers are powered by same data source <code>dm</code>.</p><p id="a764ad22-0f18-48e2-bbb3-e3f3705d0b60" class="">A layer with mark cannot be drawn without planer and retinal encodings. But here we have not mentioned any encoding in the <code>layer</code>. So how is it still working?</p><p id="95b00a6e-e4bd-48ab-aec6-76678dab999b" class="">The reason is simple, if the user does not pass any information regarding encoding, Muze generates the encoding for a layer from fields assigned to <code>rows</code>, <code>columns</code>, <code>color</code>, <code>shape</code> and <code>size</code>.</p><p id="4bc2e989-3b30-43f1-bea3-41cd468c902b" class="">Internally Muze generates another layer configuration which looks like</p><pre id="bbd6793b-cd43-47cf-87fb-9b84409bcf7d" class="code"><code>.layers([{ 
+    mark: &#x27;point&#x27;,
+    encoding: { 
+        y: &#x27;Displacement&#x27;, /* taken from rows */
+        x: &#x27;Year&#x27; /* taken from columns*/,
+        color: /* take first color from palette as no color encoding is given */,
+        shape: /* take first size from list of shapes since no shape encoding is given */
+        size: /* take a default size since no size encoding is given */
+    }
+}, {
+    mark: &#x27;line&#x27;,
+    encoding: { 
+        y: &#x27;Displacement&#x27;, /* taken from columns */
+        x: &#x27;Year&#x27;, /* taken from rows */
+        color: /* take first color from palette as no color encoding is given */,
+    }
+}])</code></pre><p id="d0ab67be-79cc-440d-9452-62ebc9b11c18" class="">With this config both of the layers gets rendered.</p><p id="9ffe5d09-76f7-4046-8a27-7389f1bb38fa" class="">If you try to make the chart dual axis, the layers adapt itself automatically for both fields.</p><figure id="62976c96-84c6-4761-9088-c1d06366f30d"><div class="source"><a href="https://codepen.io/chartshq/pen/xxbOodQ">https://codepen.io/chartshq/pen/xxbOodQ</a></div></figure><p id="0d6b6ceb-fdd3-477c-9b83-7c60dc1f18e5" class="">In the first example, only one field has been assigned to y-axis, hence one instance of each of those layers were created. In the above example, two fields are used to create two y-axes, hence 2 instances of both of <strong>line</strong> and <strong>point</strong> layers are created, one for each axis.</p><p id="e8f5c040-e134-4f1c-8c21-0c1a2ace3af4" class="">Again since we have not passed any encoding for layers, Muze populates encoding from fields assigned to <code>rows</code>, <code>columns</code>, <code>color</code>, <code>shape</code> and <code>size</code>. A generated layer config for above code would look like</p><pre id="62c74a1c-ab94-4a1a-94ca-07f1934a5a5b" class="code"><code>.layers([{ 
+    mark: &#x27;point&#x27;,
+    encoding: { 
+        y: &#x27;Displacement&#x27;, /* taken from rows */
+        x: &#x27;Year&#x27; /* taken from columns */,
+        color: /* take first color from palette as no color encoding is given */,
+        shape: /* take first size from list of shapes since no shape encoding is given */
+        size: /* take a default size since no size encoding is given */
+    }
+}, {
+    mark: &#x27;line&#x27;,
+    encoding: { 
+        y: &#x27;Displacement&#x27;, /* taken from columns */
+        x: &#x27;Year&#x27;, /* taken from columns */
+        color: /* take first color from palette as no color encoding is given */,
+    }
+},{ 
+    mark: &#x27;point&#x27;,
+    encoding: { 
+        y: &#x27;Acceleration&#x27;, /* taken from rows */
+        x: &#x27;Year&#x27; /* taken from columns */,
+        color: /* take first color from palette as no color encoding is given */,
+        shape: /* take first size from list of shapes since no shape encoding is given */
+        size: /* take a default size since no size encoding is given */
+    }
+}, {
+    mark: &#x27;line&#x27;,
+    encoding: { 
+        y: &#x27;Acceleration&#x27;, /* taken from columns */
+        x: &#x27;Year&#x27;, /* taken from columns */
+        color: /* take first color from palette as no color encoding is given */,
+    }
+}])</code></pre><h3 id="80e381d5-8fe7-4dad-b882-0f82a8a6ff9a" class=""><strong>Field specific layers</strong></h3><p id="15305b4d-fd4d-4335-a83f-0f3bc8437e4f" class="">But what if, unlike the previous example, we want to plot a <strong>bar layer </strong>for Acceleration and point, line </p><p id="db114039-916e-4b94-a7f7-e2e97593302f" class="">layer for Displacement?</p><p id="f49162b4-e406-465d-9ce0-2de9dee10096" class="">But what if, unlike the previous example, we want to plot </p><p id="ce3f4f13-bf46-4324-9c2d-5a46448af6ad" class="">By now you must be having some hunch that we just have to assign proper <code>y</code> encodings to the particular layers so that Muze does not generate its default layer configuration. And thats exactly what we have done</p><figure id="e9ba6156-dfb7-4a7b-a03d-2bd65b3e9762"><div class="source"><a href="https://codepen.io/chartshq/pen/ZEYOdxR">https://codepen.io/chartshq/pen/ZEYOdxR</a></div></figure><p id="baf93442-6b19-4ef1-af5d-86221465b5d4" class="">If you look at the code for above example, you will see that we have partially defined the encoding for the layers. Since we have assigned <em>Acceleration</em> to <code>y</code> encoding for bar layer, bar plot gets rendered for <em>Acceleration vs Year</em> chart.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="db3d6016-6f3e-4b2b-a519-58c280cf30d4"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><mark class="highlight-yellow"><strong>Visual mapping of layer to axis in dual axes
+</strong></mark>Dual axes charts are very difficult to read normally. One of the many overheads which dual axes brings in the plate is to determine which plot is attached to which axes.
+
+In order to visually mapping layer to axis we have colored the name of axes with the color of the plot using css.
+
+The code for that might not be visible to you in the code section, copy the code section and paste it to your preferred code editor to see the complete code.</div></figure><p id="af8ff9a3-540a-41e5-9564-fd86d0535178" class="">A variation of the previous example is split canvas example with field specific layer. All the configuration remains same, its just field assigned to <code>rows</code> and <code>columns</code> drives visualization like this</p><figure id="4dee769d-6962-4482-bfd6-12ba8c2738e6"><div class="source"><a href="https://codepen.io/chartshq/pen/yLyJmEW">https://codepen.io/chartshq/pen/yLyJmEW</a></div></figure><p id="0d6e56ab-1402-422b-af65-528c352143a9" class="">
+</p><p id="3ee3700f-0343-4b80-bd87-fdec43753553" class="">This is just a simple variation of the dual axes example to show how layers are independent of the rest of the <mark class="highlight-blue"><a href="https://muzejs.org/docs/rows-columns-and-layout-variations">layout system</a></mark>.</p><p id="0cbc9437-21cd-4fc7-a503-52efc350b1d3" class="">Notice we don&#x27;t have the layer and axis mapping problem we were having earlier due to the dual axes. Hence, we have removed the color encoding from line and point layers.</p><h2 id="348d6694-2d33-48ae-bc18-7dd3658559b2" class=""><strong>Creating multiple layers with different data source</strong></h2><p id="0b2732c5-162d-4044-b839-e4e62832fd9f" class="">So far we have created layers which are powered by same data source. But there are fair number of use cases where two layer can have two different data source. Say, a visualization which shows change of weight of cars over the year and in the background you have a text showing the sample size of the experiment.</p><p id="09b5397f-0d5c-401d-9560-87ced1240162" class="">Here, if you notice carefully, you will realize that the are area layer is drawn from <em>Weight_in_lbs</em> and <em>Year</em> field, but the text layer is drawn from the a separate data source: number of records in the dataset.</p><p id="566e5c8b-18e8-4b98-8f60-ccc8e81acb11" class="">Here we use <code>transform</code> property of Muze to transform the <a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a> instance passed as input to calculate the total sample size. Once the model is calculated assign this calculated model as <code>souce</code> to text layer.</p><figure id="e5a0b214-6857-41c5-866f-23b610557ca1"><div class="source"><a href="https://codepen.io/chartshq/pen/yLyJmwm">https://codepen.io/chartshq/pen/yLyJmwm</a></div></figure><p id="5befbde4-e2af-421a-adb1-f77ae821ac84" class="">We create a new variable to calculate the total number of cars (sample size) in data, by doing</p><pre id="357b1ab6-ac9e-44aa-b520-a8e7b4bd6517" class="code"><code>const countFn = calculateVariable({
+    name: &#x27;Sample Size&#x27;,
+    type: &#x27;measure&#x27;,
+    defAggFn: &#x27;sum&#x27;, // When ever aggregation happens, it counts the number of elements in the bin
+    numberFormat: val =&gt; parseInt(val, 10)
+}, [&#x27;Name&#x27;, () =&gt; 1]);
+const carCountDM = countFn(dm)</code></pre><p id="5366b97c-40bd-40aa-aedf-2cc80a35fe26" class="">All it does is create a new filed named <strong>Sample Size</strong> and intialize the cell with value 1.</p><p id="fbc428ff-c56e-4162-b353-da1d12fddb06" class="">Next, when transform data source is calculated from</p><pre id="69be90b3-f58a-427b-bfd4-848f27e64ce3" class="code"><code>.transform({
+    weightChangeModel: model =&gt; model.groupBy([&#x27;&#x27;], {})
+})</code></pre><p id="c3066b8e-1834-476c-8660-5b20a04b2f6e" class=""><strong>Sample Size</strong> gets aggregated with <mark class="highlight-blue"><a href="https://muzejs.org/docs/api-reducer#DataModel">aggregation</a></mark> function <code>sum</code> giving us the total count of cars. The newly created data source is a named data source. We can access this data source by using <code>weightChangeModel</code> identifier.</p><p id="f7214569-270f-4576-8f30-67ad4d64aa58" class="">The last step is to tell the layer, which data source to use by using the source property. If you don&#x27;t specify the name of data source then by default Muze assigned the input data source to layer.</p><p id="27d8de60-d5b9-4bb2-8d7d-fc5568385e97" class="">There is another property you should know about is <code>encodingTransform</code>. Once data points in layer gets positioned based on planer encoding (<code>x</code> and <code>y</code>) and gets visual representation based on retinal encoding (<code>color</code>, <code>shape</code>, <code>size</code>), you might feel the need to change the calculated values of encoding of a point. For adjustments like this we use <code>encodingTransform</code>. Like, in the above example, we positioned the text at a particular position in the canvas (horizontally middle towards the bottom) using <code>encodingTransfrom</code>.</p><h2 id="1ab56338-e484-4290-9395-f7709f3ba887" class=""><strong>Composing a custom mark</strong></h2><p id="3ff8c7fa-7886-45ea-8b4e-13236b0877d0" class="">We are now going to discuss, probably the most insane feature of a layers.</p><p id="be2d819c-ac7d-4ffb-95d1-602535eca317" class="">Let&#x27;s take the example of first chart we build using layers in this lesson. It was a line layer with a point layer stacked along the z axis. Let&#x27;s call it anchored line chart. If you are not sure of what are we talking about, scroll up until you see the first line chart.</p><p id="cad46742-bd86-4470-858e-fdce93a9b55e" class="">We are just going to bring one little enhance to the chart, we are gonna show labels along the line.</p><figure id="8edd1e9c-0b87-469e-a562-f1335f8be2af"><div class="source"><a href="https://codepen.io/chartshq/pen/VwYKZWx">https://codepen.io/chartshq/pen/VwYKZWx</a></div></figure><p id="442d8697-ce4a-47c2-b4fd-3c34f8c9e92f" class="">We just added a text layer to show the labels along the line with a very simple overlapping elimination logic by translating the labels using <code>encodingTransform</code> property.</p><p id="399431a8-f2c4-49aa-be53-dd65426be6b1" class="">Right now, what we have here is an <strong>anchored line chart with labels</strong>.</p><p id="2750167d-9cf7-48ad-973f-52bbc810cf7a" class="">In reality, you would need this layer almost everywhere. Imagine you have bar layer and you want to draw this <strong>anchored line chart with labels</strong>, or you have an area chart and you want to draw this <strong>anchored line chart with labels</strong> on top it, what would you do?</p><p id="af334d33-2f84-453e-a116-841eafceb4fe" class="">One way is to copy this bunch layers everywhere you need. But that does not feel very logical. Ideally, its preferred to have these layers defined as an library and you import those libraries to use custom layers.</p><p id="2bc003a0-0275-4d0b-8b22-5c65355b64e0" class="">Muze allows us to register a layer with is a composition of other layers and use it anywhere we want. Lets take a look at the following code.</p><pre id="1d92093e-8e24-485f-b12d-0e9a6ef584e1" class="code"><code>layerFactory.composeLayers(&#x27;anchoredLineWithText&#x27;, [
+    { /* line layer definition goes here */ },
+    { /* point layer definition goes here */ },
+    { /* text layer definition goes here */ },
+])</code></pre><p id="9769ce2c-824a-435e-a247-e8c9fc0671e0" class="">All we have done is we used those three layers of <strong>anchored line chart with labels</strong> and created a composed label named <strong>anchoredLineWithText</strong> which we can use along side any other layers. Like</p><pre id="eca924ca-ce3f-4526-b12e-b341fa9e387f" class="code"><code>canvas.layers([{ mark: &#x27;bar&#x27; }, { mark: &#x27;anchoredLineWithText&#x27; }])</code></pre><p id="b31232fa-7aea-478b-8224-04f66da2ef0f" class="">or</p><pre id="b28dbe2e-6e01-4366-9a20-812066054b65" class="code"><code>canvas.layers([{ mark: &#x27;area&#x27; }, { mark: &#x27;anchoredLineWithText&#x27; }])</code></pre><p id="fe8d7c53-e19a-4b5f-8855-57fc2ef06dcf" class="">or</p><pre id="db3aa403-9515-410d-a98a-f6d4db28b3f8" class="code"><code>canvas.layers([{ mark: &#x27;myYetAnotherCustomLayer&#x27; }, { mark: &#x27;anchoredLineWithText&#x27; }])</code></pre><p id="fb283593-81a7-4b80-bd02-60e54e217633" class="">or</p><pre id="bd7d7471-c3da-4d18-8655-53541b7113d7" class="code"><code>layerFactory.composeLayers(&#x27;anchoredErrorLineWithText&#x27;, [
+    { /* tick layer to show error value */ },
+    { /* anchoredLineWithText layer definition goes here */ },
+])</code></pre><figure id="93d99911-5b03-4be6-8623-2af7c4f070eb"><div class="source"><a href="https://codepen.io/chartshq/pen/XWJjrYg">https://codepen.io/chartshq/pen/XWJjrYg</a></div></figure><p id="2f1326fc-9a89-4566-a0c2-066377d0abce" class="">If you look at the above example, you will see that we have defined <strong>anchoredLineWithText</strong> once but used the same layer for different visualization along with different layers. You can manage every markers, annotations, theme features like the way we have done it here.</p><h2 id="6c2b797a-4e1b-4eed-8ae0-1297593331b3" class=""><strong>Wrapping up</strong></h2><p id="1b345c95-66d4-4602-a462-7fd013c5b9dd" class="">With this we have completed the use and use cases of layers. Feel free to edit the examples and see for yourself. Layers can do much more than this, we have touched the point that all the layers are interactive since they takes instance of <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a></mark> which is a part of the network <mark class="highlight-blue"><a href="https://muzejs.org/docs/introduction-to-datamodel">DataModel</a></mark> creates every time we run an operation. The <mark class="highlight-blue"><a href="https://muzejs.org/docs/cross-interaction">next chapter</a></mark> explains interactivity in general.</p></div></article></body></html>

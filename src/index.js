@@ -29,7 +29,7 @@ const recurse = (obj) => {
     return subPages.sort((a, b) => a.order - b.order);
 };
 
-module.exports = (inputDir, outDirPath) => {
+module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT }) => {
     inputDir = path.resolve(inputDir);
     outDirPath = outDirPath || `${path.dirname(inputDir)}/out`;
     outDirPath = path.resolve(outDirPath);
@@ -87,8 +87,6 @@ module.exports = (inputDir, outDirPath) => {
     };
 
     const addHighLightJSResources = ($) => {
-        const { IFRAME_ASSETS_PATH ,LOCAL_CSS, LOCAL_SCRIPT } = process.env;
-
         const cssList = fs.readdirSync(path.resolve(LOCAL_CSS));
         const scriptList = fs.readdirSync(path.resolve(LOCAL_SCRIPT));
 

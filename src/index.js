@@ -65,7 +65,7 @@ const createExamplesJson = (examplesFile, outDirPath) => {
 
 module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT }) => {
     inputDir = path.resolve(inputDir);
-    outDirPath = outDirPath || `${path.dirname(inputDir)}/out`;
+    outDirPath = outDirPath || `${inputDir}/out`;
     outDirPath = path.resolve(outDirPath);
     const examplesFile = `${inputDir}/examples.html`;
     inputDir = `${inputDir}/docs`;

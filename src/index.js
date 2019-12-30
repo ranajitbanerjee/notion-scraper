@@ -2,6 +2,9 @@ const cheerio = require('cheerio');
 const path = require('path');
 const fs = require('fs');
 const util = require('util');
+const mkdirSync = fs.mkdirSync;
+const existsSync = fs.existsSync;
+const readdirSync = fs.readdirSync;
 const mkdir = util.promisify(fs.mkdir);
 const readdir = util.promisify(fs.readdir);
 const writeFile = util.promisify(fs.writeFile);
@@ -28,11 +31,44 @@ const recurse = (obj) => {
     }
     return subPages.sort((a, b) => a.order - b.order);
 };
+const createExamplesJson = (examplesFile, outDirPath) => {
+    fs.readFile(examplesFile, 'utf8', (err, data) => {
+        if (err) throw rej(err);
+        const $ = cheerio.load(data);
+        const categories = $('h2');
+        const json = [];
+        categories.each(function () {
+            const elem = $(this);
+            const category = elem.text();
+
+            elem.nextUntil('h2')
+                .each(function () {
+                    const links = $(this).find('a');
+                    links.each(function () {
+                        const link = $(this).attr('href');
+
+                        json.push({
+                            category,
+                            link
+                        });
+                    });
+                });
+
+        });
+        console.log(json);
+        const jsonStr = JSON.stringify(json, null, 4);
+        writeFile(`${outDirPath}/examples.json`, jsonStr).then(() => {
+            console.log('Done');
+        });
+    });
+};
 
 module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT }) => {
     inputDir = path.resolve(inputDir);
     outDirPath = outDirPath || `${path.dirname(inputDir)}/out`;
     outDirPath = path.resolve(outDirPath);
+    const examplesFile = `${inputDir}/examples.html`;
+    inputDir = `${inputDir}/docs`;
     const rootDirName = path.basename(inputDir);
     let rootDirPath = inputDir;
     const pagesMap = {};
@@ -155,7 +191,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             try {
                 const { html, hasLinks, links } = await sanitizeHtml(filePath);
                 const newFilePath = `${outDir}/${basename}.html`;
-                await writeFile(newFilePath, html);
+                !hasLinks && await writeFile(newFilePath, html);
 
                 if (rootDirName === dirname) {
                     rootDirPath = `${inputDir}/${basename}`;
@@ -176,7 +212,6 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                                 order: linksOrder[basename]
                             };
                         }
-                        // pagesMap[]
                     }
                 }
             } catch (e) {
@@ -194,13 +229,13 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
 
     async function traverseDirectory (dir, jsonObj = {}, linkTitles = {}) {
         try {
-            const files = await readdir(dir);
-            const dirname = path.dirname(dir);
             let newDir;
+            const files = await readdir(dir);
             const subDirectoryPath = `${dir.replace(`${inputDir}`, '')}`;
-            newDir = `${outDirPath}${subDirectoryPath}`;
 
-            await mkdir(newDir);
+            newDir = `${outDirPath}/docs/${subDirectoryPath}`;
+
+            !existsSync(newDir) && await mkdir(newDir);
             await processFiles(files, dir, newDir, jsonObj, linkTitles);
         }  catch (e) {
             throw new Error(e);
@@ -208,18 +243,42 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
     }
 
     removeDir(outDirPath);
+    mkdirSync(`${outDirPath}`);
 
     let json = {};
-    traverseDirectory(inputDir, json, {}).then(() => {
-        removeDir(outDirPath);
-        json = {};
-        traverseDirectory(inputDir, json, {}).then(() => {
-            const jsonStr = JSON.stringify(recurse(json), null, 4);
-            if (jsonStr) {
-                writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
-                    console.log('Done');
-                });
+    async function createDocs () {
+        const files = readdirSync(inputDir);
+        for (let i = 0; i < files.length; i++) {
+            const filePath = files[i];
+            const extname = path.extname(filePath);
+            if (extname === '.html') {
+                const fullPath = path.resolve(inputDir, filePath);
+                const { hasLinks } = await sanitizeHtml(fullPath);
+
+                if (hasLinks) {
+                    inputDir = fullPath.replace('.html', '');
+                    // console.log('rootDir', rootDir);
+                    traverseDirectory(inputDir, json, {}).then(() => {
+                        removeDir(outDirPath);
+                        mkdirSync(`${outDirPath}`);
+
+                        json = {};
+                        traverseDirectory(inputDir, json, {}).then(() => {
+                            const jsonStr = JSON.stringify(recurse(json), null, 4);
+                            if (jsonStr) {
+                                writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
+                                    console.log('Done');
+                                });
+
+                                createExamplesJson(examplesFile, outDirPath);
+                            }
+                        });
+                    });
+                    break;
+                }
             }
-        });
-    });
+        }
+    }
+
+    createDocs();
 };

@@ -55,10 +55,10 @@ const createExamplesJson = (examplesFile, outDirPath) => {
                 });
 
         });
-        console.log(json);
+        // console.log(json);
         const jsonStr = JSON.stringify(json, null, 4);
         writeFile(`${outDirPath}/examples.json`, jsonStr).then(() => {
-            console.log('Done');
+            // console.log('Done');
         });
     });
 };
@@ -192,11 +192,12 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                 const { html, hasLinks, links } = await sanitizeHtml(filePath);
                 const newFilePath = `${outDir}/${basename}.html`;
                 !hasLinks && await writeFile(newFilePath, html);
-
+                // console.log(linksOrder);
                 if (rootDirName === dirname) {
-                    rootDirPath = `${inputDir}/${basename}`;
+                    // rootDirPath = `${inputDir}/${basename}`;
                     await traverseDirectory(filePath.replace('.html', ''), jsonObj, links);
                 } else {
+
                     if (hasLinks) {
                         jsonObj[basename] = {
                             subPages: {},
@@ -236,6 +237,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             newDir = `${outDirPath}/docs/${subDirectoryPath}`;
 
             !existsSync(newDir) && await mkdir(newDir);
+            // console.log(linkTitles);
             await processFiles(files, dir, newDir, jsonObj, linkTitles);
         }  catch (e) {
             throw new Error(e);
@@ -253,17 +255,18 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             const extname = path.extname(filePath);
             if (extname === '.html') {
                 const fullPath = path.resolve(inputDir, filePath);
-                const { hasLinks } = await sanitizeHtml(fullPath);
+                const { hasLinks, links } = await sanitizeHtml(fullPath);
 
                 if (hasLinks) {
                     inputDir = fullPath.replace('.html', '');
-                    // console.log('rootDir', rootDir);
-                    traverseDirectory(inputDir, json, {}).then(() => {
+                    rootDirPath = inputDir;
+                    // console.log(links);
+                    traverseDirectory(inputDir, json, {}, links).then(() => {
                         removeDir(outDirPath);
                         mkdirSync(`${outDirPath}`);
 
                         json = {};
-                        traverseDirectory(inputDir, json, {}).then(() => {
+                        traverseDirectory(inputDir, json, links).then(() => {
                             const jsonStr = JSON.stringify(recurse(json), null, 4);
                             if (jsonStr) {
                                 writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {

@@ -63,7 +63,7 @@ const createExamplesJson = (examplesFile, outDirPath) => {
     });
 };
 
-module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT }) => {
+module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT, themeId }) => {
     inputDir = path.resolve(inputDir);
     outDirPath = outDirPath || `${inputDir}/out`;
     outDirPath = path.resolve(outDirPath);
@@ -73,12 +73,12 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
     let rootDirPath = inputDir;
     const pagesMap = {};
 
-    const santizeElement = (elem, filePath) => {
+    const santizeElement = (elem) => {
         const textContent = elem.text();
 
         if (/codepen/.test(textContent) && !/template/.test(textContent)) {
             const url = `https://codepen.io/api/oembed?format=json&url=${textContent}&height=${CODE_PEN_HEIGHT}`;
-            return replaceLink(url, elem, filePath);
+            return replaceLink(url, elem, themeId);
         }
         return null;
     };

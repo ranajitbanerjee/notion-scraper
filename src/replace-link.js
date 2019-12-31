@@ -14,7 +14,7 @@ function tryParseJSON (jsonString) {
     return false;
 }
 
-module.exports = (url, elem, filePath) => new Promise((res, rej) => {
+module.exports = (url, elem, themeId) => new Promise((res, rej) => {
     https.get(url, (resp) => {
         let data = '';
         resp.on('data', (chunk) => {
@@ -24,7 +24,7 @@ module.exports = (url, elem, filePath) => new Promise((res, rej) => {
             if (tryParseJSON(data)) {
                 let { html } = JSON.parse(data);
                 const $ = cheerio.load(html);
-                const src = `${$('iframe').attr('src')}&editable=true`;
+                const src = `${$('iframe').attr('src')}&editable=true&theme-id=${themeId}`;
                 // $('iframe').attr('src', 'sss');
                 $('iframe').attr('src', src);
                 elem.replaceWith($.html());

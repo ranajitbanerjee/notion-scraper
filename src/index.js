@@ -22,10 +22,11 @@ const recurse = (obj) => {
             subPages.push({
                 title: key,
                 subPages: childPages,
-                path: obj[key].path,
+                path: obj[key].path.toLowerCase().split(' ').join('-'),
                 order: obj[key].order
             });
         } else {
+            obj[key].path = obj[key].path.toLowerCase().split(' ').join('-');
             subPages.push(obj[key]);
         }
     }
@@ -185,7 +186,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         const ext = path.extname(filePath);
         const dirpath = path.dirname(filePath);
         const dirname = path.basename(dirpath);
-        const basename = path.basename(filePath).replace('.html', '');
+        const basename = path.basename(filePath).replace('.html', '').toLowerCase().split(' ').join('-');
 
         if (ext === '.html') {
             try {
@@ -232,7 +233,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         try {
             let newDir;
             const files = await readdir(dir);
-            const subDirectoryPath = `${dir.replace(`${inputDir}`, '')}`;
+            const subDirectoryPath = `${dir.replace(`${inputDir}`, '')}`.toLowerCase().split(' ').join('-');
 
             newDir = `${outDirPath}/docs/${subDirectoryPath}`;
 
@@ -267,7 +268,9 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
 
                         json = {};
                         traverseDirectory(inputDir, json, links).then(() => {
-                            const jsonStr = JSON.stringify(recurse(json), null, 4);
+                            const dirJson = recurse(json);
+                            console.log(dirJson);
+                            const jsonStr = JSON.stringify(dirJson, null, 4);
                             if (jsonStr) {
                                 writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
                                     console.log('Done');

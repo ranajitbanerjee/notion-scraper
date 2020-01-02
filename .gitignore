@@ -8,6 +8,8 @@ node_modules
 # - Do not commit any log file from anywhere
 *.log
 
+src/notion-docs/*
+
 # - Prevent addition of OS specific file explorer files
 Thumbs.db
 .DS_Store

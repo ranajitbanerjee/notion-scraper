@@ -186,12 +186,13 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         const ext = path.extname(filePath);
         const dirpath = path.dirname(filePath);
         const dirname = path.basename(dirpath);
-        const basename = path.basename(filePath).replace('.html', '').toLowerCase().split(' ').join('-');
+        const basename = path.basename(filePath).replace('.html', '');
+        const lowerCaseHyphenatedBaseName = basename.toLowerCase().split(' ').join('-');
 
         if (ext === '.html') {
             try {
                 const { html, hasLinks, links } = await sanitizeHtml(filePath);
-                const newFilePath = `${outDir}/${basename}.html`;
+                const newFilePath = `${outDir}/${lowerCaseHyphenatedBaseName}.html`;
                 !hasLinks && await writeFile(newFilePath, html);
                 // console.log(linksOrder);
                 if (rootDirName === dirname) {

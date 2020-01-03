@@ -73,6 +73,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
     const rootDirName = path.basename(inputDir);
     let rootDirPath = inputDir;
     const pagesMap = {};
+    const pageLinksMap = {};
 
     const santizeElement = (elem) => {
         const textContent = elem.text();
@@ -140,16 +141,20 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
     const resolveRelativeLinks = ($, filePath) => {
         $('a').each(function () {
             const href = $(this).attr('href');
+            const fileName = path.basename(href).replace('.html', '').replace('%20', '-').toLowerCase();
+            const currentPath = path.dirname(filePath);
+            // if (fileName === )
             if (/notion\.so/g.test(href)) {
                 const hash = href.substring(href.lastIndexOf('-') + 1);
                 const [id, hashStr] = hash.split('#');
                 if (pagesMap[id]) {
-                    const newPath = path.dirname(filePath);
-                    const relativePath = path.relative(newPath, pagesMap[id]);
+                    const relativePath = path.relative(currentPath, pagesMap[id]);
 
                     const withHash = hashStr ? `#${hyphenate(hashStr)}` : '';
                     $(this).attr('href', `${relativePath}${withHash}`);
                 }
+            } else if (pageLinksMap[fileName]) {
+                $(this).attr('href', path.relative(currentPath, pageLinksMap[fileName]));
             }
         });
     };
@@ -200,7 +205,6 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                     // rootDirPath = `${inputDir}/${basename}`;
                     await traverseDirectory(filePath.replace('.html', ''), jsonObj, links);
                 } else {
-
                     if (hasLinks) {
                         jsonObj[basename] = {
                             subPages: {},
@@ -209,6 +213,8 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                         };
                         await traverseDirectory(filePath.replace('.html', ''), jsonObj[basename].subPages, links);
                     } else {
+                        // console.log(pageLinksMap);
+                        pageLinksMap[lowerCaseHyphenatedBaseName] = newFilePath;
                         if (!jsonObj[basename]) {
                             jsonObj[basename] = {
                                 title: basename,
@@ -224,13 +230,6 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         }
     }
 
-    async function processFiles (files, dir, outDir, jsonObj, linkTitles) {
-        return await Promise.all(files.map(async file => {
-            const filePath = path.resolve(dir, file);
-            return await sanitizeFile(filePath, outDir, jsonObj, linkTitles);
-        }));
-    }
-
     async function traverseDirectory (dir, jsonObj = {}, linkTitles = {}) {
         try {
             let newDir;
@@ -241,7 +240,10 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
 
             !existsSync(newDir) && await mkdir(newDir);
             // console.log(linkTitles);
-            await processFiles(files, dir, newDir, jsonObj, linkTitles);
+            await Promise.all(files.map(async file => {
+                const filePath = path.resolve(dir, file);
+                return await sanitizeFile(filePath, newDir, jsonObj, linkTitles);
+            }));
         }  catch (e) {
             throw new Error(e);
         }
@@ -271,8 +273,8 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                         json = {};
                         traverseDirectory(inputDir, json, links).then(() => {
                             const dirJson = recurse(json);
-                            console.log(dirJson);
                             const jsonStr = JSON.stringify(dirJson, null, 4);
+                            // util.inspect(pageLinksMap, { showHidden: false, depth: null });
                             if (jsonStr) {
                                 writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
                                     console.log('Done');

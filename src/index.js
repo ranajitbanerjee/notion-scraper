@@ -154,7 +154,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         });
     };
 
-    const sanitizeHtml = filePath => new Promise((res, rej) => {
+    const sanitizeHtml = (filePath, outFilePath) => new Promise((res, rej) => {
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) throw rej(err);
             const $ = cheerio.load(data);
@@ -166,7 +166,8 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                 const href = html.find('a').attr('href');
                 const name = path.basename(href).replace('.html', '').replace(/%20/g, ' ');
                 linkNames[name] = i;
-                pagesMap[id.replace(/-/g, '')] =  `${filePath.replace('.html', '')}/${name}.html`;
+                pagesMap[id.replace(/-/g, '')] =
+                    `${outFilePath.replace('.html', '')}/${name.toLowerCase().split(' ').join('-')}.html`;
             });
 
             removeTableIds($);
@@ -191,8 +192,8 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
 
         if (ext === '.html') {
             try {
-                const { html, hasLinks, links } = await sanitizeHtml(filePath);
                 const newFilePath = `${outDir}/${lowerCaseHyphenatedBaseName}.html`;
+                const { html, hasLinks, links } = await sanitizeHtml(filePath, newFilePath);
                 !hasLinks && await writeFile(newFilePath, html);
                 // console.log(linksOrder);
                 if (rootDirName === dirname) {
@@ -257,7 +258,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             const extname = path.extname(filePath);
             if (extname === '.html') {
                 const fullPath = path.resolve(inputDir, filePath);
-                const { hasLinks, links } = await sanitizeHtml(fullPath);
+                const { hasLinks, links } = await sanitizeHtml(fullPath, fullPath);
 
                 if (hasLinks) {
                     inputDir = fullPath.replace('.html', '');

@@ -14,24 +14,6 @@ const TABLE_ID = '__id';
 const PAGE_LINK_CLASS = '.link-to-page';
 const CODE_PEN_HEIGHT = 600;
 
-const recurse = (obj) => {
-    const subPages = [];
-    for (let key in obj) {
-        if (obj[key].subPages) {
-            const childPages = recurse(obj[key].subPages);
-            subPages.push({
-                title: key,
-                subPages: childPages,
-                path: obj[key].path.toLowerCase().split(' ').join('-'),
-                order: obj[key].order
-            });
-        } else {
-            obj[key].path = obj[key].path.toLowerCase().split(' ').join('-');
-            subPages.push(obj[key]);
-        }
-    }
-    return subPages.sort((a, b) => a.order - b.order);
-};
 const createExamplesJson = (examplesFile, outDirPath) => {
     fs.readFile(examplesFile, 'utf8', (err, data) => {
         if (err) throw rej(err);
@@ -59,7 +41,7 @@ const createExamplesJson = (examplesFile, outDirPath) => {
         // console.log(json);
         const jsonStr = JSON.stringify(json, null, 4);
         writeFile(`${outDirPath}/examples.json`, jsonStr).then(() => {
-            // console.log('Done');
+            console.log('Examples json file created');
         });
     });
 };
@@ -70,8 +52,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
     outDirPath = path.resolve(outDirPath);
     const examplesFile = `${inputDir}/examples.html`;
     inputDir = `${inputDir}/docs`;
-    const rootDirName = path.basename(inputDir);
-    let rootDirPath = inputDir;
+    const outDocsDir = `${outDirPath}/docs`;
     const pagesMap = {};
     const pageLinksMap = {};
 
@@ -85,7 +66,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         return null;
     };
 
-    const fetchLinks = (links, res, retryCount, filePath) => {
+    const fetchLinks = (links, res, retryCount) => {
         const promises = [];
 
         links.forEach((link) => {
@@ -98,22 +79,21 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         Promise.all(promises).then((results) => {
             const fails = results.filter(d => d.type === 'fail');
             if (fails.length && retryCount > 0) {
-                // console.log(fails, results.length, filePath);
-                fetchLinks(fails.map(d => d.elem), res, retryCount - 1, filePath);
+                fetchLinks(fails.map(d => d.elem), res, retryCount - 1);
             } else {
                 res(true);
             }
         });
     };
 
-    const normalizeCodeBlocks = ($, filePath) => {
+    const normalizeCodeBlocks = ($) => {
         return new Promise((res, rej) => {
             const links = [];
 
             $('a').each(function () {
                 links.push($(this));
             });
-            fetchLinks(links, res, 5, filePath);
+            fetchLinks(links, res, 5);
         });
     };
 
@@ -143,7 +123,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             const href = $(this).attr('href');
             const fileName = path.basename(href).replace('.html', '').replace('%20', '-').toLowerCase();
             const currentPath = path.dirname(filePath);
-            // if (fileName === )
+
             if (/notion\.so/g.test(href)) {
                 const hash = href.substring(href.lastIndexOf('-') + 1);
                 const [id, hashStr] = hash.split('#');
@@ -159,130 +139,139 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         });
     };
 
-    const sanitizeHtml = (filePath, outFilePath) => new Promise((res, rej) => {
-        fs.readFile(filePath, 'utf8', (err, data) => {
-            if (err) throw rej(err);
-            const $ = cheerio.load(data);
-            const links = $(PAGE_LINK_CLASS);
-            const linkNames = {};
-            links.each(function (i) {
-                const html = $(this);
-                const id = html.attr('id');
-                const href = html.find('a').attr('href');
-                const name = path.basename(href).replace('.html', '').replace(/%20/g, ' ');
-                linkNames[name] = i;
-                pagesMap[id.replace(/-/g, '')] =
-                    `${outFilePath.replace('.html', '')}/${name.toLowerCase().split(' ').join('-')}.html`;
-            });
+    const createPagesMap = (data, outFilePath) => {
+        const $ = cheerio.load(data);
+        const links = $(PAGE_LINK_CLASS);
+        const linkNames = {};
 
-            removeTableIds($);
-            resolveRelativeLinks($, filePath);
-            addHighLightJSResources($);
-            normalizeCodeBlocks($, filePath).then(() => {
-                res({
-                    html: $.html(),
-                    hasLinks: !!links.length,
-                    links: linkNames
-                });
+        links.each(function (i) {
+            const html = $(this);
+            const id = html.attr('id');
+            const href = html.find('a').attr('href');
+            const name = path.basename(href).replace('.html', '').replace(/%20/g, ' ');
+            linkNames[name] = i;
+            pagesMap[id.replace(/-/g, '')] =
+                `${outFilePath.replace('.html', '')}/${name.toLowerCase().split(' ').join('-')}.html`;
+        });
+        return {
+            hasLinks: !!links.length,
+            links: linkNames
+        };
+    };
+
+    const sanitizeHtml = (data, filePath) => new Promise((res, rej) => {
+        const $ = cheerio.load(data);
+
+        removeTableIds($);
+        resolveRelativeLinks($, filePath);
+        addHighLightJSResources($);
+        normalizeCodeBlocks($).then(() => {
+            res({
+                html: $.html()
             });
         });
     });
 
-    async function sanitizeFile (filePath, outDir, jsonObj, linksOrder = {}) {
-        const ext = path.extname(filePath);
-        const dirpath = path.dirname(filePath);
-        const dirname = path.basename(dirpath);
-        const basename = path.basename(filePath).replace('.html', '');
-        const lowerCaseHyphenatedBaseName = basename.toLowerCase().split(' ').join('-');
+    const readFile = (filePath) => new Promise((res, rej) => {
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) throw rej(err);
+            res(data);
+        });
+    });
 
-        if (ext === '.html') {
-            try {
+    async function traverseDirectory (dir, linksOrder = {}) {
+        const files = await readdir(dir);
+        const subDirectoryPath = `${dir.replace(`${inputDir}`, '')}`.toLowerCase().split(' ').join('-');
+        const outDir = `${outDocsDir}${subDirectoryPath}`;
+        const subPages = [];
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const extname = path.extname(file);
+            if (extname === '.html') {
+                const filePath = path.resolve(dir, file);
+                const basename = path.basename(filePath).replace('.html', '');
+                const lowerCaseHyphenatedBaseName = basename.toLowerCase().split(' ').join('-');
                 const newFilePath = `${outDir}/${lowerCaseHyphenatedBaseName}.html`;
-                const { html, hasLinks, links } = await sanitizeHtml(filePath, newFilePath);
-                !hasLinks && await writeFile(newFilePath, html);
-                // console.log(linksOrder);
-                if (rootDirName === dirname) {
-                    // rootDirPath = `${inputDir}/${basename}`;
-                    await traverseDirectory(filePath.replace('.html', ''), jsonObj, links);
+                const data = await readFile(filePath);
+                const { hasLinks, links } = createPagesMap(data, newFilePath);
+
+                if (hasLinks) {
+                    const pages = await traverseDirectory(filePath.replace('.html', ''), links);
+                    subPages.push({
+                        title: basename,
+                        path: newFilePath.replace(outDocsDir, '.'),
+                        sourcePath: filePath,
+                        absolutePath: newFilePath,
+                        order: linksOrder[basename],
+                        subPages: pages
+                    });
+
                 } else {
-                    if (hasLinks) {
-                        jsonObj[basename] = {
-                            subPages: {},
-                            path: filePath.replace(rootDirPath, '.'),
-                            order: linksOrder[basename]
-                        };
-                        await traverseDirectory(filePath.replace('.html', ''), jsonObj[basename].subPages, links);
-                    } else {
-                        // console.log(pageLinksMap);
-                        pageLinksMap[lowerCaseHyphenatedBaseName] = newFilePath;
-                        if (!jsonObj[basename]) {
-                            jsonObj[basename] = {
-                                title: basename,
-                                path: filePath.replace(rootDirPath, '.'),
-                                order: linksOrder[basename]
-                            };
-                        }
-                    }
+                    pageLinksMap[lowerCaseHyphenatedBaseName] = newFilePath;
+                    subPages.push({
+                        title: basename,
+                        path: newFilePath.replace(outDocsDir, '.'),
+                        sourcePath: filePath,
+                        absolutePath: newFilePath,
+                        order: linksOrder[basename]
+                    });
                 }
-            } catch (e) {
-                throw new Error(e);
             }
         }
-    }
-
-    async function traverseDirectory (dir, jsonObj = {}, linkTitles = {}) {
-        try {
-            let newDir;
-            const files = await readdir(dir);
-            const subDirectoryPath = `${dir.replace(`${inputDir}`, '')}`.toLowerCase().split(' ').join('-');
-
-            newDir = `${outDirPath}/docs/${subDirectoryPath}`;
-
-            !existsSync(newDir) && await mkdir(newDir);
-            // console.log(linkTitles);
-            await Promise.all(files.map(async file => {
-                const filePath = path.resolve(dir, file);
-                return await sanitizeFile(filePath, newDir, jsonObj, linkTitles);
-            }));
-        }  catch (e) {
-            throw new Error(e);
-        }
+        return subPages.sort((a, b) => a.order - b.order);
     }
 
     removeDir(outDirPath);
-    mkdirSync(`${outDirPath}`);
+    mkdirSync(outDirPath);
+    mkdirSync(outDocsDir);
 
-    let json = {};
+    async function createFiles (files) {
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (file.subPages) {
+                await mkdir(file.absolutePath.replace('.html', ''));
+                await createFiles(file.subPages);
+            } else {
+                const { sourcePath, absolutePath } = file;
+                const data = await readFile(sourcePath);
+                const { html } = await sanitizeHtml(data, sourcePath);
+                await writeFile(absolutePath, html);
+            }
+
+            delete file.sourcePath;
+            delete file.absolutePath;
+            delete file.order;
+        }
+    };
+
     async function createDocs () {
+        console.log('Generating docs...');
+
         const files = readdirSync(inputDir);
         for (let i = 0; i < files.length; i++) {
             const filePath = files[i];
             const extname = path.extname(filePath);
             if (extname === '.html') {
                 const fullPath = path.resolve(inputDir, filePath);
-                const { hasLinks, links } = await sanitizeHtml(fullPath, fullPath);
+                const data = await readFile(fullPath);
+                const { hasLinks, links } = createPagesMap(data, fullPath);
 
                 if (hasLinks) {
                     inputDir = fullPath.replace('.html', '');
                     rootDirPath = inputDir;
-                    // console.log(links);
-                    traverseDirectory(inputDir, json, {}, links).then(() => {
-                        removeDir(outDirPath);
-                        mkdirSync(`${outDirPath}`);
+                    traverseDirectory(inputDir, links).then(async (data) => {
 
-                        json = {};
-                        traverseDirectory(inputDir, json, links).then(() => {
-                            const dirJson = recurse(json);
-                            const jsonStr = JSON.stringify(dirJson, null, 4);
-                            // util.inspect(pageLinksMap, { showHidden: false, depth: null });
-                            if (jsonStr) {
-                                writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
-                                    console.log('Done');
-                                });
+                        await createFiles(data);
+                        console.log('Docs generation done');
 
-                                createExamplesJson(examplesFile, outDirPath);
-                            }
-                        });
+                        const jsonStr = JSON.stringify(data, null, 4);
+                        if (jsonStr) {
+                            writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
+                                console.log('Page links file created');
+                            });
+                        }
+                        existsSync(examplesFile) && createExamplesJson(examplesFile, outDirPath);
                     });
                     break;
                 }

@@ -15,7 +15,7 @@ function tryParseJSON (jsonString) {
 }
 
 module.exports = (url, elem, themeId) => new Promise((res, rej) => {
-    https.get(url, (resp) => {
+    const req = https.get(url, (resp) => {
         let data = '';
         resp.on('data', (chunk) => {
             data += chunk;
@@ -34,5 +34,8 @@ module.exports = (url, elem, themeId) => new Promise((res, rej) => {
                 res({ type: 'fail', elem, url });
             }
         });
+    });
+    req.on('error', (e) => {
+        console.log('Codepen error', e);
     });
 });

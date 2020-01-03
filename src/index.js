@@ -119,6 +119,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
     };
 
     const resolveRelativeLinks = ($, filePath) => {
+        let flag = false;
         $('a').each(function () {
             const href = $(this).attr('href');
             const fileName = path.basename(href).replace('.html', '').replace('%20', '-').toLowerCase();
@@ -134,15 +135,25 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                     $(this).attr('href', `${relativePath}${withHash}`);
                 }
             } else if (pageLinksMap[fileName]) {
+
+                // console.log(currentPath, pageLinksMap[fileName])
+                const relPath = path.relative(currentPath, pageLinksMap[fileName]);
+                if (relPath === 'legend-configuration.html') {
+                    console.log(relPath);
+                    flag = true;
+                }
                 $(this).attr('href', path.relative(currentPath, pageLinksMap[fileName]));
+
             }
         });
+        return flag;
     };
 
     const createPagesMap = (data, outFilePath) => {
         const $ = cheerio.load(data);
         const links = $(PAGE_LINK_CLASS);
         const linkNames = {};
+        const title = $('title').text();
 
         links.each(function (i) {
             const html = $(this);
@@ -155,7 +166,8 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         });
         return {
             hasLinks: !!links.length,
-            links: linkNames
+            links: linkNames,
+            title
         };
     };
 
@@ -163,11 +175,12 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         const $ = cheerio.load(data);
 
         removeTableIds($);
-        resolveRelativeLinks($, filePath);
+        const flag = resolveRelativeLinks($, filePath);
         addHighLightJSResources($);
         normalizeCodeBlocks($).then(() => {
             res({
-                html: $.html()
+                html: $.html(),
+                flag
             });
         });
     });
@@ -194,12 +207,12 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                 const lowerCaseHyphenatedBaseName = basename.toLowerCase().split(' ').join('-');
                 const newFilePath = `${outDir}/${lowerCaseHyphenatedBaseName}.html`;
                 const data = await readFile(filePath);
-                const { hasLinks, links } = createPagesMap(data, newFilePath);
+                const { hasLinks, links, title } = createPagesMap(data, newFilePath);
 
                 if (hasLinks) {
                     const pages = await traverseDirectory(filePath.replace('.html', ''), links);
                     subPages.push({
-                        title: basename,
+                        title,
                         path: newFilePath.replace(outDocsDir, '.'),
                         sourcePath: filePath,
                         absolutePath: newFilePath,
@@ -210,7 +223,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                 } else {
                     pageLinksMap[lowerCaseHyphenatedBaseName] = newFilePath;
                     subPages.push({
-                        title: basename,
+                        title,
                         path: newFilePath.replace(outDocsDir, '.'),
                         sourcePath: filePath,
                         absolutePath: newFilePath,
@@ -235,7 +248,10 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             } else {
                 const { sourcePath, absolutePath } = file;
                 const data = await readFile(sourcePath);
-                const { html } = await sanitizeHtml(data, sourcePath);
+                const { html, flag } = await sanitizeHtml(data, absolutePath);
+                if (flag === true) {
+                    console.log('html', html);
+                }
                 await writeFile(absolutePath, html);
             }
 

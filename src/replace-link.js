@@ -36,6 +36,6 @@ module.exports = (url, elem, themeId) => new Promise((res, rej) => {
         });
     });
     req.on('error', (e) => {
-        console.log('Codepen error', e);
+        res({ type: 'fail', elem, url });
     });
 });

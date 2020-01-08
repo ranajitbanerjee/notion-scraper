@@ -119,13 +119,21 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             str.substring(16, 20), str.substring(20, 32)].join('-')
     };
 
-    const resolveRelativeLinks = ($, filePath) => {
+    const resolveRelativeLinks = ($, destFilePath, sourceFilePath) => {
         let flag = false;
         $('a').each(function () {
             const href = $(this).attr('href');
             const fileName = path.basename(href).replace('.html', '').replace('%20', '-').toLowerCase();
-            const currentPath = path.dirname(filePath);
+            const currentPath = path.dirname(destFilePath);
+            // const sourceDir = path.dirname(sourceDir);
+            const destFileName = path.basename(destFilePath).replace('.html', '');
+            const sourceFileName = path.basename(sourceFilePath).replace('.html', '').replace(/\s/g, '%20');
+            const sourcePathInLink = new RegExp(sourceFileName).test(href) && !href.startsWith('https://') &&
+                !href.startsWith('http://');
 
+            if (/Interaction/.test(sourceFileName)) {
+                console.log(sourceFileName);
+            }
             if (/notion\.so/g.test(href)) {
                 const hash = href.substring(href.lastIndexOf('-') + 1);
                 const [id, hashStr] = hash.split('#');
@@ -140,7 +148,14 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                 // console.log(currentPath, pageLinksMap[fileName])
                 // const relPath = path.relative(currentPath, pageLinksMap[fileName]);
                 $(this).attr('href', path.relative(currentPath, pageLinksMap[fileName]));
-
+            } else if (sourcePathInLink) {
+                // console.log(sourcePathInLink, sourceFileName, href, destFileName);
+                $(this).attr('href', href.replace(sourceFileName, destFileName));
+                const imgs = $(this).find('img');
+                imgs.each(function () {
+                    const src = $(this).attr('src');
+                    $(this).attr('src', src.replace(sourceFileName, destFileName));
+                });
             }
         });
         return flag;
@@ -168,11 +183,11 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         };
     };
 
-    const sanitizeHtml = (data, filePath) => new Promise((res, rej) => {
+    const sanitizeHtml = (data, destFilePath, sourceFilePath) => new Promise((res, rej) => {
         const $ = cheerio.load(data);
 
         removeTableIds($);
-        const flag = resolveRelativeLinks($, filePath);
+        const flag = resolveRelativeLinks($, destFilePath, sourceFilePath);
         addHighLightJSResources($);
         normalizeCodeBlocks($).then(() => {
             res({
@@ -245,13 +260,13 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             } else {
                 const { sourcePath, absolutePath } = file;
                 const data = await readFile(sourcePath);
-                const { html } = await sanitizeHtml(data, absolutePath);
+                const { html } = await sanitizeHtml(data, absolutePath, sourcePath);
                 await writeFile(absolutePath, html);
                 const filename = path.basename(sourcePath).replace('.html', '');
                 const pageResourcesDir = `${path.dirname(sourcePath)}/${filename}`
                 if (existsSync(pageResourcesDir)) {
                     // console.log(pageResourcesDir);
-                    const destDir = `${path.dirname(absolutePath)}/${filename}`;
+                    const destDir = `${path.dirname(absolutePath)}/${path.basename(absolutePath).replace('.html', '')}`;
                     const resources = await readdir(pageResourcesDir);
                     const filesToWrite = [];
                     resources.forEach((resource) => {

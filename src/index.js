@@ -39,21 +39,23 @@ const createExamplesJson = (examplesFile, outDirPath) => {
                 });
 
         });
-        // console.log(json);
         const jsonStr = JSON.stringify(json, null, 4);
         writeFile(`${outDirPath}/examples.json`, jsonStr).then(() => {
             console.log('Examples json file created');
-        });
+        })
+        .catch(err => console.log('Error in examples json file creation: ', err));
     });
 };
 
-module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT, POSTMATEJS_PATH, LOCAL_POST_BODY_SCRIPT, themeId }) => {
+module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT, POSTMATEJS_PATH, LOCAL_POST_BODY_SCRIPT, themeId, LATEST_VERSION }) => {
     inputDir = path.resolve(inputDir);
     outDirPath = outDirPath || `${inputDir}/out`;
+    outDirPath = `${outDirPath}/${LATEST_VERSION}` || `${inputDir}/out/${LATEST_VERSION}`;
     outDirPath = path.resolve(outDirPath);
     const examplesFile = `${inputDir}/examples.html`;
     inputDir = `${inputDir}/docs`;
-    const outDocsDir = `${outDirPath}/docs`;
+    const outPageDirPath = `${outDirPath}/pages`;
+    const outExampleDirPath = `${outDirPath}/examples`;
     const pagesMap = {};
     const pageLinksMap = {};
 
@@ -207,7 +209,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
     async function traverseDirectory (dir, linksOrder = {}) {
         const files = await readdir(dir);
         const subDirectoryPath = `${dir.replace(`${inputDir}`, '')}`.toLowerCase().split(' ').join('-');
-        const outDir = `${outDocsDir}${subDirectoryPath}`;
+        const outDir = `${outPageDirPath}${subDirectoryPath}`;
         const subPages = [];
 
         for (let i = 0; i < files.length; i++) {
@@ -225,7 +227,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                     const pages = await traverseDirectory(filePath.replace('.html', ''), links);
                     subPages.push({
                         title,
-                        path: newFilePath.replace(outDocsDir, '.'),
+                        path: newFilePath.replace(outPageDirPath, '.'),
                         sourcePath: filePath,
                         absolutePath: newFilePath,
                         order: linksOrder[basename],
@@ -236,7 +238,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
                     pageLinksMap[lowerCaseHyphenatedBaseName] = newFilePath;
                     subPages.push({
                         title,
-                        path: newFilePath.replace(outDocsDir, '.'),
+                        path: newFilePath.replace(outPageDirPath, '.'),
                         sourcePath: filePath,
                         absolutePath: newFilePath,
                         order: linksOrder[basename]
@@ -249,7 +251,8 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
 
     removeDir(outDirPath);
     mkdirSync(outDirPath);
-    mkdirSync(outDocsDir);
+    mkdirSync(outPageDirPath);
+    mkdirSync(outExampleDirPath);
 
     async function createFiles (files) {
         for (let i = 0; i < files.length; i++) {
@@ -313,11 +316,13 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
 
                         const jsonStr = JSON.stringify(data, null, 4);
                         if (jsonStr) {
-                            writeFile(`${outDirPath}/page-links.json`, jsonStr).then(() => {
+                            writeFile(`${outPageDirPath}/page-links.json`, jsonStr).then(() => {
                                 console.log('Page links file created');
+                            }).catch((err) => {
+                                console.log('Failed at Page Links Creation', err);
                             });
                         }
-                        existsSync(examplesFile) && createExamplesJson(examplesFile, outDirPath);
+                        existsSync(examplesFile) && createExamplesJson(examplesFile, outExampleDirPath);
                     });
                     break;
                 }

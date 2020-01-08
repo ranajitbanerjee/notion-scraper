@@ -8,6 +8,7 @@ const readdirSync = fs.readdirSync;
 const mkdir = util.promisify(fs.mkdir);
 const readdir = util.promisify(fs.readdir);
 const writeFile = util.promisify(fs.writeFile);
+const fsExtra = require('fs-extra');
 const removeDir = require('./dir-remove');
 const replaceLink = require('./replace-link');
 const TABLE_ID = '__id';
@@ -137,11 +138,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             } else if (pageLinksMap[fileName]) {
 
                 // console.log(currentPath, pageLinksMap[fileName])
-                const relPath = path.relative(currentPath, pageLinksMap[fileName]);
-                if (relPath === 'legend-configuration.html') {
-                    console.log(relPath);
-                    flag = true;
-                }
+                // const relPath = path.relative(currentPath, pageLinksMap[fileName]);
                 $(this).attr('href', path.relative(currentPath, pageLinksMap[fileName]));
 
             }
@@ -248,11 +245,29 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             } else {
                 const { sourcePath, absolutePath } = file;
                 const data = await readFile(sourcePath);
-                const { html, flag } = await sanitizeHtml(data, absolutePath);
-                if (flag === true) {
-                    console.log('html', html);
-                }
+                const { html } = await sanitizeHtml(data, absolutePath);
                 await writeFile(absolutePath, html);
+                const filename = path.basename(sourcePath).replace('.html', '');
+                const pageResourcesDir = `${path.dirname(sourcePath)}/${filename}`
+                if (existsSync(pageResourcesDir)) {
+                    // console.log(pageResourcesDir);
+                    const destDir = `${path.dirname(absolutePath)}/${filename}`;
+                    const resources = await readdir(pageResourcesDir);
+                    const filesToWrite = [];
+                    resources.forEach((resource) => {
+                        const extname = path.extname(resource);
+                        const resourceName = path.basename(resource);
+                        if (extname.length && extname !== '.html') {
+                            filesToWrite.push([`${pageResourcesDir}/${resourceName}`, `${destDir}/${resourceName}`]);
+                        }
+                    });
+                    if (filesToWrite.length) {
+                        await mkdir(destDir);
+                        filesToWrite.forEach(async ([source, dest]) => {
+                            await fsExtra.copy(source, dest);
+                        });
+                    }
+                }
             }
 
             delete file.sourcePath;

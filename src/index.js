@@ -131,9 +131,6 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             const sourcePathInLink = new RegExp(sourceFileName).test(href) && !href.startsWith('https://') &&
                 !href.startsWith('http://');
 
-            if (/Interaction/.test(sourceFileName)) {
-                console.log(sourceFileName);
-            }
             if (/notion\.so/g.test(href)) {
                 const hash = href.substring(href.lastIndexOf('-') + 1);
                 const [id, hashStr] = hash.split('#');

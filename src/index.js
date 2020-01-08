@@ -47,7 +47,7 @@ const createExamplesJson = (examplesFile, outDirPath) => {
     });
 };
 
-module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT, POSTMATEJS_PATH, themeId }) => {
+module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT, POSTMATEJS_PATH, LOCAL_POST_BODY_SCRIPT, themeId }) => {
     inputDir = path.resolve(inputDir);
     outDirPath = outDirPath || `${inputDir}/out`;
     outDirPath = path.resolve(outDirPath);
@@ -108,15 +108,13 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
     const addHighLightJSResources = ($) => {
         const cssList = fs.readdirSync(path.resolve(LOCAL_CSS));
         const scriptList = fs.readdirSync(path.resolve(LOCAL_SCRIPT));
+        const postBodyScripts = fs.readdirSync(path.resolve(LOCAL_POST_BODY_SCRIPT));
 
         cssList.forEach(css => $('head').append(`<link rel="stylesheet" href="${IFRAME_ASSETS_PATH}/css/${css}">`));
         scriptList.forEach(js => $('head').append(`<script src="${IFRAME_ASSETS_PATH}/js/${js}"></script>`));
-        scriptList.forEach(js => $('body').after('<script>hljs.initHighlightingOnLoad();</script>'));
-    };
-
-    const addPostMateScript = ($) => {
         $('head').append(`<script src="${POSTMATEJS_PATH}"></script>`);
-        $('body').after(`<script src="${IFRAME_ASSETS_PATH}/js/postmate.js"></script>`);
+        postBodyScripts.forEach(js => $('body').after(`<script src="${IFRAME_ASSETS_PATH}/js/${js}"></script>`))
+        $('body').after('<script>hljs.initHighlightingOnLoad();</script>');
     };
 
     const hyphenate = (str) => {
@@ -191,7 +189,6 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         removeTableIds($);
         const flag = resolveRelativeLinks($, destFilePath, sourceFilePath);
         addHighLightJSResources($);
-        addPostMateScript($)
         normalizeCodeBlocks($).then(() => {
             res({
                 html: $.html(),

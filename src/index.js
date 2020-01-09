@@ -47,7 +47,7 @@ const createExamplesJson = (examplesFile, outDirPath) => {
     });
 };
 
-module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT, POSTMATEJS_PATH, LOCAL_POST_BODY_SCRIPT, themeId, LATEST_VERSION }) => {
+module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_SCRIPT, LOCAL_POST_BODY_SCRIPT, themeId, LATEST_VERSION }) => {
     inputDir = path.resolve(inputDir);
     outDirPath = outDirPath || `${inputDir}/out`;
     outDirPath = `${outDirPath}/${LATEST_VERSION}` || `${inputDir}/out/${LATEST_VERSION}`;
@@ -114,7 +114,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
 
         cssList.forEach(css => $('head').append(`<link rel="stylesheet" href="${IFRAME_ASSETS_PATH}/css/${css}">`));
         scriptList.forEach(js => $('head').append(`<script src="${IFRAME_ASSETS_PATH}/js/${js}"></script>`));
-        $('head').append(`<script src="${POSTMATEJS_PATH}"></script>`);
+        $('head').append(`<script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script>`);
         postBodyScripts.forEach(js => $('body').after(`<script src="${IFRAME_ASSETS_PATH}/js/${js}"></script>`))
         $('body').after('<script>hljs.initHighlightingOnLoad();</script>');
     };

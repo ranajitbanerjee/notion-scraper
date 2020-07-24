@@ -1,0 +1,656 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Introducing Muze</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4223fff1-ef50-43df-b55f-78434fb6d524" class="page sans"><header><h1 class="page-title"><strong>Introducing Muze</strong></h1></header><div class="page-body"><p id="44e05ea0-4030-47bd-a8de-6de86a35a541" class=""><strong>Table of Contents</strong><div class="indented"><nav id="3e071316-e9b8-4d2c-801a-8ad03923fdd2" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b6445cee-05c8-4adb-896f-e84d75e6edb3"><strong>What is Muze?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#eda2af4e-f292-4184-8cd3-381261862797"><strong>Understanding how Muze works</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a396bb1e-2871-4089-818a-8ac80d8f68f5"><strong>What can you achieve with Muze?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a3c985d7-e3f0-4532-a93b-5b9b297c16b9"><strong>Creating our First Visualization</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3d6cb4d9-4e24-40b3-8025-f04a671ad14a"><strong>Setting up the canvas dimensions</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c0e1f826-bdfb-43d4-bec8-69cee0bb64e5"><strong>Providing the data source</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ed899d73-5379-4e19-bcdb-437f8fd4cb20"><strong>Assigning fields to axes</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#93a9222b-53ff-4f59-bb05-1c21661bb300"><strong>Mount the visualization on a dom element</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b038c42e-cc7b-439c-b6ea-834252a149c7"><strong>Putting it all together</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#47cc1a80-6b8d-4b8c-b434-4850833df5d8"><strong>Using the environment</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f4dfcca8-8720-45c6-bb0c-15f12ecd4787"><strong>Wrapping up</strong></a></div></nav></div></p><hr id="7a00af8a-0cd2-491d-be36-b8f3f9c6c73d"/><h2 id="b6445cee-05c8-4adb-896f-e84d75e6edb3" class=""><strong>What is Muze?</strong></h2><p id="a0072581-02e4-478a-92ec-b5fb6c12ee61" class="">Muze is a data visualization library that uses an abstract version of <mark class="highlight-blue"><a href="https://byrneslab.net/classes/biol607/readings/wickham_layered-grammar.pdf">Layered Grammar of Graphics</a></mark> to create composable and interactive charts in JavaScript.</p><p id="dfd80f38-5f7f-4367-a7a1-140498116198" class="">Muze is composable which helps you to build custom charts without being constrained by the chart type support of vendor. If you want a line plot on top of a bar plot and call it bar-line plot, you can do that using Muze&#x27;s composability API.</p><p id="b399239c-c5eb-452d-b441-3c62113bd8ce" class="">Muze uses <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">DataModel</mark></a><mark class="highlight-blue"> </mark>and its operators to transform and feed data to various components, generating interactivity and drawing side effects, thus allowing the overriding of behaviors and/or interactions on the chart.</p><p id="ec86ed8f-66f5-4c5e-80e7-135428c03c2d" class="">Using Muze, you can easily compose complex and cross-connected charts, which work on desktops, tablets and mobile.</p><h2 id="eda2af4e-f292-4184-8cd3-381261862797" class=""><strong>Understanding how Muze works</strong></h2><p id="4aeb6af1-2570-464f-bea9-8aca4e86653f" class="">Muze consumes instance of <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">DataModel</mark></a> which serves as data source and transforms that data into visualizations by assigning fields from Datamodel to x-axes, y-axes, facets, color, shape, size axes, etc. These are called encodings.</p><p id="17dd0c62-da85-45fa-90dc-d63d0b6d3b82" class="">Next, layers are created for visualization based on the encodings. A Layer takes data and mark (ex: bar, line, area) and renders a visual representation of data using the mark.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="9b3146c3-a94e-45d4-8bf7-4264dccdf4ae"><div style="font-size:1.5em"><span class="icon">✅</span></div><div style="width:100%"><strong><mark class="highlight-teal">Note
+</mark></strong>X-axes, Y-axes and facets are called planer encodings. Color, shape and size are called retinal encodings. When we assign a field from <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">DataModel</mark></a> to different encodings, we say we are <em>assigning fields</em> to <em>encoding channels</em>.</div></figure><p id="5b54fcb3-c552-498b-8ca3-d138f0a0c0de" class="">Thereafter, layers are created for the visualization based on the encoding. A Layer takes the data and a mark (ex: bar, line, area) and renders a visual representation of the data using that mark.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="d0ad5e78-9d8c-474b-bbd8-62ff14f1d7fe"><div style="font-size:1.5em"><span class="icon">✅</span></div><div style="width:100%">Each layer gets data wich is just enough to render the layer properly using a mark. Thus you can assume
+<mark class="highlight-blue_background"><em> Layer = Data + Mark
+</em></mark>Marks are analogous to plot types.</div></figure><p id="90b671b9-f94a-405c-87d2-6ec3718db6a6" class="">
+</p><p id="1510dfa6-a71c-4fda-ab32-ffe62d3fbd9d" class="">All the charts which you have seen so far can be conceptualized in terms of layers. For a simple <em>bar chart</em>, there is only one layer with a bar mark. For a <em>multi series bar line chart</em> there are two layers with <em>bar</em> and <em>line mark</em> placed on top of another. A set of layers can be composed on top of each other, or side-by-side, each of them having a unified data source, thus enabling complex visualizations.</p><p id="f368dfeb-299b-4f9b-b7b5-94ed51b3b5fb" class="">Since each layer is controlled by the data and any interaction only affects the data, whenever such interaction occurs the relevant layers get affected automatically. Since all of the layers of other charts are also connected by a network of DataModels, every layer reacts to that change in data and adjusts its view accordingly. This enables charts that can seamlessly interact with one another. Checkout <a href="https://www.notion.so/charts/Establishing-Cross-Interaction-658fca8117bd4954abbc64163f49dd81"><mark class="highlight-blue">cross interaction</mark></a> for more details.</p><p id="f3668912-b92c-4225-87cf-7babeee6cb85" class="">Even if you are not very clear on how the above concepts work, don&#x27;t worry. We&#x27;ll be explaining the same concepts as and when required. Also, if you&#x27;re just looking to use the visualizations created by Muze, and not compose your own, head to the <a href="https://www.notion.so/charts/Tutorials-883f61598aa1470aad63dce5cffbc71b"><mark class="highlight-blue">tutorials section</mark></a><a href="https://www.notion.so/charts/Tutorials-883f61598aa1470aad63dce5cffbc71b"> </a>for quick start guides. However, in case you want a deep dive of the core concepts behind Muze, you may want to continue reading.</p><h2 id="a396bb1e-2871-4089-818a-8ac80d8f68f5" class=""><strong>What can you achieve with Muze?</strong></h2><ul id="7af750ec-d62f-46d3-83fa-74a454f48bf7" class="bulleted-list"><li>Muze provides atomic marks (analogous to plot / chart type) using which you can create layers<ul id="d4a8f6e4-b0a7-4e06-aeab-c8a601b32d7d" class="bulleted-list"><li>Bar</li></ul><ul id="6463eebd-241f-49e2-8e3f-23ab87d3c31a" class="bulleted-list"><li>Line</li></ul><ul id="c5485681-1ea8-45c1-a602-438adcdb6d2a" class="bulleted-list"><li>Area</li></ul><ul id="f9b17aca-e7a5-4457-8c00-dd53b92e0ec3" class="bulleted-list"><li>Text</li></ul><ul id="aed2ce01-8beb-4d31-aa66-3de7df0b9def" class="bulleted-list"><li>Point</li></ul><ul id="2759dbb7-8c10-43ea-ab52-fc33023cdb49" class="bulleted-list"><li>Tick</li></ul><ul id="7094da62-d3de-4837-a6d6-3828d6dedfd8" class="bulleted-list"><li>Arc</li></ul></li></ul><ul id="0162b913-8573-4ce0-a82e-5d0b9171b068" class="bulleted-list"><li>Supports higher level visualizations or constructs like these, out-of-the-box:<ul id="01b197a4-5e37-4d28-8323-3616d8df72f9" class="bulleted-list"><li>Crosstab</li></ul><ul id="7ec48f36-00c4-45bb-8cd1-28de52fba94a" class="bulleted-list"><li>SPLOM</li></ul><ul id="950e092c-23e9-4079-bd52-3e874e315806" class="bulleted-list"><li>Dual Axes</li></ul></li></ul><ul id="50f2686c-f27a-4083-a322-c8caa45f1ab1" class="bulleted-list"><li>Add retinal encodings like color, size and shape to create color, shape, size axes (analogous to legend)</li></ul><ul id="4b7fd087-8734-446e-928b-fd03e2e58e45" class="bulleted-list"><li>Composability: Layers can be composed to form complex visualization</li></ul><ul id="96e5d61c-1044-4435-97ef-b10cd1dd7777" class="bulleted-list"><li>Interactivity: Each layers react to data events automatically</li></ul><h2 id="a3c985d7-e3f0-4532-a93b-5b9b297c16b9" class=""><strong>Creating our First Visualization</strong></h2><p id="a8cbf70a-3227-4a84-ad39-b9a4ab8c4a02" class="">If you call the <code>muze</code> export as function, it creates an environment.</p><pre id="346dd8f5-3b7d-4fd1-bee4-3fc53f8d2a48" class="code"><code>const env = muze();</code></pre><p id="3035208b-2b41-47b7-99e1-5012f917bb97" class="">Environment is analogous to a space which stores the common settings. Any visualization created from the environment will automatically inherit those settings.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="29e44b3e-8d4e-415d-9143-912a87c6d9d6"><div style="font-size:1.5em"><span class="icon">✅</span></div><div style="width:100%"><mark class="highlight-teal"><strong>Environment is like JavaScript closure</strong></mark><mark class="highlight-teal">
+</mark>Environment is analogous to JavaScript closures. Just like in JavaScript, a function can have access to the state of any variable present in a closure, similarly all the canvases created from an environment have access to the properties set in the environment.</div></figure><p id="6f8bc72e-fb77-49b3-8483-5809093a6715" class="">Next, we will be asking an instance of <code>canvas</code> from the environment.</p><pre id="383eacae-8168-4750-ba93-c4f7ae257dab" class="code"><code>const canvas = env.canvas();</code></pre><p id="27011a91-2f49-4014-811b-b20167a81dde" class="">So far, <code>canvas</code> is just a blank page where the visualization will be housed. We will be calling the property functions of the <code>canvas</code> instance to create visualizations.</p><h3 id="3d6cb4d9-4e24-40b3-8025-f04a671ad14a" class=""><strong>Setting up the canvas dimensions</strong></h3><p id="62de5909-ca21-4a6a-8059-f33e9fd8ae2e" class="">You can specify <code>height</code> and <code>width</code> of the canvas you need in order to get the desired space to render the visualization. Although this is optional, if not passed, muze tries to get the dimension of rendering space from the dom element on which it will be mounted.</p><pre id="3dfe5d22-cf65-4dd7-bfcc-f6faf54a24e1" class="code"><code>canvas
+    .width(600)
+    .height(450)</code></pre><p id="7ac55eba-f2d8-44c4-a3fb-b51d5a4fa6ce" class="">We now have a blank canvas of size 600px * 450px.</p><h3 id="c0e1f826-bdfb-43d4-bec8-69cee0bb64e5" class=""><strong>Providing the data source</strong></h3><p id="79a1c5c5-7bc6-41e5-88c8-c0bf8c3711ac" class="">As mentioned earlier, Muze uses instance of <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">DataModel</mark></a> to render the charts.</p><p id="b43f2553-fed7-4f28-8824-f0253dbf2abd" class="">As explained in <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">DataModel</mark></a>, Muze also needs to know about the schema of your data, apart from just the data.</p><p id="83542807-9dcb-4619-b15f-4670b2ce2af8" class="">We&#x27;re going to use <a href="https://muzejs.org/data/cars.csv"><mark class="highlight-blue">cars.csv</mark></a> data for all the illustrations in the page.</p><pre id="96f9d8ca-8064-4a5d-9319-77444ec2c0a3" class="code"><code>const dm = new DataModel(data, schema); // creates datamodel from raw data
+canvas.data(dm) // feed data</code></pre><h3 id="ed899d73-5379-4e19-bcdb-437f8fd4cb20" class=""><strong>Assigning fields to axes</strong></h3><p id="87e3b1f2-bbdc-4368-b1b1-67bf0b46576a" class="">Here we will be telling the canvas which field to use to create the y axis (<code>rows</code>) and which field to use to create the x axis (<code>columns</code>) for visualization.</p><pre id="1c3965d1-6604-4b83-ad5a-7ce10f41ade2" class="code"><code>canvas
+    .rows([&#x27;Miles_per_Gallon&#x27;])
+    .columns([&#x27;Origin&#x27;])</code></pre><p id="22b8d795-29f2-415f-bb1a-250f9d452e1c" class="">You might wonder why the name of the api is <code>rows</code> or <code>columns</code> instead of <em>axes</em>. In practice, using <code>rows</code> and <code>columns</code> you can create starting from a simple unit visualization to a complex visualization layout. Head <a href="https://www.notion.so/charts/Rows-Columns-Layout-Variations-dd548c1fa2bc452eb28c0ce65a8c0bce"><mark class="highlight-blue">here</mark></a> to see different layout variations which <code>rows</code> and <code>columns</code> enables you to achieve.</p><h3 id="93a9222b-53ff-4f59-bb05-1c21661bb300" class=""><strong>Mount the visualization on a dom element</strong></h3><p id="f47d3aed-5fd1-4736-85f8-76ff315309f5" class="">The last and final step to create the visualization is to pass an dom element on which the visualization will be mounted. You can either pass an instance of <code>HTMLElement</code> or pass any css selectors like <code>.chart</code> or <code>#unique-chart-containter</code>.</p><pre id="102879e3-1fe8-4c36-8ef8-69cec6b365bd" class="code"><code>canvas.mount(&#x27;#chart&#x27;);</code></pre><h3 id="b038c42e-cc7b-439c-b6ea-834252a149c7" class=""><strong>Putting it all together</strong></h3><p id="1dd4b90e-9da1-4c86-984b-8d604e94bdad" class="">Combining the steps we have learned so far,</p><figure id="1200f6e0-5726-40ca-8e6c-8b8c87b196df"><div class="source"><a href="https://codepen.io/chartshq/pen/d9b46afd9804f4f77a199a45aebdb798">https://codepen.io/chartshq/pen/d9b46afd9804f4f77a199a45aebdb798</a></div></figure><p id="7dd5baed-5467-46a4-8c7b-10df1c79fc7b" class="">Notice here we haven&#x27;t mentioned chart type in our API. Muze by default understands which type of variable(s) (measure or dimension) that are plotted in x-axis and y-axis and based on that, it draws a suitable chart which you can override. The default mark (plot type) for a given combination is listed below</p><p id="75e3a2d8-8cf5-437d-bb85-fdd8955a0fbe" class=""><strong>X-Y axes to plot type map</strong></p><div id="8aa4af17-4f0b-44d4-914f-971bd0e8d3f3" class="collection-content"><h4 class="collection-title"> </h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Y Axis</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>X Axis</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Mark (Plot)</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>__id</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th></tr></thead><tbody><tr id="0fe172f2-9d6f-4869-b64e-93a090539d6c"><td class="cell-c4DV">Measure</td><td class="cell-d|sD">Dimension (Categorical)</td><td class="cell-&quot;@,-">Bar</td><td class="cell-title"><a href="Introducing%20Muze%204223fff1ef5043dfb55f78434fb6d524/Untitled%208aa4af174f0b44d4914f971bd0e8d3f3/Untitled%200fe172f29d6f4869b64e93a090539d6c.html">Untitled</a></td><td class="cell-rlEZ"></td></tr><tr id="e759b6cd-150b-405e-874f-3de37256ccfc"><td class="cell-c4DV">Measure</td><td class="cell-d|sD">Dimension (Temporal)</td><td class="cell-&quot;@,-">Line</td><td class="cell-title"><a href="Introducing%20Muze%204223fff1ef5043dfb55f78434fb6d524/Untitled%208aa4af174f0b44d4914f971bd0e8d3f3/Untitled%20e759b6cd150b405e874f3de37256ccfc.html">Untitled</a></td><td class="cell-rlEZ"></td></tr><tr id="351af1b1-9651-4322-a82a-d5818b67be27"><td class="cell-c4DV">Dimension</td><td class="cell-d|sD">Dimension</td><td class="cell-&quot;@,-">Bar</td><td class="cell-title"><a href="Introducing%20Muze%204223fff1ef5043dfb55f78434fb6d524/Untitled%208aa4af174f0b44d4914f971bd0e8d3f3/Untitled%20351af1b196514322a82ad5818b67be27.html">Untitled</a></td><td class="cell-rlEZ"></td></tr><tr id="47301daf-9b8f-46b2-8910-9ef526418c43"><td class="cell-c4DV">Measure</td><td class="cell-d|sD">Measure</td><td class="cell-&quot;@,-">Point</td><td class="cell-title"><a href="Introducing%20Muze%204223fff1ef5043dfb55f78434fb6d524/Untitled%208aa4af174f0b44d4914f971bd0e8d3f3/Untitled%2047301daf9b8f46b289109ef526418c43.html">Untitled</a></td><td class="cell-rlEZ"></td></tr></tbody></table></div><p id="2353eeff-ce27-45b6-93e8-77ce86c3700c" class="">Check out the tutorial for <a href="https://www.notion.so/charts/Changing-Plot-Type-3dcab5dc44fb42d69f32dfbf88cdd95d"><mark class="highlight-blue">changing the plot type</mark></a> for rendering different layers than what muze draws by default. Also, if you want to know more about layers checkout <a href="https://www.notion.so/charts/Composing-Layers-726e9fc0e1464459b6123e802e5ea182"><mark class="highlight-blue">composing layers</mark></a><mark class="highlight-blue">.</mark></p><h3 id="47cc1a80-6b8d-4b8c-b434-4850833df5d8" class=""><strong>Using the environment</strong></h3><p id="66f43a2d-87f3-489c-a532-fee2583c80b2" class="">We introduced an environment towards the beginning of the document but we have not used apart from creating a canvas entrance. We are going to see how this environment can help us eliminating redundancy.</p><p id="df443847-c8b1-406f-8cf5-617bed31b676" class="">The most frequently used methods of canvas are</p><ul id="4e5e009f-c607-4473-8a00-787cc306cca8" class="bulleted-list"><li><code>width</code></li></ul><ul id="27883fea-56e4-49d5-9673-73702716ff95" class="bulleted-list"><li><code>height</code></li></ul><ul id="b8751e2c-db6f-4912-80b1-17e09f7627a8" class="bulleted-list"><li><code>rows</code></li></ul><ul id="595c21a9-190a-4d1b-ae62-0a352ed0629b" class="bulleted-list"><li><code>columns</code></li></ul><ul id="6b79b66b-0ded-4114-8886-470b86682c3b" class="bulleted-list"><li><code>data</code></li></ul><ul id="46a40717-1a19-43d3-88e8-0503c7f355a7" class="bulleted-list"><li><code>layers</code></li></ul><ul id="dd91e49d-b7ab-427f-8bd3-b390369cfaf2" class="bulleted-list"><li><code>config</code></li></ul><ul id="8d433c31-a59d-4942-8510-7ed3f80f0d64" class="bulleted-list"><li><code>mount</code></li></ul><p id="c6a33141-3f7d-4ad6-93ff-91f575fec7d0" class="">We have discussed most of these methods in the last few sections. However, <code>env</code> (Environment) and <code>canvas</code> have methods which are common to both as can be seen below:</p><ul id="88d437a2-c878-439a-a779-96464214a964" class="bulleted-list"><li><code>width</code></li></ul><ul id="2203fee6-f5c8-400a-aa41-5005c1efcec9" class="bulleted-list"><li><code>height</code></li></ul><ul id="5ba9b2a3-7a28-478d-893f-df2986408e9a" class="bulleted-list"><li><code>rows</code></li></ul><ul id="deb2647e-5d3d-4583-b5db-dd15c446f1c4" class="bulleted-list"><li><code>columns</code></li></ul><ul id="cf54ecff-ec96-4c7c-b80f-fa2ef68c8071" class="bulleted-list"><li><code>data</code></li></ul><ul id="82977f66-5a10-41fa-ab4d-75e895f9552b" class="bulleted-list"><li><code>layers</code></li></ul><ul id="57b5969d-38c5-45d1-8537-363f1d3ac7c7" class="bulleted-list"><li><code>config</code></li></ul><p id="96646770-e038-46a8-a8d5-79f021cc4efb" class="">If these methods are called on <code>env</code> instead of the <code>canvas</code> instance(s), then each of the canvases created from same environment will automatically inherit those properties from the env. In most of the cases you&#x27;ll have one data source powering a page in your app which will contain multiple canvases. It then makes sense to pass the <code>data</code> to the <code>env</code> rather than the <code>canvas</code> instance.</p><pre id="82af6c7b-7da7-4b6d-a012-14e403270545" class="code"><code>// Creates two separate environments
+const env1 = muze();
+const env2 = muze();
+
+// Creates a datamodel from data
+const dm = new DataModel(data, schema);
+
+// Configuration of charts
+const conf = { ... };
+
+// Set instance of datamodel to env1
+env1.data(dm);
+// Set configuration to config
+env2.config(conf);
+
+// Creates few canvas from two different environment
+const canvas11 = env1.canvas();
+const canvas12 = env1.canvas();
+const canvas21 = env2.canvas();</code></pre><p id="ec473249-0a18-492b-8451-d6e0f2d47798" class=""><code>canvas11</code> and <code>canvas12</code> gets <code>data</code> from environment. There is no need to pass the model again to individual canvases created from <code>env1</code>. However, <code>canvas21</code> does not have a data source since it has been created using a separate environment (<code>env2</code>) to which the data hasn&#x27;t been provided. Even then, <code>canvas21</code> still gets the config (<code>conf</code>) from <code>env2</code>.</p><h2 id="f4dfcca8-8720-45c6-bb0c-15f12ecd4787" class=""><strong>Wrapping up</strong></h2><p id="cf9442a5-5c1e-4db3-bd30-f8ad96fc81d7" class="">We have learnt how to make a simple chart using two fields from the data. In the next section we will understand how we can get different layout variations for different combination of <code>rows</code> and <code>columns</code>.</p><p id="7b9dad36-20cb-4e2c-947f-bb2081d85d4f" class="">
+</p></div></article></body></html>

@@ -1,0 +1,638 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Operators</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/iframe-docs/css/github.css"><link rel="stylesheet" href="/iframe-docs/css/style.css"><script src="/iframe-docs/js/highlight.pack.js"></script><script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script></head><body><article id="b016f6c5-e9da-46f4-a71e-d3363c2dd0e5" class="page sans"><header><h1 class="page-title"><strong>Operators</strong></h1></header><div class="page-body"><p id="20b53ad7-600f-409d-9ae3-3b71dd2f6a1c" class><strong>Table of Contents</strong></p><div class="indented"><nav id="e1820bd7-9663-4b0f-a37b-8bec6be1bc8c" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1db14fc0-12ed-4542-9f0e-5617df33d913"><strong>How to use Operators?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#95d9e21e-f2bb-4682-a11f-193aedbdfc84"><strong>Data</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f16793fc-b3d1-43e5-8d35-5466222aa2fc"><strong>Terminology</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d2f1113e-bbdd-4181-bff7-dbc94a0889ed"><strong>Commonly used relational algebra operators</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#be4f5516-6131-46e5-be83-86b4f0147a07"><code><strong>select</strong></code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0f5aba08-ed7c-42eb-8e2f-ebffef852c7a"><code><strong>project</strong></code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#342d532d-ddd5-48ef-a9fd-8b3dedcbae72"><code><strong>groupBy</strong></code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#690c5ee9-4155-4e5c-9f91-d79149d50daf"><code><strong>sort</strong></code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#35b576e9-2211-474c-8ef3-3b419083e448"><strong>Other relational algebra compliant operators</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c92ae2ef-2a12-4fb1-90a3-8c09ad7c8726"><strong>Combining multiple operators</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4692f399-766f-4a4d-86da-9302865ae850"><strong>Additional operators provided by DataModel</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#32adf08d-e0f8-43fa-8309-d50555631a26"><code><strong>calculateVariable</strong></code></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#65abc8c5-2ce5-4c26-86b9-a2f10292fa66"><strong>Wrapping up</strong></a></div></nav></div><p></p><hr id="47a92efe-f87a-430b-9090-7a0cabe5c394"><p id="5b2a5aa7-922a-4d4f-a962-b3381fae6348" class>Operators are pure functions which are used to transform data in&#xA0;<a href="introducing-datamodel.html"><mark class="highlight-blue">DataModel</mark></a>. There are some operators which are relational algebra compliant and rest of the operators provides ease of use and completeness of workflow. Operators help you achieve the following:</p><ul id="2035bec0-66df-4ceb-bf5d-702230533201" class="bulleted-list"><li><strong>Selection</strong>: Filtering rows/tuples of a DataModel based on a predicate</li></ul><ul id="ccac4e47-2170-4c80-a2f2-7dbccbf28b25" class="bulleted-list"><li><strong>Projection</strong>: Selecting only specific fields (columns) from a DataModel</li></ul><ul id="195bfabf-8a01-4ebd-b7eb-e1ada735e9d4" class="bulleted-list"><li><strong>Grouping</strong>: Grouping rows/tuples based on an aggregation function on specific fields (columns)</li></ul><ul id="623eb171-0eef-4dcd-8921-5883977d4f52" class="bulleted-list"><li><strong>Sorting</strong>: Arranging one or more fields (columns) in a DataModel in ascending on descending order based on the values</li></ul><ul id="b441c724-7b54-4923-a09c-0e04fbe36eef" class="bulleted-list"><li><strong>Calculated Variables</strong>: Create a new field (column) from existing fields (columns)</li></ul><h2 id="1db14fc0-12ed-4542-9f0e-5617df33d913" class><strong>How to use Operators?</strong></h2><p id="7ab38239-2fd5-4015-9ea8-77964c735c25" class>An operator is a function which operates on data and returns a new instance of DataModel with transformed data. This immutable behaviour helps you develop a large complex system of visualizations and interactivity.</p><p id="27d27fde-5930-48f5-9da4-2be64f809e9d" class>You can also chain a set of operators to be applied on a source DataModel.</p><p id="e2d06c1c-aeaf-48a4-8b30-d8ab191dd39f" class>Chaining of operators in general looks like</p><pre id="d4559580-26e2-4a25-8845-73c984d964cc" class="code"><code>resultantDef = obj
+    .op1((...params) =&gt; /* predicate definition here */)
+    .op3((...params) =&gt; /* predicate definition here */)
+    .op3((...params) =&gt; /* predicate definition here */)</code></pre><p id="6fa67f79-f829-4582-b17b-331fe31507d0" class>As you might have guesses, chaining creates intermediate DataModel instances and hold those in memory.</p><h2 id="95d9e21e-f2bb-4682-a11f-193aedbdfc84" class><strong>Data</strong></h2><p id="c39ebb7d-0550-40a5-a149-f5e60f29bcaf" class>We will be using&#xA0;<a href="https://muzejs.org/data/cars.csv"><mark class="highlight-blue">cars.csv</mark></a>&#xA0;data for illustration purpose.</p><h2 id="f16793fc-b3d1-43e5-8d35-5466222aa2fc" class><strong>Terminology</strong></h2><p id="84ef5f95-6892-44d3-917d-231ce11b57ef" class>Through out the document we talk about variables, fields, columns interchangeably.</p><p id="7e130b67-fa76-48c3-a21c-35666dc932ed" class>Variables are from raw data which gets translated to fields in DataModel. But all of these are just columns of a tabular data format.</p><h2 id="d2f1113e-bbdd-4181-bff7-dbc94a0889ed" class><strong>Commonly used relational algebra operators</strong></h2><p id="ec3b2985-368b-48a5-b2d9-b225bd1115da" class>Lets explore DataModel&apos;s operators. We will be describing an use case before using an operator. This way you will get to know how powerful operators are and also you will develop an intuitive sense where to use these operators.</p><h3 id="be4f5516-6131-46e5-be83-86b4f0147a07" class><code><strong>select</strong></code></h3><p id="bf03cfce-fc5d-4fc4-a95f-2a7aa701a397" class><strong>What we want to do</strong>: We want to see only the cars made in <em>Japan</em>.</p><p id="7dc5eeea-4bd4-4b4d-a6f3-c41da8332d63" class>To achieve the above result, clearly we need to filter all the rows for which the data value in&#xA0;<em>Origin</em>&#xA0;field is&#xA0;<em>Japan</em>.</p><p id="3484f1e9-4a5d-4ab3-b4b1-4287939cbff3" class>We use&#xA0;<code>select</code>&#xA0;operator to filter the rows. Selection is a row filtering operation based on a predicate. A predicate is a simple function which returns true or false. The predicate is called for every tuple (row) with value of current tuple passed as arguments. By default, if the predicate returns true then the tuple is included in resultant datamodel.</p><figure id="bba1db57-5e06-4254-9d17-668be5aa3444"><div class="source"><iframe id="cp_embed_a9dbcb6ab78d36a342d393c1e7414b9e" src="https://codepen.io/chartshq/embed/preview/rNxrLLV?height=600&amp;slug-hash=rNxrLLV&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Datamodel API: Select Japan" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><h3 id="0f5aba08-ed7c-42eb-8e2f-ebffef852c7a" class><code><strong>project</strong></code></h3><p id="2de2e5a4-6a81-4e17-a412-c186e536fd73" class><strong>What we want to do</strong>:&#xA0;<em>We want to know which car is from which country? .</em></p><p id="68bd8b15-cc79-4b98-8303-51830ae23b76" class>To achieve the above outcome, we need to only include&#xA0;<em>Name</em>&#xA0;and&#xA0;<em>Origin</em>&#xA0;(country) fields in our derived DataModel. We use&#xA0;<code>project</code>&#xA0;to include specific fields, based on a given list of fields.</p><figure id="78ae6f7c-54ae-4ec3-8967-209baa57c0d3"><div class="source"><iframe id="cp_embed_2bbae05be687bf4ebc24b521a17e6ac2" src="https://codepen.io/chartshq/embed/preview/rNxrLMO?height=600&amp;slug-hash=rNxrLMO&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Datamodel API: Project By Name and Origin" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="eec62fa5-d16e-40b0-a08a-6cd2770c1f4a" class>By default all the filtering operators operate on&#xA0;<em>Inclusion mode,</em>&#xA0;which means if the predicate returns true then the row is included.&#xA0;<em>Exclusion mode</em>&#xA0;is the vice versa operation (e.g., exclusion in this case would mean select all columns apart from&#xA0;<em>Name</em>&#xA0;&amp;&#xA0;<em>Origin</em>).</p><h3 id="342d532d-ddd5-48ef-a9fd-8b3dedcbae72" class><code><strong>groupBy</strong></code></h3><p id="4a088642-3f14-41d9-9d68-7b5e55314499" class><strong>What we want to do</strong>:&#xA0;<em>We want to see max horsepower of for each car origin.</em></p><p id="04d81d31-4624-4593-b433-9515db9ddabe" class>To achieve the above result, we have to group the cars by&#xA0;<em>origin</em>. Essentially we are getting rid of all the dimensions but&#xA0;<em>Origin</em>&#xA0;and aggregating the values to get one value of&#xA0;<em>Horsepower</em>&#xA0;per&#xA0;<em>Origin</em>.</p><p id="ffd3812d-e978-486b-943e-ca7900d5e1d2" class><code>groupBy</code>&#xA0;helps you achieve that, as shown below:</p><figure id="e5a3c723-7c41-47dd-936f-edbb17c4ef98"><div class="source"><iframe id="cp_embed_4c345ae753a6ecdbf167f8529b6e9e0c" src="https://codepen.io/chartshq/embed/preview/pogZbNM?height=600&amp;slug-hash=pogZbNM&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="DataModel API: GroupBy Operator" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><h3 id="690c5ee9-4155-4e5c-9f91-d79149d50daf" class><code><strong>sort</strong></code></h3><p id="e304dd25-dc9c-473c-878f-56e953448c7a" class><strong>What we want to do:</strong>&#xA0;<em>We want to sort cars first by their origin alphabetically and then by weight.</em></p><p id="a0667f5d-f416-4612-99b0-3024e0e4bc01" class>You can apply multi level sorting using this operator. For more advance use case, you might want to order one variable with respect to another variable. Like,&#xA0;<em>sort country based on average mileage of a car</em>.</p><figure id="0103df7e-674b-4d59-a570-a228ec398bd5"><div class="source"><iframe id="cp_embed_a1bb774c51cc15afb4da5b184d200a4c" src="https://codepen.io/chartshq/embed/preview/zYrLBRo?height=600&amp;slug-hash=zYrLBRo&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Datamodel API: Sort Operator" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="10e19b75-a866-4977-bb09-1e0440875e96" class>First, it alphabetically sorts the DataModel by&#xA0;<em>Origin</em>&#xA0;and sorts the resultant dataset by&#xA0;<em>Miles_per_Gallon</em>&#xA0;returning the sorted DataModel.</p><h3 id="35b576e9-2211-474c-8ef3-3b419083e448" class><strong>Other relational algebra compliant operators</strong></h3><p id="07ccc7dc-add2-4d01-b25d-3f5ba01ab6c5" class>There are a lot of other operators like&#xA0;<em>innerJoin, naturalJoin, leftOuterJoin, rightOuterJoin, FullOuterJoin, union, difference</em>&#xA0;which you can use in the similar way. Explore all of this in&#xA0;<a href="../../api-reference/datamodel.html"><mark class="highlight-blue">Datamodel&apos;s API</mark></a>.</p><h2 id="c92ae2ef-2a12-4fb1-90a3-8c09ad7c8726" class><strong>Combining multiple operators</strong></h2><p id="bde3e2e5-858a-49f0-9a8c-2e04324e116f" class><strong>What we want to do</strong>: We&#xA0;<em>want just the names of cars which were released in 1970.</em></p><p id="ff40e670-243d-4410-8e4f-f61370383673" class>To do this, you will need to execute multiple operators on the same data.</p><p id="fb9ae2d7-87b0-44ee-9a02-85315d78806a" class>The first step is to apply the&#xA0;<code>select</code>&#xA0;operation to filter all cars from 1970. In the resultant DataModel,&#xA0;<em>Year</em>&#xA0;field contains the same value, which is 1970. In second step we&#xA0;<code>project</code>&#xA0;the&#xA0;<em>name</em>&#xA0;field.</p><p id="de5231a0-959d-48fb-8dc7-a8cb5229e93f" class>We compose a new operator&#xA0;<code>carsFrom1970</code>&#xA0;by chaining our already known operator.</p><figure id="892dc5ca-6edb-48b3-a00b-33bcb0b00504"><div class="source"><iframe id="cp_embed_d6cd337b0b25d951b3226509ea29d7eb" src="https://codepen.io/chartshq/embed/preview/PoZBzRx?height=600&amp;slug-hash=PoZBzRx&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Datamodel API: Chaining Operations Example 1" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="959879c7-ed6e-4caa-9444-ce6365311830" class>
+</p><p id="67420394-2492-4b87-99d2-bd489f9fbdbb" class>Another example of the above operation is as follows:</p><figure id="8070ab61-92ae-4359-8956-efac44e0e187"><div class="source"><iframe id="cp_embed_f02a0c6355cbbf1e1d5663e03a6063d8" src="https://codepen.io/chartshq/embed/preview/xxZJOzr?height=600&amp;slug-hash=xxZJOzr&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Datamodel API: Chaining Operators Example 2" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><h2 id="4692f399-766f-4a4d-86da-9302865ae850" class><strong>Additional operators provided by DataModel</strong></h2><p id="5216bd99-1386-4587-ac0d-b957604eae58" class>There are few operators which are not defined by relational algebra concepts but are useful for completeness of data transformation for the intent of data visualization.</p><h3 id="32adf08d-e0f8-43fa-8309-d50555631a26" class><code><strong>calculateVariable</strong></code></h3><p id="01ae5607-6b04-4ebc-936d-18c101b89d9e" class><strong>What we want to do</strong>:&#xA0;<em>We want to know how powerful a car is when you press the gas!</em></p><p id="f3b9a413-ba56-4c89-b658-bdb5b33e1fc4" class>For a car, horsepower is not a measure of its power, although it looks like one. We have to take the weight into account. Cars with higher weights tend to have higher horsepower and vice versa.</p><p id="2d7d5b41-2e01-45c2-88be-632011c0ea51" class><em>Hence, to get the power to weight ratio of a car, we have to calculate a new variable from the existing one:</em></p><pre id="266b4367-837c-4078-9bf7-296daabedc4a" class="code"><code>power_to_weight = horsepower / weight_in_lbs</code></pre><figure id="d8088365-3efb-4080-9c78-e9343c08f705"><div class="source"><iframe id="cp_embed_7c5c4f1b8a63fd643accaaf730d9f410" src="https://codepen.io/chartshq/embed/preview/gOPjMdZ?height=600&amp;slug-hash=gOPjMdZ&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Datamodel API: calculateVariable Example 1" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="b1aec702-d215-441e-891d-89ff67f29d07" class>Breaking the above code down:</p><ul id="5150e31f-88b0-4497-a748-97431c85b041" class="bulleted-list"><li>We&apos;ve created a new field by declaring its name and field type:<pre id="13fcd921-c605-41a7-bcdd-d7474d1ba314" class="code"><code>calculateVariable({
+  name: &apos;power_to_weight&apos;,  /* the new variable being created */
+  type: &apos;measure&apos; /* type of the new variable */
+}</code></pre></li></ul><ul id="b617783f-0878-48bc-96c6-691a7a9787da" class="bulleted-list"><li>The next argument specifies existing fields, based on which the new field is to be derived and the derivation criteria. We provide an array, whose elements are the names of existing fields and the last element of array takes a function which returns the value of the new variable. The functions is called for each row of the subject DataModel instance passing the dependent fields&apos; value as parameter.<pre id="6cb66548-98ec-4199-8b85-ea398ed79faa" class="code"><code>[&apos;horsepower&apos;, &apos;weight_in_lbs&apos;,  /* value is calulated based on these to vaiables */
+()=&gt; {}]  /* function is called for each row passing the value of the dependent variables */</code></pre><p id="9dd6458b-5cc3-4104-9284-ad4477533d99" class>This function receives the value of each of the fields from the DataModel and can be combined to get the calculated variable:</p><pre id="252945d2-6952-4582-a80b-caa25c4f727a" class="code"><code>[&apos;horsepower&apos;, &apos;weight_in_lbs&apos;, (hp, weight) =&gt;{ 
+      return hp / weight; /* Logic for value of the calculated variable */
+ }];</code></pre></li></ul><p id="f1cbaef6-07c5-4b9b-b6fb-8486e56f8ec9" class>In the above example, we created a new field which calculated the&#xA0;<code>power_to_weight</code>&#xA0;ratio, which is a measure. If we need to create a dimension as a calculated variable, we can do it through a look-up table, as shown in the example below. Here, based on the&#xA0;<code>power_to_weight</code>&#xA0;ratio, we intend to assign a text value (dimension) which is one of:&#xA0;<code>Low</code>,&#xA0;<code>Decent</code>, or&#xA0;<code>High</code>.</p><p id="08835033-edc0-4d82-ab9a-363374386e9c" class>We will name this new variable (field)&#xA0;<code>Performance</code>&#xA0;which is derived from the earlier calculated variable&#xA0;<code>power_to_weight</code>&#xA0;and a look-up table .</p><figure id="d64c90db-6201-4bc0-9d59-c8a4785c11a5"><div class="source"><iframe id="cp_embed_043d97dfad4ae0fffd973cbce1cbccf2" src="https://codepen.io/chartshq/embed/preview/ExPpgab?height=600&amp;slug-hash=ExPpgab&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Datamodel API: calculateVariable Example 2" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><h2 id="65abc8c5-2ce5-4c26-86b9-a2f10292fa66" class><strong>Wrapping up</strong></h2><p id="57a12ebd-7652-4608-a66f-8da92aade85a" class>We have discussed the most used operators in the above section. DataModel supports many more operators. Checkout the API for&#xA0;<a href="../../api-reference/datamodel.html"><mark class="highlight-blue">DataModel</mark></a><mark class="highlight-blue">&#xA0;</mark>and&#xA0;<a href="https://www.notion.so/charts/Relation-52f8653c2e6c47fbb883760d9f92595d"><mark class="highlight-blue">Relation</mark></a>&#xA0;to understand all the operators.</p><p id="7fa0ecae-73f3-400f-a3c6-f78f056320b7" class>
+</p></div></article></body><script>hljs.initHighlightingOnLoad();</script><script src="/iframe-docs/js/test.js"></script></html>

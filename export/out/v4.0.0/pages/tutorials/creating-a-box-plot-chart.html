@@ -1,0 +1,653 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Creating a Box-Plot Chart</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/iframe-docs/css/github.css"><link rel="stylesheet" href="/iframe-docs/css/style.css"><script src="/iframe-docs/js/highlight.pack.js"></script><script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script></head><body><article id="42f3d30a-9438-40d1-ac01-d58f2916553e" class="page sans"><header><h1 class="page-title">Creating a Box-Plot Chart</h1></header><div class="page-body"><nav id="2507063c-9291-4599-8aed-41445c69764f" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#70547280-8a1f-4a16-83d4-67ac0767ad18">What is Box Plot?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#77236ef9-9a4d-4a49-a83a-b584dd302ce4">Data</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0e4d554d-fed6-4042-8a3c-7f320950182f">Layers definition</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5c7ca95c-ac72-4c81-9837-1c9fa005abdf">Steps to create Box Plot</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b96f32fb-c1f2-4062-8331-ca09c23c538c">Create an instance of&#xA0;<code>DataModel</code>&#xA0;from data and schema</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c427bf11-66ae-4493-9c63-cdc6472acdb6">Assign fields to encoding channel</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#044a0454-e929-4332-af08-161fb74274e6">Format axis labels</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e0a37093-acfd-4dba-b449-d91afdab8c24">Add layers to visualization</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b5c8b617-84d1-43dc-be07-cf624e95547e">Add title and subtitle to canvas</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#831970d8-756a-44cc-916f-51de524385ed">Mount the chart to the DOM</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8624680f-e0e3-4eee-bb77-0260daab365a">Box Plot</a></div></nav><h2 id="70547280-8a1f-4a16-83d4-67ac0767ad18" class>What is Box Plot?</h2><p id="0292c050-8049-4c3c-86ef-9809dbae21d9" class>A box plot is a standardized way of displaying the distribution of data based on the five number summary: minimum, first quartile, median, third quartile, and maximum. It simply represents statistical data on a plot in which a rectangle is drawn to represent the second and third quartiles, usually with a vertical line inside to indicate the median value. The lower and upper quartiles are shown as horizontal lines either side of the rectangle.</p><h2 id="77236ef9-9a4d-4a49-a83a-b584dd302ce4" class>Data</h2><p id="488fe143-b0f0-4874-aca9-0a94a61607b9" class>The above visualization is created from <code>iris.json</code></p><h2 id="0e4d554d-fed6-4042-8a3c-7f320950182f" class>Layers definition</h2><p id="dabf9b83-551b-4e9a-81b8-899d5aa78e9d" class>Muze does not have a high level mark (plot type) called&#xA0;<strong>BoxPlot</strong>. However, Muze exposes API using which you can compose layers which represent highlevel mark like BoxPlot using low level marks like&#xA0;<strong>bar</strong>,&#xA0;<strong>line</strong>, etc.</p><h2 id="5c7ca95c-ac72-4c81-9837-1c9fa005abdf" class>Steps to create Box Plot</h2><p id="33de67ca-7509-4a1c-9853-bad2e7828776" class>Following are the steps we need to do to create the above visualization</p><ul id="f42ec3c7-ad99-4552-8060-14d50305ef0f" class="bulleted-list"><li>Create an instance of&#xA0;<code>DataModel</code>&#xA0;from data and schema</li></ul><ul id="73c74ea7-9f7b-445e-ab58-939a96b0ced5" class="bulleted-list"><li>Provide&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;to the canvas for axes</li></ul><ul id="9d9a0a35-ed00-4b5d-881f-8641239f18c5" class="bulleted-list"><li>Provide&#xA0;<code>color</code>&#xA0;encoding to the canvas</li></ul><ul id="dd4c6373-8816-44af-a76d-343b9f7ac008" class="bulleted-list"><li>Add&#xA0;<code>layers</code>&#xA0;to the canvas for composing layers in the visualization</li></ul><ul id="704cc6d1-b8ff-41c5-aa18-245afd5f2324" class="bulleted-list"><li>Add&#xA0;<code>title</code>&#xA0;and&#xA0;<code>subtitle</code>&#xA0;to canvas</li></ul><ul id="eacdf57a-b6f1-4ae9-87f0-6461ee88bc90" class="bulleted-list"><li>Finally, mount the chart to the DOM.</li></ul><h3 id="b96f32fb-c1f2-4062-8331-ca09c23c538c" class>Create an instance of&#xA0;<code>DataModel</code>&#xA0;from data and schema</h3><p id="2b18982f-7ba2-47ca-bd96-85343bea96b7" class>The execution environment has stored the data and schema in&#xA0;<code>data</code>&#xA0;and&#xA0;<code>schema</code>&#xA0;variable.&#xA0;<code>DataModel</code>&#xA0;is retrieved from&#xA0;<code>muze</code>&#xA0;namespace. Here we write the following code to create an instance of&#xA0;<a href="../concepts/datamodel/introducing-datamodel.html"><mark class="highlight-blue">DataModel</mark></a>&#xA0;from JSON data</p><pre id="d3ea176d-8826-4dbf-bf6b-8e4a688f773e" class="code"><code>const DataModel = muze.DataModel;
+const rootData = new DataModel(data, schema);</code></pre><p id="993ad51f-6b5e-4ddd-a8bb-679bcead9e32" class>Read more about schema and DataModel&#xA0;<mark class="highlight-blue"><a href="../concepts/datamodel/introducing-datamodel.html">here</a></mark>. Head&#xA0;<mark class="highlight-blue"><a href="../concepts/muze/introducing-muze.html">here</a></mark>&#xA0;if you want to know Muze takes instance of DataModel to show a chart.</p><h3 id="c427bf11-66ae-4493-9c63-cdc6472acdb6" class>Assign fields to encoding channel</h3><p id="5cbd7192-6a8f-4b80-9d65-b8a7f60ca613" class>Based on what we what we want to see in X and Y-axis, we have to call&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;with the correct fields to achieve the above chart.&#xA0;<mark class="highlight-blue"><a href="../concepts/muze/rows-+-columns-+-layout-variations.html">Here</a></mark>&#xA0;is an intuitive guide on how&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;determine the layouting.</p><p id="46dc5be9-80bd-44f7-bc5c-8916067663f8" class>If you look at the layer definition file carefully, the&#xA0;<code>boxMark</code>&#xA0;expects multiple variable to draw the mark completely. Hence, Our Y-axis is created from multiple variables (fields) of same unit.</p><p id="91440852-4744-46ec-a614-a9615ce76af8" class>Let&apos;s deviate from this example to see why a shared variable is needed to plot multiple variables in one axis. We assume, we have&#xA0;<em>age</em>&#xA0;field which records age of every user who use a product. We want to see max age and min age of users over the years as a range plot like the following chart.</p><p id="d0a0ee5b-79b3-4513-bcab-06dd03d60484" class>Now both fields (max age and min age) is derived from</p><p id="fd1d4b97-3009-4946-86e7-e9cd97f6ee13" class><em>age</em></p><p id="18c6351f-2071-4396-aa4c-207ca52a248a" class>, hence min and max age is of type age only. There is no harm to put those two fields in same axis.</p><p id="cc690d89-f221-4869-bca0-1016d6324bac" class>But we can&apos;t do it in Muze by passing those two fields in&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;as planer encoding methods do not support creating single instance of axis from two different fields until explicitly mentioned.&#xA0;<a href="../api-reference/muze/operators.html#9b57651a-90d5-45c5-ba3a-63d34f77e135"><code>share</code></a>&#xA0;operator takes multiple similar fields and create a&#xA0;<em>SharedField</em>&#xA0;which can be used to create an axis.</p><p id="321fd54b-698c-4549-83bd-10efa706c6b6" class>Coming to our BoxPlot example, the Y-Axis is created using a&#xA0;<em>SharedField</em>&#xA0;derived by applying&#xA0;<a href="../api-reference/muze/operators.html#9b57651a-90d5-45c5-ba3a-63d34f77e135"><code>share</code></a>&#xA0;operator on&#xA0;<em>minValue</em>,&#xA0;<em>meanValue</em>,&#xA0;<em>maxValue</em>,&#xA0;<em>quarter</em>,&#xA0;<em>thirdQuarter</em>.&#xA0;<em>Organ</em>&#xA0;is plotted on X-Axis.</p><pre id="3c6d50c4-772e-446c-87ba-6904d9e33bc6" class="code"><code>let columns = [sharedField = share(&apos;minValue&apos;, &apos;meanValue&apos;, &apos;maxValue&apos;, &apos;quarter&apos;, &apos;thirdQuarter&apos;)];
+let rows = [&apos;organ&apos;];
+
+canvas
+    .rows(columns)
+    .columns(rows)
+    .color(&apos;organ&apos;)</code></pre><p id="5c91512b-27ff-4f9e-a05b-7e5f96e44e5a" class>All we have done is create a Y-Axis from multiple fields and pass those individual fields to&#xA0;<code>boxMark</code>.</p><h3 id="044a0454-e929-4332-af08-161fb74274e6" class>Format axis labels</h3><p id="a1d162c3-320a-42d4-a320-2e234ae61d73" class>Since we have combined quite a few fields here to make up the Y-axis, hence we set a new name of the Y-axis as:</p><pre id="6cc39bdc-b2cc-418c-bd91-cd4800adf646" class="code"><code>.config({
+  axes: {
+      y: {
+				name: &apos;Measure&apos;
+      }
+  }
+})</code></pre><h3 id="e0a37093-acfd-4dba-b449-d91afdab8c24" class>Add layers to visualization</h3><p id="6786386b-1006-4bad-b42d-b7832a31baf5" class>The visuals of&#xA0;<em>BoxPlot</em>&#xA0;is achieved by composing <mark class="highlight-blue"><a href="../concepts/muze/introducing-layers.html">atomic layers</a></mark> which Muze provides out of the box.</p><p id="96ef5ab9-2598-4807-b97f-b36eac476ee2" class>Once the definition is created, we can register the definition in Muze&apos;s layer registry and use it as simple marks.</p><pre id="a81ff454-a5ab-4fe1-aa0c-8bbec285f18f" class="code"><code>let layerFactory = muze.layerFactory;
+layerFactory.composeLayers(&apos;boxMark&apos;, layers);</code></pre><p id="c1314b1d-a47b-4160-a57f-29c826d8706f" class>Read more about&#xA0;<mark class="highlight-blue"><a href="../concepts/muze/introducing-layers.html">layers basics</a></mark>&#xA0;and&#xA0;<mark class="highlight-blue"><a href="../advanced-concepts/composing-layers.html">composition of layers</a></mark><mark class="highlight-blue">&#xA0;</mark>.</p><p id="04c3107e-3f3a-49bc-88bc-097ca3846b3b" class>We use the custom layer in our code as follows:</p><pre id="4199620b-6f78-4234-9a96-91fc922dacfd" class="code"><code>.layers([{
+    mark: &apos;boxMark&apos;,
+    encoding: { // Map the encoding with variables. These custom encodings are used in the composite layers.
+      minValue: &apos;minValue&apos;,
+      meanValue: &apos;meanValue&apos;,
+      x: &apos;organ&apos;,
+      maxValue: &apos;maxValue&apos;,
+      quarter: &apos;quarter&apos;,
+      thirdQuarter: &apos;thirdQuarter&apos;
+    }
+}])</code></pre><h3 id="b5c8b617-84d1-43dc-be07-cf624e95547e" class>Add title and subtitle to canvas</h3><p id="8697944f-9375-42c4-b819-de6dc0c37474" class>Add a&#xA0;<code>title</code>&#xA0;and&#xA0;<code>subtitle</code>&#xA0;to the canvas</p><pre id="41d7ca80-71f0-41f0-b03b-2863d0742ad4" class="code"><code>canvas
+   .title(&apos;Composing Boxplot&apos;, { position: &apos;bottom&apos;, align: &apos;right&apos; })
+   .subtitle(&apos;Iris sepalLength distrubution&apos;, { position: &apos;bottom&apos;, align: &apos;right&apos; })</code></pre><p id="3ea0ede6-1f38-4a0f-af16-50dd6dc2ab37" class>Read more about title and subtitle&#xA0;<mark class="highlight-blue"><a href="../concepts/muze/title-and-subtitle.html">here</a></mark>.</p><h3 id="831970d8-756a-44cc-916f-51de524385ed" class>Mount the chart to the DOM</h3><p id="dbbdad80-fabc-4f01-a78b-0d2bb703d8c6" class>Finally attach the canvas instance to DOM which houses the visualization</p><pre id="73763d4c-f2ff-492e-9b81-f57f13e8c105" class="code"><code>canvas.mount(&apos;#chart&apos;);</code></pre><p id="e65fbcbe-0a7e-443f-9653-62b045291b37" class>An element with id&#xA0;<code>chart</code>&#xA0;is available in the DOM to house the visualization.</p><h2 id="8624680f-e0e3-4eee-bb77-0260daab365a" class>Box Plot</h2><p id="0e612fa2-c75d-4430-9e80-71ca22e37d8d" class>    </p><figure id="d8b265d1-bb5c-418c-b5c9-8015b6bf25ca"><div class="source"><iframe id="cp_embed_4b9c15cef9ee5b9824fde88de781aa09" src="https://codepen.io/chartshq/embed/preview/gOPKxeP?height=600&amp;slug-hash=gOPKxeP&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Tutorials: Creating a Box-Plot Chart" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure></div></article></body><script>hljs.initHighlightingOnLoad();</script><script src="/iframe-docs/js/test.js"></script></html>

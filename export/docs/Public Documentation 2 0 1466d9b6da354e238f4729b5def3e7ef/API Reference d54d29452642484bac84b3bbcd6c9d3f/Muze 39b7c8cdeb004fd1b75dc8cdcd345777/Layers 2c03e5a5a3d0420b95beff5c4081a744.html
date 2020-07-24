@@ -1,0 +1,1148 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Layers</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2c03e5a5-a3d0-420b-95be-ff5c4081a744" class="page sans"><header><h1 class="page-title">Layers</h1></header><div class="page-body"><p id="0eaac24d-ca27-4806-a093-8b2e06c11369" class=""><strong>Table of Contents</strong></p><nav id="788738f7-9fd2-4a3f-b549-ef51bdb573be" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d8492ebb-a7f7-402f-9ae7-690364b8f1d1">BaseLayer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0b9eb39c-9dda-43a3-b0df-ba6f64953c25"><mark class="highlight-purple"><code>static formalName</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a8dd9109-1516-47fd-9570-a5112381efb4"><mark class="highlight-purple"><code>static defaultConfig</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#74dcb3a7-86e0-4d8c-94c0-a0fc9b465b3a"><mark class="highlight-purple"><code>data</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#61b3bfee-7ba3-43f4-b161-fcedf02835e3"><mark class="highlight-purple"><code>config</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c9423259-9e88-4e41-b204-6ad98089c420"><mark class="highlight-purple"><code>remove</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#75f5a1b5-c2e6-4c39-8270-9fca163107ab">Cartesian  Layer Configuration</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7bb9954d-9b04-46e4-9565-99acab6c9957">BarLayer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0dc955d3-c4b8-452b-bea2-48d549bb9bba"><mark class="highlight-purple"><code>static formalName</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f65e6be5-cf37-40a6-8d6c-3cdd329ccda3"><mark class="highlight-purple"><code>config</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8978c7c7-b2ac-4d0a-a83c-8c54877fe18e">PointLayer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9f2aa415-3dc7-4f4e-b0ed-db81acdf4f71"><mark class="highlight-purple"><code>static formalName</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e93486e8-2800-42b5-8b7c-ae173fcdab95"><mark class="highlight-purple"><code>config</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6a02076f-4464-46ac-a790-913e3d40307e">LineLayer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ddf8d426-cf5c-4bb0-83d1-6f8afe49ca89"><mark class="highlight-purple"><code>static formalName</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#188c4aa7-a8cc-40cb-965c-8a0e1e7ecaba"><mark class="highlight-purple"><code>config</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fd117153-3442-4547-b343-abeb74eb47c0">
+AreaLayer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#68653e32-7ab6-4f7d-a987-13b35574272b"><mark class="highlight-purple"><code>static formalName</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9658bf6c-ae88-4fba-99b3-2046a93e05e1"><mark class="highlight-purple"><code>config</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#76745145-e62f-49c5-a36b-039a20d9e208">TextLayer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#74c5a24a-fb88-4458-bb87-7ab2a6de4b3c"><mark class="highlight-purple"><code>static formalName</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9941b772-d828-4fa5-92d1-bab2407afce5"><mark class="highlight-purple"><code>config</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bc1af809-5971-4e56-9e59-5923335af8ad">TickLayer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cab87042-73ac-4020-9254-33c3b1346dc8"><mark class="highlight-purple"><code>static formalName</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e962c00b-219f-49d2-9d81-c18053fad394"><mark class="highlight-purple"><code>config</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1f0aa940-9a8f-4aca-8dd1-fd27ba6255db">ArcLayer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#90426722-796f-4c28-acd8-db34ff646338"><mark class="highlight-purple"><code>static formalName</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a7473317-bcfd-42e1-97f6-effee4e8b839"><mark class="highlight-purple"><code>config</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f9f4e261-dcd4-46af-9bdb-ef8b88de29f5">Encoding Value</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2114f32d-1c53-467e-8fe3-25c585d7569a"><mark class="highlight-purple"><code>layerFactory</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#be392e22-6ce4-4444-8571-5e51d34bc0af"><mark class="highlight-purple"><code>composeLayers</code></mark></a></div></nav><p id="ea5455c8-bcd5-4ac0-8c93-26730fd7feff" class="">
+</p><h2 id="d8492ebb-a7f7-402f-9ae7-690364b8f1d1" class="">BaseLayer</h2><p id="79e1cce7-becb-4c8c-af5e-c569fe4b2989" class="">This is an abstract class which needs to be inherited by other concrete layers. It has all the common methods implemented required for all layers like merging default configuration with user configuration, applying interaction styles, transforming data to stack or group and disposing layer. All these functionality can be overridden by the layer classes.</p><h3 id="0b9eb39c-9dda-43a3-b0df-ba6f64953c25" class=""><mark class="highlight-purple"><code>static formalName</code></mark></h3><blockquote id="b59443a7-f46e-4be8-8904-a3cc60c8b85f" class="">Syntax: <code>formalName()</code></blockquote><p id="1a71027e-d5ec-4e7d-a56b-dea5a0c4c245" class="">Returns the unique name of the layer. This method should be implemented by all the layers inheriting this layer. To create a new layer, whatever name is returned by the <code>formalName()</code> is used as <code>mark</code> field when that layer is fed to <code>canvas.layers()</code></p><p id="6bf27de1-ad5a-4b3c-ac54-84a5292bf4f6" class=""><strong>Returns</strong></p><p id="ae76b9a6-87af-4148-acf9-145c53fdf6f7" class="">string: Unique name of the layer</p><h3 id="a8dd9109-1516-47fd-9570-a5112381efb4" class=""><mark class="highlight-purple"><code>static defaultConfig</code></mark></h3><p id="896e41c6-58e1-4372-b8b8-d15701a295a9" class="">Returns the default configuration of layer. This method needs to be implemented by all the layers.</p><p id="600d904f-7005-4740-93f7-e2b576dc9422" class=""><strong>Returns</strong></p><p id="feb595fb-12b2-48b2-a856-c56777b66875" class="">object: Default configuration of the layer.</p><h3 id="74dcb3a7-86e0-4d8c-94c0-a0fc9b465b3a" class=""><mark class="highlight-purple"><code>data</code></mark></h3><p id="c0104c39-d36e-434e-ab49-21fd92dc25aa" class="">Gets or sets a datamodel instance in the layer. This method is mostly used when you need to change the data of a specific layer dynamically. For example, on interaction, if you want to change the data of layer which shows an average value of a field, then you need to dynamically set the datamodel instance which contains the aggregated values to the layer.</p><p id="48397928-81f1-4022-96b8-fbc669c703ee" class="">When used as a setter,</p><blockquote id="8da9e08d-a404-431b-9f0f-9539b69c12c5" class="">Syntax: <code>data(dataModel)</code></blockquote><pre id="8b6e0ac1-ded0-4568-b820-6773f589d25c" class="code"><code>parameters:
+		- dataModel:
+				required: true
+				type: DataModel
+				description: Instance of datamodel which is used by layer to create the
+					visualization.</code></pre><p id="61e8b0fb-f95c-473d-b88f-07adc3354c03" class=""><strong>Returns</strong></p><p id="58e46c29-e4ae-42bd-8466-9eaf181fca04" class="">Instance of layer.</p><p id="dd5fee45-de7e-4ecd-ae8d-3d496dc36ca2" class="">When used as a getter,</p><blockquote id="77b30d01-e0f3-4bef-8a7d-b2f7d6f7cedb" class="">Syntax: <code>data()</code></blockquote><p id="55da24b6-f401-419e-9ed4-7e13eaf788c8" class=""><strong>Returns</strong></p><p id="d7524c70-fcca-41a3-8c14-dfde9f42421b" class=""><a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">Datamodel</mark></a> Instance of datamodel.</p><h3 id="61b3bfee-7ba3-43f4-b161-fcedf02835e3" class=""><mark class="highlight-purple"><code>config</code></mark></h3><p id="98b72e1f-f91c-420d-ad1c-0bd646be38b1" class="">Gets or sets the configuration of the layer. When configuration is passed, then it is merged with the default configuration of the layer and set to the layer config.</p><p id="0fe6d33d-91a4-4377-b18d-948b118f005e" class="">When used as a setter,</p><blockquote id="4e2f50a9-9177-4a99-a15e-a35ff8a17384" class="">Syntax: <code>config(config)</code></blockquote><pre id="0e5f59d8-854e-4b51-8bcc-4b8ec8ec506c" class="code"><code>parameters:
+		- config:
+				required: true
+				type: <strong>CommonLayerConfig*</strong>
+				description: Layer configuration.</code></pre><p id="aca9172a-f9fb-469c-acae-843af235ab3e" class=""><mark class="highlight-gray">*CommonLayerConfig</mark></p><pre id="e39f7312-1723-4edc-8b63-25761fa1714b" class="code"><code>parameters:
+		- className:
+				required: false
+				type: string
+				description: Custom class name applied to the plot svg group.
+		- transform:
+				required: false
+				type: <strong>Transform
+				</strong>description: Transform configuration
+		- transition:
+				required: false
+				type: <strong>Transition
+		- </strong>interaction:
+				required: false
+				type: <strong>InteractionEffectConfig
+				</strong>description: Interaction effect information.</code></pre><p id="60c87188-ab41-475a-bbcc-50e4fa00305f" class=""><mark class="highlight-gray">*Transform</mark></p><pre id="09a4fcde-c1fa-46d2-a0b2-91630b89a4d8" class="code"><code>parameters:
+		- type:
+				required: false
+				type: string
+				default: identity
+				description: Transform type of the plot.</code></pre><p id="7f391c12-6d36-46a6-84d0-302e0c46cfc1" class=""><mark class="highlight-gray">*Transition</mark></p><pre id="52b73ca0-b91c-485f-91bc-b3d932808eab" class="code"><code>parameters:
+		- effect:
+				required: false
+				type: string
+				default: cubic
+				description: Easing effect of transition.
+		- duration:
+				required: false
+				type: number
+				default: 1000
+				description: Duration of transition.</code></pre><p id="ab5c333f-c00b-4826-b3be-e69ee5b3538d" class=""><mark class="highlight-gray">*InteractionEffectConfig</mark></p><p id="a15c7508-b708-424b-b256-17ab7073f50f" class="">This is an object with key as the name of the interaction effect and value is an object containing the styles and properties which will get applied to each plot elements when any interaction has occurred.</p><pre id="01067113-7084-421e-9162-eb1d13059275" class="code"><code>type: object
+parameters:
+	- [effect]:
+			required: true
+			type: object
+			description: Name of the effect will be registered in interaction config
+				and the effect styles will get applied when applyInteractionStyle method
+				will be called with the effect name and unique ids of the elements.
+			parameters:
+				- style:
+						required: true
+						type: object
+						description: Styles which will be applied to plot elements.
+				- strokePosition:
+						required: false
+						type: string
+						default: center 
+						description: Position of the border.</code></pre><p id="bcf1303d-01e5-42a0-817a-00b246055956" class="">When used  as a getter,</p><blockquote id="b685ada2-38e1-4edd-9254-f00dd61268b1" class="">Syntax: <code>config()</code></blockquote><p id="95996fdc-abda-4ec0-a014-81b5107811ff" class=""><strong>Returns</strong></p><p id="943a0b13-baff-4ff0-aaea-f78d880671a6" class="">object: Configuration of layer.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="b8113457-659f-4f10-9012-e782544e182a"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><mark class="highlight-yellow">Note
+</mark>There are two ways in which the above configuration can be passed:
+1. directly to the config of the layer instance mention above ie.  <code>config(config)</code>
+2. or the parameters can be directly passed as parameters to any object in <code>canvas.layers([])</code></div></figure><h3 id="c9423259-9e88-4e41-b204-6ad98089c420" class=""><mark class="highlight-purple"><code>remove</code></mark></h3><blockquote id="49495cdf-5bf2-4726-a01e-a6f56b23cad7" class="">Syntax: <code>remove()</code></blockquote><p id="6a90841f-2e96-4257-b810-4dccff97e703" class="">Disposes the layer elements and objects.</p><p id="b96d02a2-1a3f-4078-acf7-9b71500a8ffa" class=""><strong>Returns</strong></p><p id="17dd2b10-f339-4eaa-ae0b-23d9252d038b" class="">Instance of layer.</p><h2 id="75f5a1b5-c2e6-4c39-8270-9fca163107ab" class="">Cartesian  Layer Configuration</h2><p id="5853f01c-44ea-4ef2-9955-e08e2d896848" class="">This is the configuration list of layers which supports cartesian coordinate system.</p><p id="9821d1db-d2f2-41d7-a071-65e0b7e11840" class="">Supports all configurations from <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#aca9172af9fb469cacae843af235ab3e"><mark class="highlight-blue">CommonLayerConfig</mark></a>.</p><ul id="0f546117-a0ec-4401-aefd-3654fcf85b6e" class="toggle"><li><details open=""><summary><strong>CartesianLayerConfig</strong></summary><pre id="f2a0c55f-2e11-4abc-84c5-97622d6b854e" class="code"><code>type: object
+parameters:
+		- encoding:
+				required: true
+				type: <strong>Encoding</strong>
+				description: Encoding information.</code></pre><ul id="03bd2cbb-8d14-408a-9b1e-f46369bbe4f0" class="toggle"><li><details open=""><summary><strong>Encoding</strong></summary><pre id="0d3b4867-540b-484b-be82-1c30df30b919" class="code"><code>parameters:
+		- x:
+			required: true
+			type: string | object
+			description: Information of field using which the x-coordinate of the
+				bar will be calculated. Here, the name of field can be passed
+				or an object containing the name of field and other properties.
+			parameters:
+				field:
+					required: true 
+					type: string
+					description: Name of x field
+				value: <strong>EncodingValue*</strong>
+					required: false
+					type: number | function
+					description: Returns the x-coordinate in pixels of the bar. 
+		- y:
+			required: true
+			type: string | object
+			description: Information of field using which the y-coordinate of the
+				bar will be calculated. Here, the name of field can be passed
+				or an object containing the name of field and other properties.
+			parameters:
+				field:
+					required: true
+					type: string
+					description: Name of field
+				value: <strong>EncodingValue*</strong>
+					required: false
+					type: number | function
+					description: Returns the y-coordinate of the bar in pixels.
+		- color:
+				required: false
+				type: object
+				description: Color value of the plot element.
+				parameters:
+					value: <strong>EncodingValue*</strong>
+						required: false
+						type: string | function
+						description: Returns the color value of the plot element.
+		- fill:
+				required: false
+				type: object
+				description: Fill color value of plot element. If not set, then it takes
+					the value from color property.
+				parameters:
+					value: <strong>EncodingValue*</strong>
+						required: false
+						type: string | function
+		- stroke:
+				required: false
+				type: object
+				description: Stroke color value of plot element.
+				parameters:
+					value: <strong>EncodingValue*</strong>
+						required: false
+						type: string | function</code></pre></details></li></ul></details></li></ul><p id="b49533e9-77a6-4ab1-8629-d249173a8efc" class=""><mark class="highlight-gray">*</mark><a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#f9f4e261dcd446af9bdbef8b88de29f5"><mark class="highlight-gray">EncodingValue</mark></a></p><h2 id="7bb9954d-9b04-46e4-9565-99acab6c9957" class="">BarLayer</h2><p id="6e3b7b89-f716-4a8e-a906-c13b03173811" class="">Inherits <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#d8492ebba7f7402f9ae7690364b8f1d1"><mark class="highlight-blue">BaseLayer</mark></a></p><h3 id="0dc955d3-c4b8-452b-bea2-48d549bb9bba" class=""><mark class="highlight-purple"><code>static formalName</code></mark></h3><blockquote id="4d6a0b4c-aa38-4f0d-88d6-3fe2fefdf96a" class="">Syntax: <code>formalName()</code></blockquote><p id="4f27e190-7bf6-4c61-af2f-5f24dbb77b01" class="">Returns the unique name of the layer which is <code>bar</code>.</p><p id="60e68d78-aeb8-41cd-a987-f4c9659e6dac" class=""><strong>Returns</strong></p><p id="bc704482-dc7e-4ce7-8ab0-eef929b5b364" class="">string: <code>bar</code></p><h3 id="f65e6be5-cf37-40a6-8d6c-3cdd329ccda3" class=""><mark class="highlight-purple"><code>config</code></mark></h3><p id="be215970-8cd5-4f42-b65e-fe9b1d1be0f2" class="">Gets or sets the configuration of bar layer.</p><p id="9ec042f1-a0ee-4066-a427-9644a158b60e" class="">When used as a setter,</p><blockquote id="04531294-c6c9-4a61-b581-908b0c71b8c7" class="">Syntax: <code>config(config)</code></blockquote><p id="f6f0f678-973a-477e-b6e2-68b5b1588718" class="">Supports all configurations from <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#75f5a1b5c2e64c3982709fca163107ab"><mark class="highlight-blue">CartesianLayerConfig</mark></a> and <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#aca9172af9fb469cacae843af235ab3e"><mark class="highlight-blue">CommonLayerConfig</mark></a>..</p><pre id="5bf60ede-bfe8-4c32-82e8-faff21595ac0" class="code"><code>parameters:
+	- config:
+			required: true
+			type: <strong>BarConfig</strong>
+			description: Bar layer configuration.</code></pre><p id="c500d25a-d451-4fdc-8c7c-910e24c7bbd5" class="">
+</p><ul id="4d93a80e-a044-4f97-b8f0-6b1b630d62e4" class="toggle"><li><details open=""><summary><strong>BarConfig</strong></summary><pre id="8aba3fe8-12a3-45a2-bee5-172fa7eebb11" class="code"><code>type: object
+parameters:<strong>
+		- </strong>innerPadding:
+				required: false
+				type: number
+				default: 0.1
+				description: Padding between two bars when grouped bar is plotted. In
+					case of stacked and normal bar charts, padding between bars is calculated
+					from the axis padding property.</code></pre><ul id="6825238c-2427-4824-b4b4-e06ee1540128" class="toggle"><li><details open=""><summary><strong>Encoding </strong>(from  <a href="https://www.notion.so/charts/Layers-fa92a2f0863c49e9ad805785ef773e01#6620817c47754e40a21f7e37f05dd6e8"><mark class="highlight-blue">CartesianLayerConfig</mark></a>  <a href="https://www.notion.so/charts/Layers-fa92a2f0863c49e9ad805785ef773e01#6620817c47754e40a21f7e37f05dd6e8"><mark class="highlight-blue">CartesianLayerConfig</mark></a> )</summary><pre id="67f0d79e-8ed8-4c14-becc-f24887a71e7d" class="code"><code>parameters:
+		- x0:
+			required: true
+			type: string | object
+			description: If x0 field is present, then the width of the bar will be
+				calculated from the difference between x and x0 coordinates. Also,
+				the domain of the x-axis will be union of both x and x0 fields.
+			parameters:
+				field:
+					required: true
+					type: string
+					description: Name of x0 field
+				value: <strong>EncodingValue*
+					</strong>required: false
+					type: number | function
+					description: Returns the x0 value of the bar in pixels.
+		- y0:
+			required: true
+			type: string | object
+			description: If y0 field is present, then the height of the bar will be
+				calculated from the difference between y and y0 coordinates. Also,
+				the domain of the y-axis will be union of both y and y0 fields.
+			parameters:
+				field:
+					required: true
+					type: string
+					description: Name of y0 field
+				value: <strong>EncodingValue*
+					</strong>required: false
+					type: number | function
+					description: Returns the y0 value of the bar in pixels.</code></pre></details></li></ul><ul id="32caf24a-9fda-4da4-bdb5-88aeb83d46f2" class="toggle"><li><details open=""><summary><strong>Transform</strong>(from <a href="https://www.notion.so/charts/Layers-fa92a2f0863c49e9ad805785ef773e01#72239a01727e433998d86d6d0c366e9a"><mark class="highlight-blue">CommonLayerConfig</mark></a>)</summary><pre id="e0c24f8a-bd8b-4342-950d-c30d23f59816" class="code"><code>parameters:
+		- type:
+				required: false
+				type: string
+				default: identity // Supported values are identity, group and stack.
+				description: Transform type of the plot. Changing this type will
+					convert a bar chart to stacked or grouped.</code></pre></details></li></ul></details></li></ul><p id="d6e6adc9-0c21-43d0-b4c7-44e7f85e916c" class="">
+</p><p id="f0f8b606-b981-433d-afc1-29f586989f75" class=""><mark class="highlight-gray">*</mark><a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#f9f4e261dcd446af9bdbef8b88de29f5"><mark class="highlight-gray">EncodingValue</mark></a></p><figure id="b6248c78-65d7-4482-ab96-1a823018c6df"><div class="source"><a href="https://codepen.io/chartshq/pen/ec2d8a7821ebc53d6eba7e46b6af8793">https://codepen.io/chartshq/pen/ec2d8a7821ebc53d6eba7e46b6af8793</a></div></figure><p id="134fd1a0-c14f-4990-9b15-bb77a0db72d2" class="">The chart above give the bars between the minimum and the maximum number of days. The lower bound value is fed to <code>y0</code> while the upper bound value is fed to the <code>y</code> value.</p><p id="913722aa-97b7-4f79-b9b4-d2c0d942d764" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="59c3b07d-cbd2-4981-b125-576647fbf379"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><mark class="highlight-yellow">Note
+</mark>1. <code>y0</code> is used when drawing vertical range bar chart
+2. <code>x0</code> is used when drawing horizontal range bar chart</div></figure><h2 id="8978c7c7-b2ac-4d0a-a83c-8c54877fe18e" class="">PointLayer</h2><p id="24a69981-e6de-47e3-85a4-432aff86587c" class="">Inherits  <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#d8492ebba7f7402f9ae7690364b8f1d1"><mark class="highlight-blue">BaseLayer</mark></a></p><h3 id="9f2aa415-3dc7-4f4e-b0ed-db81acdf4f71" class=""><mark class="highlight-purple"><code>static formalName</code></mark></h3><p id="4fd22ec6-598d-4964-980d-120461917950" class="">Returns the unique name of the layer i.e <code>point</code></p><p id="278d3623-69ca-45a7-a866-8c1b086e250e" class=""><strong>Returns</strong></p><p id="041495f5-bec3-4965-8de1-2e046f3d8c6d" class="">string: <code>point</code></p><h3 id="e93486e8-2800-42b5-8b7c-ae173fcdab95" class=""><mark class="highlight-purple"><code>config</code></mark></h3><p id="6765a0f7-75fe-41cf-acf8-05d2eff3d0e6" class="">Gets or sets the configuration of layer.</p><blockquote id="fdde681c-d175-4c73-946f-0ae6e41b6afe" class="">Syntax: <code>config(config)</code></blockquote><p id="686fdf57-364c-4bf6-9486-266f3c230a38" class="">Supports all configurations from <mark class="highlight-blue"><a href="https://www.notion.so/charts/Layers-fa92a2f0863c49e9ad805785ef773e01#16b24b1d20394f05bf6b4313b7cd59d4">CartesianLayerConfig</a></mark> and <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#aca9172af9fb469cacae843af235ab3e"><mark class="highlight-blue">CommonLayerConfig</mark></a><a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#aca9172af9fb469cacae843af235ab3e">.</a></p><pre id="2b49f097-3f65-40e2-abc6-ce8d8025c048" class="code"><code>parameters:
+	- config:
+			required: true
+			type: object
+			description: Point layer configuration
+			parameters:
+				- encoding:
+						required: true
+						type: <strong>PointLayerEncoding*
+						</strong>description: Encoding configuration of point layer.
+							</code></pre><p id="a5cb990c-bb30-41f1-a555-0e26cf69b138" class="">* <strong>PointLayerEncoding </strong>(from <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#75f5a1b5c2e64c3982709fca163107ab">CartesianLayerConfig</a>)</p><pre id="498b0fdd-708f-4288-832d-723522dec75b" class="code"><code>parameters:
+	- <strong>PointLayerEncoding
+			</strong>required: true
+			type: object
+			description: Point layer encoding.
+			parameters:
+					- size:
+							required: false
+							type: number | object
+							parameters:
+									- value:
+											required: false
+											type: <strong>EncodingValue*
+											</strong>description: Returns the size value of point elements.
+					- shape:
+							required: false
+							type: string | object
+							parameters:
+									- value:
+											required: false
+											type: <strong>EncodingValue*
+											</strong>default: &#x27;circle&#x27;<strong>
+											</strong>description: Returns the shape value of point elements.</code></pre><p id="998d2e0a-4dd5-4b2c-96d3-c5b35c46b4bf" class=""><mark class="highlight-gray">*</mark><a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#f9f4e261dcd446af9bdbef8b88de29f5"><mark class="highlight-gray">EncodingValue</mark></a></p><p id="e728bd3a-49c7-45b4-b35d-880581f28b0c" class=""><strong>Returns</strong></p><p id="a9bdf48a-d5ab-4d1d-a099-d1379dea6107" class="">Instance of point layer.</p><p id="a6217738-4702-4281-9d96-2055e971364c" class="">The chart below shows the various encodings provided by the point layer, in a gap of 3 seconds.</p><figure id="3c7b21e9-8b90-4778-9307-562d5d681fdd"><div class="source"><a href="https://codepen.io/chartshq/pen/a85bf1b23a78cf37126046f60feabeb4">https://codepen.io/chartshq/pen/a85bf1b23a78cf37126046f60feabeb4</a></div></figure><h2 id="6a02076f-4464-46ac-a790-913e3d40307e" class="">LineLayer</h2><p id="302944b7-27e2-4cb5-812f-8e4942fabebd" class="">Inherits  <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#d8492ebba7f7402f9ae7690364b8f1d1"><mark class="highlight-blue">BaseLayer</mark></a>.</p><h3 id="ddf8d426-cf5c-4bb0-83d1-6f8afe49ca89" class=""><mark class="highlight-purple"><code>static formalName</code></mark></h3><p id="e08c2bde-948e-4e5f-88f6-21908381720f" class="">Returns the unique name of this layer which is <code>line</code>.</p><p id="2fd35049-93e8-43a5-8c27-f31adfc222e9" class=""><strong>Returns</strong></p><p id="c92ae846-d96b-4957-8201-2bf161dd0365" class="">string: <code>line</code></p><h3 id="188c4aa7-a8cc-40cb-965c-8a0e1e7ecaba" class=""><mark class="highlight-purple"><code>config</code></mark></h3><p id="65be8796-08a7-4ae5-924d-d585274443ba" class="">Gets or sets the configuration of layer.</p><blockquote id="b02a75c8-b7f9-4368-8dda-bdb63b8f2f2c" class="">Syntax: <code>config(config)</code></blockquote><p id="fdde4edb-4b9f-4791-96ae-7628229ae380" class="">Supports all configurations from <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#75f5a1b5c2e64c3982709fca163107ab"><mark class="highlight-blue">CartesianLayerConfig</mark></a> and <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#aca9172af9fb469cacae843af235ab3e"><mark class="highlight-blue">CommonLayerConfig</mark></a>.</p><pre id="7c3cebcd-564a-412e-bbc3-8d6c9b809837" class="code"><code>parameters:
+	- config:
+			required: true
+			type: object
+			description: Line layer configuration
+			parameters:
+				- connectNullData:
+						required: false
+						type: boolean
+						default: false
+						description: If true, then connects the null data points in the line path
+							else it creates a gap across the missing data points.
+				- nullDataLineStyle:
+						required: false
+						type: Object
+						default: {}
+						description: If connectNullData is true, this is used as a block of css with 
+						css like key value pair.
+				- interpolate:
+						required: false
+						type: string
+						default: linear // Supported values are: linear, catmullRom, step.
+						description: Changes the shape of the line path. Setting it to catmullRom
+							will create a curved line path and step will create a path consisting of
+							alternating horizontal and vertical lines.</code></pre><p id="29acd54d-594d-46e8-ac07-01b6e1f9935d" class="">The chart below shows the various encodings provided by the line layer. The <code>connectNullData</code> when set to true and provided with style in <code>nullDataLineStyle</code>, can provide any css to null data line:</p><figure id="6a21c632-c015-42ad-90de-8ae95747f119"><div class="source"><a href="https://codepen.io/chartshq/pen/705bad84daef72dbd07a786ff00964b8">https://codepen.io/chartshq/pen/705bad84daef72dbd07a786ff00964b8</a></div></figure><h2 id="fd117153-3442-4547-b343-abeb74eb47c0" class="">
+AreaLayer</h2><p id="a1b5de84-6345-45d5-ba3d-0a0892f22f4a" class="">Inherits <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#6a02076f446446aca790913e3d40307e">LineLayer</a></p><h3 id="68653e32-7ab6-4f7d-a987-13b35574272b" class=""><mark class="highlight-purple"><code>static formalName</code></mark></h3><p id="00b6fca3-8045-4424-a2c7-e630b72acbcf" class="">Returns the unique name of this layer which is <code>area</code></p><p id="c37b34ae-0e69-4b76-b717-9d8eca64cf61" class=""><strong>Returns</strong></p><p id="7c4513ca-4897-45ff-95fd-8b231f2c0955" class="">string: <code>area</code></p><h3 id="9658bf6c-ae88-4fba-99b3-2046a93e05e1" class=""><mark class="highlight-purple"><code>config</code></mark></h3><p id="7c659fc6-a473-4bfe-b1fd-170c7809c257" class="">Supports all configurations from <mark class="highlight-blue"><a href="https://www.notion.so/charts/Layers-fa92a2f0863c49e9ad805785ef773e01#fd8d9f71dad840ad9eb3fff9b94dc73f">LineLayerConfig</a></mark>.</p><p id="07d144a7-3d0c-4155-b49a-3a113171a808" class="">The chart below shows the various encodings provided by the area layer. The <code>connectNullData</code> when set to false removes the null part of the chart.</p><figure id="b478db3a-67d2-41db-8784-0c28606e25fd"><div class="source"><a href="https://codepen.io/chartshq/pen/ad2188a17dc72ac6d055c87b51b10137">https://codepen.io/chartshq/pen/ad2188a17dc72ac6d055c87b51b10137</a></div></figure><h2 id="76745145-e62f-49c5-a36b-039a20d9e208" class="">TextLayer</h2><p id="cbc9e658-9054-4f56-ba6f-ffe9dabbed4b" class="">Inherits <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#d8492ebba7f7402f9ae7690364b8f1d1"><mark class="highlight-blue">BaseLayer</mark></a></p><h3 id="74c5a24a-fb88-4458-bb87-7ab2a6de4b3c" class=""><mark class="highlight-purple"><code>static formalName</code></mark></h3><p id="c122fa44-4b04-4b71-8024-1b1db2012b96" class="">Returns the unique name of this layer which is <code>text</code></p><p id="6624c90c-2af0-4b53-bb52-beb850a71b5b" class=""><strong>Returns</strong></p><p id="1065a384-be5b-4911-8c44-b5491395a8f6" class="">string: <code>text</code></p><h3 id="9941b772-d828-4fa5-92d1-bab2407afce5" class=""><mark class="highlight-purple"><code>config</code></mark></h3><p id="0a9de989-aeac-4bb5-bd71-6f9fb5c9ddfb" class="">Supports all configurations from <mark class="highlight-blue"><a href="https://www.notion.so/charts/Layers-fa92a2f0863c49e9ad805785ef773e01#fd8d9f71dad840ad9eb3fff9b94dc73f">LineLayerConfig</a></mark>.</p><pre id="3bdc4d11-a707-4eec-94b2-6325ad076caa" class="code"><code>parameters:
+	- encoding:
+			required: true
+			type: object
+			parameters:
+				- text:
+						required: true
+						type: string | object
+						description: Field information used to create the text 
+						parameters:
+							- field:
+									required: true
+									type: string
+									description: Name of field.
+							- value:
+									required: false
+									type: <strong>EncodingValue</strong>
+									description: Returns the text string which will be rendered in
+										the visualization.
+							- background:
+									required: false
+									type: object
+									description: Text background
+									parameters:
+										- value:
+												required: false
+												type: <strong>EncodingValue*</strong>
+												description: Returns the background color string of text.
+										- padding:
+													required: false
+													type: number
+													description: Padding between the background element and text
+				- angle:
+						required: false
+						type: number | object
+						description: This is applicable only when an arc layer is used in canvas. This is
+							used to calculate the angle where the text will be placed. The x and y position of
+							the text is determined by the angle and radius value of each text.
+						parameters:
+							- field:
+									required: false
+									type: string
+									description: Name of the field.
+							- value:
+									required: false
+									type: <strong>EncodingValue*</strong>
+									description: Returns the angle value in radians.
+				- radius:
+						required: false
+						type: number | object
+						description: This is applicable only when an arc layer is used in canvas. This is
+							used to calculate the radius value from the center position.
+						parameters:
+							- field:
+									required: false
+									type: string
+									description: Name of the field.
+							- value:
+									required: false
+									type: <strong>EncodingValue*</strong>
+									description: Returns the radius value in pixels.</code></pre><p id="695caca2-bcd6-4ed8-8bd6-62c2ec13d827" class=""><mark class="highlight-gray">*</mark><a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#f9f4e261dcd446af9bdbef8b88de29f5"><mark class="highlight-gray">EncodingValue</mark></a></p><p id="d4245c83-6b5e-4ea0-ae4b-a50914283f29" class="">The chart below shows the various encodings provided by the text layer and its use with the polar encoded chart.</p><figure id="a2a68685-6182-4d05-b07e-66817c478e26"><div class="source"><a href="https://codepen.io/chartshq/pen/ba8c1e56c35f4392b975d8d59c9b0df4">https://codepen.io/chartshq/pen/ba8c1e56c35f4392b975d8d59c9b0df4</a></div></figure><h2 id="bc1af809-5971-4e56-9e59-5923335af8ad" class="">TickLayer</h2><p id="2c7ffc9a-b1e4-420c-8a38-e3213dcb1962" class="">Inherits <mark class="highlight-blue"><a href="https://www.notion.so/charts/Layers-fa92a2f0863c49e9ad805785ef773e01#3804027ae4ca47658e5bfa5c3a9f50d9">PointLayer</a></mark></p><h3 id="cab87042-73ac-4020-9254-33c3b1346dc8" class=""><mark class="highlight-purple"><code>static formalName</code></mark></h3><p id="ef0b4c2f-6fe1-447f-84d0-1e03718f93c1" class="">Returns the unique name of the layer i.e <code>tick</code></p><p id="ada46dfa-74c4-4587-9702-84afaa764e13" class=""><strong>Returns</strong></p><p id="7f89b0f6-f3df-46da-8ebf-81a2de5545dc" class="">string: <code>tick</code></p><h3 id="e962c00b-219f-49d2-9d81-c18053fad394" class=""><mark class="highlight-purple"><code>config</code></mark></h3><p id="9ca96fda-b5e3-4fea-99f9-21cb912d7ca4" class="">Supports all configurations from  <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#75f5a1b5c2e64c3982709fca163107ab"><mark class="highlight-blue">CartesianLayerConfig</mark></a> and <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#aca9172af9fb469cacae843af235ab3e"><mark class="highlight-blue">CommonLayerConfig</mark></a><mark class="highlight-blue">.</mark></p><pre id="dfc894d2-e7b3-4f5c-8763-2c25fbb91ce3" class="code"><code>parameters:
+	- encoding:
+			required: true
+			type: object
+			parameters:
+				- x0:
+						required: true
+						type: string | object
+						description: Encoding information used to calculate the end position of
+							the tick path along x-axis.
+						parameters:
+							- field:
+									required: true
+									type: string
+									description: Name of field.
+							- value:
+									required: false
+									type: <strong>EncodingValue#</strong>
+									description: Returns the value of the encoding.
+				- y0:
+						required: true
+						type: string | object
+						description: Encoding information used to calculate the end position of
+							the tick path along y-axis.
+						parameters:
+							- field:
+									required: true
+									type: string
+									description: Name of field.
+							- value:
+									required: false
+									type: <strong>EncodingValue#</strong>
+									description: Returns the value of the encoding.
+				- angle:
+						required: true
+						type: string | object
+						description: Applicable only when arc layer is used in the canvas.
+							If angle encoding is given, then the x-coordinate is calculated from
+							the angle value. 
+						parameters:
+							- field:
+									required: true
+									type: string
+									description: Name of field.
+							- value:
+									required: false
+									type: <strong>EncodingValue#</strong>
+									description: Returns the angle value in radians.
+				- angle0:
+						required: true
+						type: string | object
+						description: Applicable only when arc layer is used in the canvas.
+							Ending position of the tick path is determined from this encoding.
+						parameters:
+							- field:
+									required: true
+									type: string
+									description: Name of field.
+							- value:
+									required: false
+									type: <strong>EncodingValue#</strong>
+									description: Returns the angle value in radians.
+				- radius:
+						required: false
+						type: number | object
+						description: This is applicable only when an arc layer is used in canvas.
+							Starting position of the tick paths are determined from this encoding.
+						parameters:
+							- field:
+									required: false
+									type: string
+									description: Name of the field.
+							- value:
+									required: false
+									type: <strong>EncodingValue#</strong>
+									description: Returns the radius value in pixels.
+				- radius0:
+						required: false
+						type: number | object
+						description: This is applicable only when an arc layer is used in canvas.
+							Ending position of the tick path is determined from this encoding.
+						parameters:
+							- field:
+									required: false
+									type: string
+									description: Name of the field.
+							- value:
+									required: false
+									type: <strong>EncodingValue#</strong>
+									description: Returns the radius value in pixels.</code></pre><p id="2a8f1a20-b584-4723-af69-5180abb22623" class=""><mark class="highlight-gray">*</mark><a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#f9f4e261dcd446af9bdbef8b88de29f5"><mark class="highlight-gray">EncodingValue</mark></a></p><p id="1c246926-3dff-4a2e-ace5-471a73b81950" class="">The chart below shows the various encodings provided by the tick layer and its use with the polar encoded chart and text layer.</p><figure id="70f21557-7233-45c1-af53-ce271484231a"><div class="source"><a href="https://codepen.io/chartshq/pen/935dc4026e5a46a0d6451e63ef2c2471">https://codepen.io/chartshq/pen/935dc4026e5a46a0d6451e63ef2c2471</a></div></figure><h2 id="1f0aa940-9a8f-4aca-8dd1-fd27ba6255db" class="">ArcLayer</h2><p id="1fcead74-8dc5-4143-99cb-d2af8e331b4f" class="">Inherits <a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#d8492ebba7f7402f9ae7690364b8f1d1"><mark class="highlight-blue">BaseLayer</mark></a>.</p><h3 id="90426722-796f-4c28-acd8-db34ff646338" class=""><mark class="highlight-purple"><code>static formalName</code></mark></h3><p id="d3ef3b1c-0b8c-4521-92b8-038e2465278f" class="">Returns the unique name of this layer i.e <code>arc</code></p><p id="35da0e4b-22da-4345-a0ce-f221462a5d82" class=""><strong>Returns</strong></p><p id="f036fe26-0c17-4b1d-a43d-e906a9a97c0f" class="">string: <code>arc</code></p><h3 id="a7473317-bcfd-42e1-97f6-effee4e8b839" class=""><mark class="highlight-purple"><code>config</code></mark></h3><p id="e579950e-a613-49e4-ada8-5f820dafae4e" class="">Gets or sets the arc layer configuration.</p><blockquote id="67383d7f-f17a-436b-8f60-11218c7f6093" class="">Syntax: <code>config(config)</code></blockquote><pre id="fe4ab069-4ba7-4a14-9f46-23bd6c75e849" class="code"><code>parameters:
+	- encoding:
+			required: true
+			type: object<del>
+	</del>		parameters:
+				- angle:
+						required: true
+						type: string | object
+						description: Angle encoding information.
+						parameters:
+							- field:
+									required: true
+									type: string
+									description: Name of field. Data of the field will be used to calculate the angle of each
+										arcs in radians. if field is not provided, then angle is taken from encoding.angle.value.
+							- value:
+									required: false
+									type: <strong>EncodingValue*</strong>
+									default: 360
+									description: Returns the angle of each arcs in radians.
+				- radius:
+						required: false
+						type: number | object
+						description: Radius encoding information.
+						parameters:
+							- field:
+									required: false
+									type: string
+									description: Name of the field.
+							- value:
+									required: false
+									type: <strong>EncodingValue*</strong>
+									description: Returns the radius value in pixels
+				- color:
+						required: false
+						type: number | object
+						description: Color encoding information.
+						parameters:
+							- field:
+									required: false
+									type: string
+									description: Name of the field.
+							- value:
+									required: false
+									type: <strong>EncodingValue*</strong>
+									description: Returns the color value of each arc element.
+		- sort:
+				required: false
+				type: string
+				description: Sorting order of arcs. Supported values are asc and desc.</code></pre><p id="ddf21dc5-736e-411a-a346-40b69d82db19" class=""><mark class="highlight-gray">*</mark><a href="https://www.notion.so/charts/Layers-2c03e5a5a3d0420b95beff5c4081a744#f9f4e261dcd446af9bdbef8b88de29f5"><mark class="highlight-gray">EncodingValue</mark></a></p><p id="834f107c-ffa5-4bb3-8ac2-d78dd38d5c51" class="">The chart below shows the various encodings provided by the arc layer.</p><figure id="ed1ed1bc-af44-42b2-9140-276c2cc8c815"><div class="source"><a href="https://codepen.io/chartshq/pen/feecd9e877b1d742a1c0c92f299a3e28">https://codepen.io/chartshq/pen/feecd9e877b1d742a1c0c92f299a3e28</a></div></figure><h2 id="f9f4e261-dcd4-46af-9bdb-ef8b88de29f5" class="">Encoding Value</h2><blockquote id="eee5af0d-aa79-44ed-93df-2826241bb486" class="">Syntax: <code>value: (d, i, dataArr, layerInst)</code></blockquote><p id="112955a8-3da3-41f8-aa1f-ac9f323da68f" class="">This is a function which takes value of encoding and returns a new value. For example, if you want to shift the x position of the text by 10 pixels.</p><pre id="75892e72-8bf5-46a7-a88a-223f462cc1cf" class="code"><code>parameters:
+	- d:
+		 required: true
+		 type: <strong>DataObject*</strong>
+		 description: Data object of the plot element.
+	- i:
+		 required: true
+		 type: number
+		 description: Index of the plot element.
+	- dataArr:
+		 required: true
+		 type: Array
+		 description: Array of all the data objects.
+	- layerInst:
+			required: true
+			type: BaseLayer
+			description: Instance of the layer.</code></pre><p id="eec59186-1073-4b61-bcc2-a48ec9fe1af5" class="">*<strong>DataObject</strong></p><p id="63f86117-3d29-4e1d-9cf8-767169375f5c" class="">It is an object which may have the following properties.</p><pre id="c56826f9-d9ae-41f2-a40e-b96ebc3ad941" class="code"><code>parameters:
+	- x:
+		type: number
+		description: x-coordinate of the plot element.
+	- y:
+		type: number
+		description: y-coordinate of the plot element.
+	- width:
+		type: number
+		description: width of the plot element. Present in bar layer only.
+	- height:
+		type: number
+		description: height of the plot element. Present in bar layer only.
+	- angle:
+		type: number
+		description: Angle value of the plot element in radians. Present in arc layer
+			and other layers which supports polar coordinates like tick and text.
+	- color:
+		type: string
+		description: color string of the plot element.
+	- shape:
+		type: string.
+		description: Shape of plot element. Present in point layer only.
+	- size:
+		type: number
+		description: Size value of the plot element. Present in point layer only.</code></pre><p id="eb9050f9-cfbc-47fb-9aa1-2ccc502b9dda" class=""><strong>Usage</strong></p><pre id="24c34868-c4f3-4b96-baf7-8e42d2ae2122" class="code"><code>const env = muze();
+const canvas = env.canvas();
+
+canvas.layers([{
+	// Bar layer definition
+	mark: &#x27;text&#x27;,
+	encoding: {
+		x: {
+			value: (d, i, dataArr, layerInst) =&gt; {
+				return d.x + 10;
+			})
+		}
+	}
+}]);</code></pre><p id="8d19f069-e6ec-4f64-aef3-dcd5c2d9d6f2" class=""><strong>Returns</strong></p><p id="b9eb6372-dbdc-4c3e-9f26-c086cbba5f10" class="">string|number: Encoding value</p><h2 id="2114f32d-1c53-467e-8fe3-25c585d7569a" class=""><mark class="highlight-purple"><code>layerFactory</code></mark></h2><p id="09f0a85a-abc5-4df4-a761-7e29ee83f7ad" class="">Creates layer instances and registers composite layer definitions. Layer instances are created internally by canvas using <code>layerFactory</code>.</p><p id="bd8d7068-d6dc-4cc4-b99b-acdfb513d28c" class="">To access <code>layerFactory</code></p><pre id="f347e903-a4ee-41eb-b876-5533f9d5f4b6" class="code"><code>const layerFactory = muze.layerFactory;</code></pre><h3 id="be392e22-6ce4-4444-8571-5e51d34bc0af" class=""><mark class="highlight-purple"><code>composeLayers</code></mark></h3><blockquote id="62d2bec7-9549-4dbb-b128-2d3a4e653cca" class="">Syntax: <code>composeLayers(layerName, definition)</code></blockquote><p id="afd2e570-3101-4974-b358-9f61b5181244" class="">Registers composite layer definition in the layer factory.</p><pre id="2bd13f8b-bf56-4c93-8d6d-81a1586a3d39" class="code"><code>parameters:
+		- layerName:
+				required: true
+				type: string
+				description: Name of the composite layer.
+		- definition:
+				required: true
+				type: Array
+				description: Definitions of the layers.</code></pre><p id="c6cb336c-9994-4a34-bdb0-a89ed4d6fb91" class=""><strong>Returns</strong></p><p id="843a1b42-dac4-4fc1-a0c4-7ddc14e5efa7" class="">layerFactory</p><p id="3d6500e2-4752-4000-8cd8-ac56398e4a3d" class=""><strong>Usage</strong></p><pre id="d4ed9762-ca4b-4a3f-8777-06dcf5285850" class="code code-wrap"><code>const layerFactory = muze.layerFactory;
+layerFactory.composeLayers(&#x27;tickPoint&#x27;, [{
+    name: &quot;errorTick&quot;,
+    mark: &quot;tick&quot;,
+    encoding: {
+        y0: &quot;tickPoint.encoding.lowerLimit&quot;,
+        y: &quot;tickPoint.encoding.upperLimit&quot;,
+        x: &quot;tickPoint.encoding.x&quot;,
+        color: {
+          value: () =&gt; &#x27;#4c8579&#x27;
+        }
+    },
+    transform: {
+        type: &quot;identity&quot;
+    }
+}, {
+    name: &quot;errorPoint&quot;,
+    mark: &quot;point&quot;,
+    encoding: {
+        y: &quot;tickPoint.encoding.center&quot;,
+        x: &quot;tickPoint.encoding.x&quot;,
+        color: {
+          value: () =&gt; &#x27;red&#x27;
+        }
+    },
+    transform: {
+        type: &quot;identity&quot;
+    }
+}]);</code></pre><p id="16cf1435-1e23-44b4-8607-74face5356de" class=""><strong>Example:</strong></p><figure id="af7b0626-1938-4325-ae58-d8b4586457e6"><div class="source"><a href="https://codepen.io/chartshq/pen/7e453d243941cd1765e0b861af843423">https://codepen.io/chartshq/pen/7e453d243941cd1765e0b861af843423</a></div></figure><p id="17b6190a-6062-4a9c-8a42-1c0f860d57ef" class="">
+</p></div></article></body></html>

@@ -1,0 +1,912 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Physical Actions , Behaviours and SideEffects  </title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/iframe-docs/css/github.css"><link rel="stylesheet" href="/iframe-docs/css/style.css"><script src="/iframe-docs/js/highlight.pack.js"></script><script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script></head><body><article id="45a2d64a-e597-4eea-9557-81f9aecd0506" class="page sans"><header><h1 class="page-title">Physical Actions , Behaviours and SideEffects  </h1></header><div class="page-body"><nav id="1fd6691a-4cab-4afa-89ae-4bf24b518c49" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6701394a-8a0f-45a2-9ac4-5a4fdfc226b8">Physical Action</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a8e33d7a-19a1-48fc-9033-b6d1ed0d19fb">Behavioural Actions</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b68f19e0-8c69-4bab-aad9-4fd646c19587">GenericBehaviour</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1356a75f-719f-4beb-af85-e95773f0305a">VolatileBehaviour</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#28533a25-6fe9-4571-874c-64efea1ad337">PersistentBehaviour</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#20f15809-b6b7-4cb0-8ece-5985fd1053f3">SideEffects</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c57af20a-b0d6-4b6c-86b9-d3520f2d4499">GenericSideEffect</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#03f58e49-1ec6-4c8f-acc7-85c966e0fc97">SurrogateSideEffect</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ebc94656-b00a-4a93-ba9c-3baca33a92c1">SpawnableSideEffect</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9941f452-2e21-4e3b-a050-a18b652502aa">SelectionSet</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2d2cdce7-9f7e-43c2-920b-b22fe43ee20d"><mark class="highlight-purple"><code>add</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6f012d59-9239-4fef-94f0-9436cbe9d363"><mark class="highlight-purple"><code>remove</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0526718b-7639-47c3-884e-8a8a34b4f976"><mark class="highlight-blue"><code>reset</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9cdde7d1-93ab-418c-84de-775f34a1f956">Interaction Configuration</a></div></nav><h2 id="6701394a-8a0f-45a2-9ac4-5a4fdfc226b8" class>Physical Action</h2><p id="c6bdd222-a8a8-48d5-a2c1-254ce866fe43" class>Returns a function which attaches event listeners on dom elements and triggers a physical action with a payload and name of the physical action.</p><pre id="f3b1308c-cadf-454a-aeb8-0179544d1578" class="code"><code>parameters:
+		- firebolt:
+				type: <strong>Firebolt*</strong>
+				description: Instance of firebolt.
+				parameters:
+					- context:
+							type: <strong>VisualUnit
+							</strong>description: Instance of visual unit.</code></pre><p id="640b999b-cbd0-4d41-a0ce-f4411ed8fe84" class><mark class="highlight-gray">*</mark><mark class="highlight-blue"><a href="firebolt.html">Firebolt</a></mark></p><p id="1c80faf8-0f90-4378-a1ce-bcdb4e7b6740" class>
+</p><p id="f9f4de29-74b8-45dd-a802-c2255aef12b6" class><strong>Usage</strong></p><pre id="f415bd1b-0fe1-4f2d-8b38-a4eac8cd3707" class="code"><code>const utils = muze.utils;
+
+const hoverAction = (firebolt) =&gt; (targetElement) =&gt; {
+		targetElement.on(&apos;mousemove&apos;, () =&gt; {
+				const context = firebolt.context;
+				const event = utils.getEvent();
+				// Get the x and y position relative to the dom container of the visual unit
+				// where the dom event has occured.
+				const position = utils.getClientPoint(context.getDrawingContext().svgContainer,
+					event);
+				// Get the data of the plot nearest to the x and y position
+				const nearestPoint = context.getNearestPoint(position.x, position.y, {
+					event
+				});
+				const payload = {
+					criteria: nearestPoint.id
+				};
+
+				// Trigger a physical action with it&apos;s name and payload.
+				firebolt.triggerPhysicalAction(&apos;hover&apos;, payload);
+		});
+};
+
+ActionModel.for(canvas)
+	.registerPhysicalActions({
+		// Name of the physical action is hover
+		hover: hoverAction
+	});</code></pre><p id="4a989d88-b8e7-40b5-a468-6be6ad0cab35" class>
+</p><p id="973c2f46-84ad-41dd-b42a-3d7657e4b801" class><strong>Example:</strong></p><figure id="139dbc53-d09c-40bf-a44a-6188c6aab0ec"><div class="source"><iframe id="cp_embed_605cd5d08efdc5967b707985f3738323" src="https://codepen.io/chartshq/embed/preview/BajPNgV?height=600&amp;slug-hash=BajPNgV&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Muze API: Triggering a Physical Action" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><h2 id="a8e33d7a-19a1-48fc-9033-b6d1ed0d19fb" class>Behavioural Actions</h2><h3 id="b68f19e0-8c69-4bab-aad9-4fd646c19587" class>GenericBehaviour</h3><p id="7d5e74d8-b5d3-4ed7-b637-650b7e335ea9" class>This is an abstract class which takes payload and creates the entry and exit set. Any new behaviour class should inherit this class or VolatileBehaviour or PersistentBehaviour class.</p><p id="8d3286ed-8178-4664-b483-01c5bc21e539" class><mark class="highlight-blue"><strong><code>setSelectionSet</code></strong></mark></p><blockquote id="66f64a86-351e-4fb7-94e0-d486b99b3624" class>Syntax: <code>setSelectionSet(uids, selectionSet)</code></blockquote><p id="7abd5ff2-e048-4697-b5e2-cef5d3e6b0e6" class>Adds or removes identifiers in the <a href="https://www.notion.so/charts/Behaviours-c3bdbbb3624c4da19949c765bc0fc333"><mark class="highlight-blue">SelectionSet</mark></a><mark class="highlight-blue"> </mark>instance. This is called internally by the behaviour class.</p><pre id="358d9d06-17a4-4b03-8e15-8a3593350100" class="code"><code>parameters:
+		- uids:
+				required: true
+				type: Array
+				description: Array of row identifiers which are interacted with.
+		- selectionSet:
+				required: true
+				type: <strong>SelectionSet*
+				</strong>description: Instance of selection set.
+</code></pre><p id="54ec41cf-e539-424d-b9f1-f0d97074a0ed" class><strong>Returns</strong></p><p id="3d0d5593-1180-464c-bacf-6336e0a76015" class>GenericBehaviour</p><h3 id="1356a75f-719f-4beb-af85-e95773f0305a" class>VolatileBehaviour</h3><p id="f1b9d575-3b8f-4861-bb69-863d4fc5657e" class>extends <strong>GenericBehaviour</strong></p><p id="e04a9f76-25a7-44db-8605-67b2654a6efc" class>This behavioural action is a generic class for behavioural actions which are volatile. That means any action which does not need to keep the previous identifiers in the selection set. For example, <code>highlight</code> behaviour is a volatile behaviour because on every mouse interaction only the identifiers interacted with are kept in entry set and rest of the identifiers are in exit set. It does not persist the identifiers which were interacted previously. It implements the <code>setSelectionSet</code> method to acheive this.</p><h3 id="28533a25-6fe9-4571-874c-64efea1ad337" class>PersistentBehaviour</h3><p id="75391f0f-3df8-4bc6-9179-a261b7467977" class>extends <strong>GenericBehaviour</strong></p><p id="3cff48f6-1c15-44b7-8922-dc2b41f80cdf" class>This behavioural action is a generic class for behavioural actions which are peristent. That means any action which needs to keep the previous identifiers in the selection set. For example, <code>select</code> behaviour is persistent behaviour because on every click the previous identifiers interacted with are kept in the entry set.</p><h2 id="20f15809-b6b7-4cb0-8ece-5985fd1053f3" class>SideEffects</h2><h3 id="c57af20a-b0d6-4b6c-86b9-d3520f2d4499" class>GenericSideEffect</h3><p id="d503b81a-b905-4b3e-9e84-e1f5b501e612" class>This is the base class of all side effects. It contains all common methods like setting configuration, disabling, enabling side effect, etc. Every new side effect has to inherit this class or <strong>SpawnableSideEffect</strong> or <strong>SurrogateSideEffect</strong> class. All side effects are initialized by firebolt. The instance of firebolt is passed on initialization.</p><p id="1803a1c7-aa5f-4bb8-9963-63ab379a618b" class><mark class="highlight-blue"><strong><code>static formalName</code></strong></mark></p><blockquote id="911c7345-7823-45eb-8b05-30bc733f2c69" class>Syntax: <code>formalName()</code></blockquote><p id="52a9cbba-c749-4fdc-a342-12a48a346f41" class>Returns the unique name of the side effect which will be used in behaviour-effect map for mapping the side effect with a behavioural action.</p><p id="5a0faa27-9a60-4b76-bace-6216b6c047b3" class><strong>Returns</strong></p><p id="c1b48de0-a8bd-4fab-aa34-f9702c58bc84" class>string: Unique name of the side effect.</p><p id="964f77bf-4438-47cb-875f-e17f6506add7" class><strong>Usage</strong></p><pre id="c2634ba6-a637-46b5-aba7-dd02f5a6e1b6" class="code"><code>const canvas = env.canvas();
+
+class ColorChanger extends SurrogateSideEffect {
+		static formalName () {
+			return &apos;colorChanger&apos;;
+		}
+}
+
+muze.ActionModel.for(canvas).mapSideEffects({
+		select: [&apos;colorChanger&apos;] // Formal name of the side effect should be passed
+			// in behaviour effect map.
+});</code></pre><p id="a73666f4-400b-410e-a7d1-d571204001e1" class><mark class="highlight-blue"><strong><code>static target</code></strong></mark></p><blockquote id="c623aa94-b8d9-4dd3-9e7f-5100d133287f" class>Syntax: <code>target()</code></blockquote><p id="176d69be-697a-4533-a25c-93784fcce126" class>Returns the target area of the side effect. Defaults to <code>all</code>.  Target area can be <code>visual-unit</code> or <code>visual-group</code> or <code>all</code>. If target area is <code>visual-unit</code>, then the side effect will be applied for each units. For example, if you want to add a layer, then the target must be <code>visual-unit</code>. If the target area is <code>visual-group</code>, then a common side effect will be created for all the units.</p><p id="6d5a2bb9-ee6d-4060-97b9-614f49d0666c" class><strong>Returns</strong></p><p id="f58d9c3b-cd8b-4c7c-9d79-f4d42ceaf66a" class>string: Name of the target area.</p><p id="1a03ebef-6d35-4c0d-b4db-bae0071ac240" class><mark class="highlight-blue"><strong><code>apply</code></strong></mark></p><p id="20e2ea16-c02c-4e75-a7cc-4e723415f323" class>This method is responsible for changing the visualization or adding any new element like layers in the visualisation. This method must be implemented by any side effect classes which needs to show any effect in the visualization.</p><blockquote id="5263fa74-5b51-4823-9303-3ed6cb9d81da" class>Syntax: <code>apply(entryExitSet, payload, options)</code></blockquote><pre id="c60076b1-986f-4740-9f18-2c816ca1bf1c" class="code"><code>parameters:
+		- entryExitSet:
+				required: true
+				type: <strong>EntryExitSet*</strong>
+				description: Entry exit set attached with the behavioural action mapped with
+					the side effect.
+		- payload:
+				required: true
+				type: object
+				description: Payload object of the behaviour mapped with the side effect.
+		- options:
+				required: false
+				type: object
+				default: undefined
+				description: Options which are set in the behaviour-effect map.</code></pre><p id="325332da-5be1-423a-8671-22c295012bc7" class><mark class="highlight-gray">*</mark><mark class="highlight-gray"><a href="https://www.notion.so/charts/Firebolt-58e6b96e56bd4499a056e016330fab47#5b7fcacdd5ac466f8e71460e95d3279f">EntryExitSet</a></mark></p><p id="c5bd2029-b4fa-4373-ace9-aace76023625" class><strong>Returns</strong></p><p id="c28255c4-0cc7-4f39-96a0-c04d355e1905" class>GenericSideEffect</p><p id="0a844ae9-7de7-4f12-8a25-744c20f0ca99" class>
+</p><h3 id="03f58e49-1ec6-4c8f-acc7-85c966e0fc97" class>SurrogateSideEffect</h3><p id="b1e2202f-86e3-4f6c-991c-3b6f85c8a605" class>This class is responsible for modifying the properties of elements in the visualization. It has some methods like <code>applyInteractionStyle</code> which changes the css styles of the plot elements in the visualization.</p><p id="d0765e8a-1c37-4654-95e1-cc44bf900cf3" class><mark class="highlight-purple"><strong><code>applyInteractionStyle</code></strong></mark></p><blockquote id="48989f88-3312-4ce5-ba16-d542cf135f06" class>Syntax: <code>applyInteractionStyle(set, config, layers)</code></blockquote><pre id="20f89eda-a494-4b37-8fa0-9df7ae50b422" class="code"><code>parameters:
+	- set:
+			required: true
+			type: object
+			description:  Entry set or exit set object.
+	- config:
+			required: true
+			type: object
+			parameters:
+					- effectType:
+							required: true
+							type: string
+							description: Type of effect. This effect must be defined in the
+								interaction object of layer configuration.
+					- apply:
+							required: true
+							type: boolean
+							description: Whether to apply the effect or remove the effect.
+	- layers:
+				required: true
+				type: Array
+				description: Array of layer instances on which the effect will be applied
+							</code></pre><p id="8289b0f8-7d55-4222-814e-c48ea57f30f9" class><strong>Returns</strong></p><p id="ed79bf6d-4039-44f0-9e68-ea666338d590" class>SurrogateSideEffect</p><p id="d021f0f4-4b83-4e25-bd23-4859bb3e9650" class><strong>Usage</strong></p><pre id="f2e8bb07-183f-4f75-b745-a40ed4fff338" class="code"><code>const canvas = env.canvas();
+
+canvas.layers([{
+		mark: &apos;bar&apos;,
+		interaction: {
+			borderEffect: {
+					style: {
+							stroke: &apos;#000&apos;
+					},
+					strokePosition: &apos;outside&apos;
+			}
+		}
+}]);
+
+class BarColorChanger extends SurrogateSideEffect {
+    static formalName () {
+        return &apos;colorChanger&apos;;
+    }
+
+		static target () {
+				return &apos;visual-unit&apos;;
+		}
+
+    // Implement the logic of applying the style here.
+    apply (entryExitSet, payload) {
+				const { mergedEnter, mergedExit } = entryExitSet;
+
+				this.applyInteractionStyle(mergedEnter, {
+						effectType: &apos;borderEffect&apos;
+						apply: true
+				});
+				this.applyInteractionStyle(mergedExit, {
+						effectType: &apos;borderEffect&apos;
+						apply: false
+				});
+				return this;
+    }
+}
+
+muze.ActionModel.for(canvas).registerSideEffects(BarColorChanger);</code></pre><h3 id="ebc94656-b00a-4a93-ba9c-3baca33a92c1" class>SpawnableSideEffect</h3><p id="d7aacbbb-b07a-4f2b-bbb3-7d5df806904c" class>Any side effect which will add any new element to the chart like drawing a rectangular box or add any new layer over the chart needs to inherit this class.</p><p id="d9c74d62-08ed-4040-911a-4cabbc9fe725" class><mark class="highlight-blue"><strong><code>drawingContext</code></strong></mark></p><blockquote id="63bc1633-5262-41de-a79e-f4cf46c4ef27" class>Syntax: <code>drawingContext()</code></blockquote><p id="cf12a7f5-93e0-49f3-b178-4a0f3b19c388" class>This methods returns the containers and other properties like <code>width</code> and <code>height</code> of the container for drawing any elements on the chart.</p><p id="f21a4ee9-d532-4826-9210-231d0db2f6dc" class><strong>Returns</strong></p><p id="1bc0e407-757a-4e19-85af-bc2c3480df29" class>object</p><pre id="bdf1acf6-2d13-48dd-8b7f-0f5ee7e780b6" class="code"><code>{
+	svgContainer, // Svg container of the visual unit component.
+	width, // Width of the container in pixels.
+	height, // Height of the container in pixels.
+	sideEffectGroup, // Svg group for adding any side effect dom elements.
+}</code></pre><p id="2c363fbe-661b-4188-baa4-6cd66faecfde" class>
+</p><p id="5623a0e7-0039-43b4-971a-abc235cdc572" class><mark class="highlight-blue"><strong><code>createElement</code></strong></mark></p><blockquote id="4547743b-f75a-4a72-b5e5-9ec02a3db70d" class>Syntax: <code>createElement(container, elemType, data, className)</code></blockquote><p id="50ac47ff-fd00-4700-a555-3b972304fa44" class>Creates dom elements of the specified element type in the specified container element.</p><pre id="1af608a9-e578-48a3-9dc4-e77da540b743" class="code"><code>parameters:
+		- container:
+				required: true
+				type: HTMLElement | SVGElement
+				description: Dom element where the new element will be created.
+		- elemType:
+				required: true
+				type: string
+				description: Type of the element (tag name) which will be created.
+		- data:
+				required: true
+				type: Array
+				description: Array of data points which will be bound to the elements. For
+					every element in the array a new dom element will be created and each element
+					will be bound to the new dom element.
+		- className:
+				required: false
+				type: string
+				description: Class name which will be set on the elements.</code></pre><p id="fddc589a-d671-452c-8fc1-110e151a2c74" class><strong>Returns</strong></p><p id="9d668c50-faa1-4ee1-9546-1976906a2df7" class>D3 Selection.</p><h2 id="9941f452-2e21-4e3b-a050-a18b652502aa" class>SelectionSet</h2><p id="bd5ccd4a-8e0f-4840-8364-d0e9db0b1635" class>This class keeps track of the data identifiers which gets added and removed on interaction. This keeps information of which identifiers are in entry set and exit set. This is internally created by <a href="https://www.notion.so/charts/Firebolt-58e6b96e56bd4499a056e016330fab47"><mark class="highlight-blue">Firebolt</mark></a>. It internally creates an object <code>set</code> which has all the identifiers present in the datamodel of the canvas or visual unit associated with firebolt. Keys of the object are identifiers. Every identifier has three states: 1, -1 and 0. 1 means a entry state and -1 means exit state. 0 means the identifier is neither in entry state nor in exit state.</p><h3 id="2d2cdce7-9f7e-43c2-920b-b22fe43ee20d" class><mark class="highlight-purple"><code>add</code></mark></h3><blockquote id="0db80412-305f-4c8d-849a-249fd443f8d6" class>Syntax: <code>add(uids)</code></blockquote><p id="2491067c-736d-4c02-afa5-72448f7fd52b" class>Marks the identifiers passed in arguments as entry in the <code>set</code> and the rest of the identifiers as exit in <code>set</code>.</p><pre id="f1a911f5-7edf-412d-bed5-13fa4b0d5f03" class="code"><code>parameters:
+	- uids:
+			required: true
+			type: Array
+			description: Row identifiers.</code></pre><p id="9fd457ef-acab-4850-bdde-1c92d908a405" class><strong>Returns</strong></p><p id="c626e7ab-b0af-499b-9386-c6277ee3c142" class>SelectionSet</p><h3 id="6f012d59-9239-4fef-94f0-9436cbe9d363" class><mark class="highlight-purple"><code>remove</code></mark></h3><blockquote id="a1f93dda-c957-4881-b147-6355286a2e3d" class>Syntax: <code>remove(uids)</code></blockquote><p id="e9da685c-cbf5-4a47-99ff-fa6757ba579f" class>Marks the identifiers passed in arguments as exit in the <code>set</code> and the rest of the identifiers as entry in <code>set</code>.</p><pre id="aace3253-172f-4074-ab7c-df84521284a8" class="code"><code>parameters:
+	- uids:
+			required: true
+			type: Array
+			description: Row identifiers.</code></pre><p id="66cc56ff-dd7a-4e04-9426-1a3d49fa0e1f" class><strong>Returns</strong></p><p id="117333ba-e34f-42e7-8d9d-7e112762961d" class>SelectionSet</p><h3 id="0526718b-7639-47c3-884e-8a8a34b4f976" class><mark class="highlight-blue"><code>reset</code></mark></h3><blockquote id="40b31785-fac8-4903-990c-a6e3d68a6335" class>Syntax: <code>reset()</code></blockquote><p id="ed82900c-5bb9-44b8-9185-7f5141851613" class>Sets all the identifiers in the <code>set</code> to default state 0 which means none of the identifiers will be in entry or exit set.</p><p id="aa6faaa8-c0f5-435e-ac1e-ca2b9f450307" class><strong>Returns</strong></p><p id="06445a68-211d-4329-90df-8fff70c525a7" class>SelectionSet</p><h2 id="9cdde7d1-93ab-418c-84de-775f34a1f956" class>Interaction Configuration</h2><pre id="2f7364d4-2418-4d9d-bbd8-49ef9eda65b7" class="code"><code>parameters:
+		- interaction:
+				type: object
+				description: Configuration of interaction side-effects and behaviours
+				parameters:
+					- tooltip:
+							type: <strong>TooltipConfig*
+							</strong>description: Tooltip Configuration
+						</code></pre><p id="6e9088e0-c58e-4474-ac65-8472f2862642" class><mark class="highlight-gray">*TooltipConfig</mark></p><pre id="9a455f32-e724-4270-b853-0eed2d41c8c6" class="code"><code>parameters:
+	- mode:
+			required: false
+			type: string
+			default: consolidated // Supports consolidated, fragmented.
+			description: Whether data should be shown in a consolidated or fragmented
+				form. If mode is fragmented, then separate tooltips are shown for each
+				plot element.
+	- fields:
+			required: false
+			type: Array
+			description: Array of fields which will be shown in tooltip.
+	- formatter:
+			required: false
+			type: <strong>TooltipFormatter*</strong>
+			description: Returns a formatted content which will be shown in tooltip.</code></pre><p id="87385ad2-76b2-4627-8867-784668ab7108" class><mark class="highlight-gray">*TooltipFormatter</mark></p><blockquote id="a84c0356-a35d-490d-ba88-f8f950be9a6e" class>Syntax: <code>formatter: (dataModel, config, context)</code></blockquote><p id="7cdeea41-3e88-4c4d-b576-db14ff6b3205" class>This is a function which returns the formatted data which will be shown in tooltip content. It is called internally by the tooltip side effect.</p><pre id="8f0063ae-f151-405e-80d7-1fbb8fd926e8" class="code"><code>parameters:
+	- dataModel:
+			type: <strong>DataModel*
+			</strong>description: Instance of datamodel.
+	- config:
+			type: object
+			description: Configuration of content.
+			parameters:
+					- separator:
+							type: string
+							description: Default separator for key value in tooltip.
+					- classPrefix:
+							type: string
+							description: Default class prefix which should be appended with all
+								class names in the tooltip.
+					- margin:
+							type: number
+							description: Default margin value in pixels
+	- context:
+				type: object
+				parameters:
+						- axes:
+								type: object
+								description: Instances of axis.
+						- detailFields:
+								type: Array
+								description: Detail fields specified in canvas
+						- retinalFields:
+								type: Array
+								description: Array of retinal fields like color, shape and size
+									specified in canvas.</code></pre><p id="2bd7095d-952c-451b-bf41-91ee90e6d2f9" class><strong>Returns</strong></p><p id="88bb909d-ad13-425b-9412-d3765ed9aafd" class>Array of objects or html string returned by <code>html</code> operator of muze.</p><p id="ee052ad9-6a56-4798-8386-4544d5a0affd" class>Return value can be like this,</p><pre id="80be15cb-9118-4fbb-b476-8ffc035a1971" class="code"><code>// Here each element in the array represents a single row in the tooltip content.
+[{
+	 // className in each object is set to each row element in the tooltip content.
+   className: `${classPrefix}-tooltip-row`,
+	 // data array contains the values which will be displayed in that row.
+	 // Each element in the array can be an object or a string. If it&apos;s an object
+	 // then the content of the value property is displayed in the tooltip. Additional
+	 // styles can be set on each string from the style object.
+   data: [{
+      value: &apos;4&apos;,
+      style: {
+	      &apos;font-weight&apos;: &apos;bold&apos;
+      }
+	  }, &apos;Items Selected&apos;]
+ }, {
+		className: `${classPrefix}-tooltip-row`,
+	   data: [{
+      value: &apos;Double click to show data&apos;,
+      style: {
+	      &apos;font-weight&apos;: &apos;bold&apos;
+      }
+	  }]
+ }];</code></pre><p id="0de789be-5c95-4e16-b976-645f24720a33" class><strong>Usage</strong></p><pre id="b81f39f4-350a-4a44-bf9e-920ec00f95b6" class="code"><code>canvas.config({
+        interaction: {
+            tooltip: {
+                formatter: (dataModel, config, context) =&gt; {
+                    const tooltipData = dataModel.getData().data;
+                    const fieldConfig = dataModel.getFieldsConfig();
+
+                    let tooltipContent = [];
+                    tooltipData.forEach((dataArray, i) =&gt; {
+                        const originVal = dataArray[fieldConfig.Origin.index];
+                        const hpVal = dataArray[fieldConfig.Horsepower.index];
+	                      tooltipContent.push({
+														className: `${config.classPrefix}-tooltip-row`,
+														data: [originVal, hpVal]
+												});
+                    });
+                    return tooltipContent;
+                }
+            }
+        }
+    });</code></pre><p id="f9561f86-692d-4eeb-a704-39a1b03baea8" class>Alternatively, <code>html</code> operator of muze can also be used.</p><pre id="585b27df-6b85-4cfa-9dbf-18db6fc89e4d" class="code"><code>.config({
+        interaction: {
+            tooltip: {
+                formatter: (dataModel, config, context) =&gt; {
+                    const colorAxis = context.axes.color[0];
+                    const tooltipData = dataModel.getData().data;
+                    const fieldConfig = dataModel.getFieldsConfig();
+
+                    let tooltipContent = &apos;&apos;;
+                    tooltipData.forEach((dataArray, i) =&gt; {
+                        const originVal = dataArray[fieldConfig.Origin.index];
+                        const hpVal = dataArray[fieldConfig.Horsepower.index];
+                        const cylVal = dataArray[fieldConfig.Cylinders.index];
+                      	const l = colorAxis.getRawColor(cylVal)[2]; // luminance
+                        tooltipContent += `
+			${i ? &apos;&apos; : `&lt;h3 style=&quot;background-color:#EAEAEA&quot;&gt;Country: ${originVal}&lt;/h3&gt;`}
+			&lt;div style=&quot;background: ${colorAxis.getColor(cylVal)}; padding: 4px 8px; color: ${l &gt; 0.45 ? &apos;black&apos; : &apos;white&apos; };&quot;&gt;
+				&lt;u&gt;${cylVal} Cylinders&lt;/u&gt; cars with an average power of &lt;b&gt;${hpVal} HP&lt;/b&gt;
+			&lt;/div&gt;
+			`;
+                        tooltipContent += &apos;&lt;br&gt;&apos;;
+                    });
+                    return html`${tooltipContent}`;
+                }
+            }
+        }
+    })</code></pre></div></article></body><script>hljs.initHighlightingOnLoad();</script><script src="/iframe-docs/js/test.js"></script></html>

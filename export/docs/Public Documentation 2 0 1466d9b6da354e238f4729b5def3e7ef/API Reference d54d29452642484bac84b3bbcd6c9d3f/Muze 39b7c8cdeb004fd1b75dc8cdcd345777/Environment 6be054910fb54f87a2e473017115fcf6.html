@@ -1,0 +1,755 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Environment</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6be05491-0fb5-4f87-a2e4-73017115fcf6" class="page sans"><header><h1 class="page-title">Environment</h1></header><div class="page-body"><p id="6949f672-87f0-4030-873c-0ff1340c69c1" class=""><strong>Table of Contents</strong></p><nav id="af562ce8-cd54-46d2-9ecd-46621bff050a" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5b17b798-88a6-427d-b009-4e62da3bedab"><code><mark class="highlight-blue"><strong>data</strong></mark></code></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#780bc672-5110-40c4-a8da-9ab0711ce163"><mark class="highlight-purple"><code>width</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c13e37f3-924b-4874-b7fe-7bffba1824a3"><mark class="highlight-purple"><code>height</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#eefd3966-f0b9-4a12-bc06-44575fa98269"><mark class="highlight-purple"><code>minUnitWidth</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fe5782f7-4c8a-48bc-879b-ab78a0253d1b"><mark class="highlight-purple"><code>minUnitHeight</code></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#446dd8d3-93ee-4350-a923-712c42967fea"><mark class="highlight-purple"><code>config</code></mark></a></div></nav><p id="50096c91-a42b-4bb7-8481-f0f2a32f714d" class="">Environment, like the name suggest, is similar to the concept of closure in ECMAScript. Everytime a<a href="https://www.notion.so/charts/Canvas-3473758510a24a9b8aba9fc34cbd1333"> </a><a href="https://www.notion.so/charts/Canvas-3473758510a24a9b8aba9fc34cbd1333"><mark class="highlight-blue">Canvas</mark></a><mark class="highlight-blue"> </mark>is created from environment, it gets the configuration from environment itself. All the getter setter methods in environment except <code>canvas</code> are also available in <a href="https://www.notion.so/charts/Canvas-3473758510a24a9b8aba9fc34cbd1333"><mark class="highlight-blue">Canvas</mark></a><a href="https://www.notion.so/charts/Canvas-3473758510a24a9b8aba9fc34cbd1333"> </a>component. For example, if you want different width and height for each canvas, you can set it on canvas itself.</p><p id="6ed3699b-3602-4042-add4-d363a1558819" class=""><mark class="highlight-purple"><code><strong>canvas</strong></code></mark></p><blockquote id="c9934a23-3561-42eb-bdf0-2abfe4068bca" class="">Syntax: <code>canvas()</code></blockquote><p id="b891f3b9-dfe7-45a6-963d-ae94fbf2f6b0" class="">Returns an instance of <a href="https://www.notion.so/charts/Canvas-3473758510a24a9b8aba9fc34cbd1333"><mark class="highlight-blue">Canvas</mark></a> which can be used to create a visualization. All canvases created from the same environment will get all the configurations passed in that environment.</p><p id="de19557b-ee0d-4780-9e71-d201dc32523e" class=""><strong>Usage :-</strong></p><pre id="e73be3e2-fd8f-4763-b35a-fe89e0227b81" class="code"><code>const env = muze(); // Creates an environment
+const canvas = env.canvas(); // Returns an instance of canvas</code></pre><p id="d496d227-03e0-4bc1-a34b-08654709e943" class=""><strong>Returns</strong></p><p id="b10ad271-a0ef-4b41-89fb-d2cdbe083fdf" class=""><a href="https://www.notion.so/charts/Canvas-3473758510a24a9b8aba9fc34cbd1333"><mark class="highlight-blue">Canvas</mark></a> Instance of canvas</p><h2 id="5b17b798-88a6-427d-b009-4e62da3bedab" class=""><code><mark class="highlight-blue"><strong>data</strong></mark></code></h2><p id="081443e7-fdc7-4d17-8bb3-7b1f915709fe" class="">Gets or sets a <mark class="highlight-blue"><a href="https://www.notion.so/charts/Datamodel-e5778648e2a04e7291bf1f1812f4fbbb">D</a></mark><a href="https://www.notion.so/charts/Datamodel-fe2db23a6b4b40eda90ecb18b593a807"><mark class="highlight-blue">atamodel</mark></a> instance in the environment.</p><p id="a44b214a-e00e-4f24-8f2e-40539716f8ed" class="">When used as a setter,</p><blockquote id="946f2dc2-711e-489b-837c-4e92638304ee" class="">Syntax: <code>data(data)</code></blockquote><pre id="8de47ea7-a751-45f6-bcf4-bc34f8f750cd" class="code"><code>parameters:
+  - data:
+    	required: <mark class="highlight-yellow">true</mark>
+			type: <strong>DataModel</strong></code></pre><p id="d67e0022-d7ae-4597-b6f1-d3468904382d" class=""><strong>Returns</strong></p><p id="0991f1c8-a7bc-4a0f-b0d6-4e2fb54472e3" class="">Instance of environment.</p><p id="aded6597-6341-466b-bc6d-ba021a927dc7" class=""><strong>Usage :-</strong></p><pre id="7c8751f7-6ba0-4d25-a8fc-7cd4d44a2c72" class="code"><code>const dm = new DataModel(data, schema);
+const env = muze(); // Creates an environment
+env.data(dm); // Sets the datamodel instance</code></pre><p id="2648b0e8-d1a3-45ee-896d-33de3399957b" class="">When used as a getter,</p><blockquote id="7401ebaa-d1f7-42b3-b06a-f47be749052b" class="">Syntax: <code>data()</code></blockquote><p id="8949e760-ddc0-49d6-9426-aff2c38a73f9" class=""><strong>Usage :-</strong></p><pre id="9a19adcc-bc35-4b32-a263-4b8cd24b65ff" class="code"><code>const dm = new DataModel(data, schema);
+const env = muze(); // Creates an environment
+env.data(dm); // Sets the datamodel instance
+const returnDm = env.data(); // Gets the datamodel instance from the environment.</code></pre><p id="80a5e63f-1524-4d62-9f0f-f2d85ceb3546" class=""><strong>Returns</strong></p><p id="1602bd96-7454-4f48-a786-d2fc1a2f9d09" class="">Instance of <a href="https://www.notion.so/charts/Datamodel-fe2db23a6b4b40eda90ecb18b593a807"><mark class="highlight-blue">Datamodel</mark></a><a href="https://www.notion.so/charts/Datamodel-fe2db23a6b4b40eda90ecb18b593a807"> </a></p><h2 id="780bc672-5110-40c4-a8da-9ab0711ce163" class=""><mark class="highlight-purple"><code>width</code></mark></h2><p id="551de94f-e03d-4321-a37e-5c2d2457614e" class="">Gets or sets the width of the chart. If width is not passed, then the width of the <code>mountPoint</code> is used.</p><p id="92c0140b-c2e9-4ae7-974a-1dd8113050fa" class="">When used as a setter,</p><blockquote id="6878dea6-0150-4bdb-9c5a-6861ab6278af" class="">Syntax: <code>width(width)</code></blockquote><pre id="b67b952f-e122-4e57-89ce-532ed850d3c1" class="code"><code>parameters
+	- width:
+    	required: <mark class="highlight-yellow">true</mark>
+			type: number</code></pre><p id="9c3c07f4-7004-4c07-9d3b-d128469ffa54" class=""><strong>Returns</strong></p><p id="2d830e29-10b7-49c5-ae0d-c5a66eaf1b3e" class="">Instance of environment.</p><p id="e0231145-cd4f-4306-9fd2-f1b5d5d74e69" class=""><strong>Usage :-</strong></p><pre id="fde08e1e-3379-45e4-a618-af36812e540b" class="code"><code>const env = muze(); // Creates an environment
+env.width(500); // Sets the width</code></pre><p id="5f283d0c-c7f1-4a34-8dfa-767b4b901474" class="">When used as a getter,</p><blockquote id="5bce8b17-07a7-4702-8c9e-7268dc87f047" class="">Syntax: <code>width()</code></blockquote><p id="0ea6962f-a9d3-4ff9-a7e2-e6429f351998" class=""><strong>Usage :-</strong></p><pre id="f1235bdc-9f57-4759-9b75-a1ef2238a244" class="code"><code>const env = muze(); // Creates an environment
+env.width(500); // Sets the width
+const width = env.width(); Gets the width</code></pre><p id="f56c3ce6-cd45-4ecb-827c-da94bf92d19f" class=""><strong>Returns</strong></p><p id="39332c2f-207c-4c0f-9699-c3f50c5aaaf9" class="">Width of chart.</p><h2 id="c13e37f3-924b-4874-b7fe-7bffba1824a3" class=""><mark class="highlight-purple"><code>height</code></mark></h2><p id="40bbbdb6-301a-4192-bfa0-16ae23b2f9de" class="">Gets or sets the height of the chart. If height is not passed, then the height of the <code>mountPoint</code> is used.</p><p id="bc8709e8-d331-4184-9128-14741cf8e821" class="">When used as a setter,</p><blockquote id="0e241227-86dc-409e-8aa5-d6aa0271b905" class="">Syntax: <code>height(height)</code></blockquote><pre id="b57d840a-8e5d-4c98-a0af-f82bb63be1c5" class="code"><code>parameters
+	- height:
+    	required: <mark class="highlight-yellow">true</mark>
+			type: number</code></pre><p id="60d747ad-1418-4c1b-b61f-61bf90f3f620" class=""><strong>Returns</strong></p><p id="e25e0ec2-5352-4b3f-8e06-0e3b11dff28d" class="">Instance of environment.</p><p id="599911f9-18b8-4b7e-84c6-6a06a601bcb2" class=""><strong>Usage :-</strong></p><pre id="77b86bbb-a25c-40e0-9009-6b50c8c66fc0" class="code"><code>const env = muze(); // Creates an environment
+env.height(500); // Sets the width</code></pre><p id="58d84db1-dd48-4d91-846c-5b20e78c966e" class="">When used as a getter,</p><blockquote id="90d532a5-9a1a-468f-ac8f-aac61e7871a3" class="">Syntax: <code>height()</code></blockquote><p id="b500ff19-72a6-4ff4-b4ee-54d2777d312b" class=""><strong>Usage :-</strong></p><pre id="c3d1dbf3-fcfa-46ba-b43c-146673001954" class="code"><code>const env = muze(); // Creates an environment
+env.height(500); // Sets the width
+const height = env.height(); Gets the height</code></pre><p id="09ad057a-9853-47b6-aaf4-e1e4e9e6e926" class=""><strong>Returns</strong></p><p id="53cb30fb-9e0e-4e68-987e-afc76f3aa8c2" class="">Height of chart.</p><h2 id="eefd3966-f0b9-4a12-bc06-44575fa98269" class=""><mark class="highlight-purple"><code>minUnitWidth</code></mark></h2><p id="547f1126-9968-4278-b2b8-8b4f2e39f687" class="">Gets or sets the minimum unit width of the chart. When a faceted visualization is created using muze, it consists of multiple charts which are called visual units. <code>minUnitWidth</code> is the minimum horizontal space each chart is allocated during space allocation.</p><p id="57f04e3e-2fba-4c5c-ba88-bb8acfe6dd8d" class="">When used as a setter,</p><blockquote id="169bd014-1a0a-4e55-b8d3-3cbe2cd3ca46" class="">Syntax: <code>minUnitWidth(mintUnitWidth)</code></blockquote><pre id="b18ad8d7-9987-4ef2-95b0-a64812b810d5" class="code"><code>parameters
+	- minUnitWidth:
+    	required: <mark class="highlight-yellow">true</mark>
+			type: number
+			default: 150
+			description: Minimum width of each visual unit.</code></pre><p id="10f5bfc1-668c-420c-9d38-24e806560f5c" class=""><strong>Returns</strong></p><p id="30f15f57-8478-4997-8a87-51f1eebf4840" class="">Instance of environment.</p><p id="1cd89ad6-1557-465d-957f-3a75f562b3cd" class=""><strong>Usage :-</strong></p><pre id="b323d93f-2a47-43d2-b79b-83cf4b67b5c5" class="code"><code>const env = muze(); // Creates an environment
+env.minUnitWidth(200); // Sets the minimum unit width</code></pre><figure id="5c0a8cfc-1779-4c7e-933c-7f6ddb553c69"><div class="source"><a href="https://codepen.io/chartshq/pen/b8b66b81ca4451f53993d176187b3650">https://codepen.io/chartshq/pen/b8b66b81ca4451f53993d176187b3650</a></div></figure><p id="de74c8df-9cc9-4746-8a7a-3e09553417b1" class="">When used as a getter,</p><blockquote id="6eb7e1d6-243e-4686-ab76-d7ea72dd0e97" class="">Syntax: <code>mintUnitWidth()</code></blockquote><pre id="303ba090-3225-4c4b-b43c-a751fc9ed8ba" class="code"><code>const env = muze(); // Creates an environment
+env.minUnitWidth(200); // Sets the minimum unit width
+const minWidth = env.minUnitWidth(); // Gets the minimum unit width.</code></pre><p id="7b460970-14e0-49d4-8732-0244f01c8d6e" class=""><strong>Returns</strong></p><p id="6939e805-b1e6-42ce-b1e9-ef51396f0254" class="">Minimum unit width of chart.</p><h2 id="fe5782f7-4c8a-48bc-879b-ab78a0253d1b" class=""><mark class="highlight-purple"><code>minUnitHeight</code></mark></h2><p id="6d1a36ca-36e8-439a-94c6-d95d54a1a134" class="">Gets or sets the minimum unit height of the chart. When a faceted visualization is created using muze, it consists of multiple charts which are called visual units. <code>minUnitHeight</code> is the minimum vertical space each chart is allocated during space allocation.</p><p id="955b40d6-570e-4f74-9f5f-b25b711f48b8" class="">When used as a setter,</p><blockquote id="0ae0b081-95f0-4a39-a709-957453df1b1d" class="">syntax: <code>minUnitHeight(minUnitHeight)</code></blockquote><pre id="e90f6816-ef31-47a7-9d65-2e03b3b6b425" class="code"><code>parameters
+	- minUnitHeight
+	     required: <mark class="highlight-yellow">true</mark>
+			 type: number
+			 default: 150
+		   description: Minimum height of each visual unit.</code></pre><p id="2a4ddcbc-01c7-4321-b852-12cff3fbb55b" class=""><strong>Returns</strong></p><p id="292d76fd-fbd9-4c6a-95ad-21c6e329ebf8" class="">Instance of environment.</p><p id="4fe36184-43ec-478f-b4d4-d81912ffd3a7" class=""><strong>Usage :-</strong></p><pre id="eef3221c-5ddb-43b2-98d0-9f53f4d085d0" class="code"><code>const env = muze(); // Creates an environment
+env.minUnitHeight(200); // Sets the minimum unit width</code></pre><figure id="cf86eebb-09aa-44f7-b70e-544331bfe093"><div class="source"><a href="https://codepen.io/chartshq/pen/d239697be53371f57ca7382370d2d941">https://codepen.io/chartshq/pen/d239697be53371f57ca7382370d2d941</a></div></figure><p id="d6bf0eb9-e0c9-4930-b2a2-b221c6f68897" class="">When used as a getter,</p><blockquote id="a807c17c-8768-46d4-afe4-0dd4fc4bb90e" class="">Syntax: <code>minUnitHeight()</code></blockquote><pre id="53f1ddcd-5c06-4b2b-bf7b-c7ebdd9e9685" class="code"><code>const env = muze(); // Creates an environment
+env.minUnitHeight(200); // Sets the minimum unit width
+const minHeight = env.minUnitHeight(); // Gets the minimum unit width.</code></pre><p id="7eb829f1-0a84-4f1b-8520-799bd92699fb" class=""><strong>Returns</strong></p><p id="4a2ef305-093a-4abd-bc9b-3b42465fda3d" class="">Minimum unit height of chart.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="77764edf-b651-4b40-b3e3-f3b2b225534f"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong><mark class="highlight-yellow">Note
+</mark></strong>Increasing minimum unit width and height beyond a certain value may add scrolling in chart because greater the minimum unit width or height the less number of units can be shown in a single view.<strong><mark class="highlight-yellow">
+</mark></strong></div></figure><h2 id="446dd8d3-93ee-4350-a923-712c42967fea" class=""><mark class="highlight-purple"><code>config</code></mark></h2><p id="259f8d4b-3f82-4077-af1e-8ea3510dbd85" class="">Gets or sets the configuration of canvases. Each canvas created from the same environment will share the configuration passed to that environment. When configuration is passed, then it is merged with the default configuration and set to canvas.</p><p id="f93e4cc8-391f-49f0-a13c-12d591ede949" class="">When used as a setter,</p><blockquote id="dc700353-e1a8-47d6-9602-992eddc5eed3" class="">Syntax: <code>config(config)</code></blockquote><pre id="0ed85731-93da-4f78-a6f8-8d8b97c10bab" class="code"><code>parameters:
+		- config:
+				required: true
+				type: object
+				default: {}
+				description: Canvas configuration.
+				parameters:
+						- axes: <strong>Axis Configuration</strong>
+								required: false
+								type: object
+								default: {}
+								description: Configuration of axes.
+						- legend: <strong>Legend Configuration</strong>
+								required: false
+								type: object
+								default: {}
+								description: Configuration of legend.
+						- sort:
+								required: false
+								type: object
+								default: {}
+								description: Data sort configuration.
+						- invalidValues:
+								required: false
+								type: object
+								default: {}
+								description: Configuration for formatting invalid values.
+						- interaction: <strong>Interaction Configuration</strong>
+								required: false
+								type: object
+								default: {}
+								description: Interaction configuration
+						- showHeaders:
+								required: false
+								type: boolean
+								default: false
+								description: Toggles the visibility of facet headers
+						- autoGroupBy:
+								required: false
+								type: object
+								default: {
+										disabled: false
+								}
+								description: Muze internally performs a groupby on the datamodel with
+									all the fields present in the chart. If autoGroupBy is disabled, then
+									muze does not perform any groupby operation on the datamodel.
+								parameters:
+										- disabled:
+												required: false
+												type: boolean
+												default: false
+												description: Disables the internal groupby of datamodel.
+						- pagination:<strong>
+								</strong>required: false
+								type: String
+								default: &#x27;scroll&#x27; ##other options: {&#x27;holistic&#x27;}
+								description: Specifies the type of pagination one need.
+						- borders: <strong>Border Configuration
+								</strong>required: false
+								type: Object
+								default: default <strong>Border Configuration</strong> 
+								description: Configures the border look and feel.<strong>
+						- </strong>gridLines : <strong>GridLine Configuration
+								</strong>required: false
+								type: Object
+								default: default <strong>GridLine Configuration</strong>
+								description: Configures Gridlines
+						- gridBands : <strong>GridBand Configuration
+								</strong>required: false
+								type: Object
+								default: default <strong>GridBand Configuration</strong>
+								description: Configures GridBands<strong>
+						- </strong>scrollBar : <strong>ScrollBar Configuration
+								</strong>required: false
+								type: Object
+								default: default <strong>ScrollBar Configuration</strong>
+								description: Configures Scroll Bar
+										</code></pre><p id="ffd4ac42-ce76-42aa-a9ee-b9de77c52b6a" class=""><strong>References</strong> :-</p><p id="de7ba6ea-a91d-4afb-804d-d451a57035d8" class="">* <a href="https://www.notion.so/charts/Legend-Configuration-2cbeaa494b77477ea5cebdc4e741b520"><mark class="highlight-blue">Legend Configuration</mark></a></p><p id="72a95429-f720-47b4-a7b0-d8a07418ba9e" class="">* <a href="https://www.notion.so/charts/Axis-Configuration-5c43317184034439b6fc7cd7ce144119"><mark class="highlight-blue">Axis Configuration</mark></a></p><p id="8b340ea0-76be-4067-b470-6470589caee4" class="">* <a href="https://www.notion.so/charts/Physical-Actions-Behaviours-and-SideEffects-45a2d64ae5974eea955781f9aecd0506"><mark class="highlight-blue">Interaction Configuration</mark></a></p><p id="2af76b56-8426-48e8-9b96-59dacf0fef22" class="">* <a href="https://www.notion.so/charts/Border-Configuration-4db9321084cd4b829ec66bcd146afa66"><mark class="highlight-blue">Border Configuration </mark></a></p><p id="549bdf94-0563-4ab6-bc5c-7b9f8e707480" class="">* <a href="https://www.notion.so/charts/GridLine-Configuration-adcc0c707b20450ea4dad9627908d6a7"><mark class="highlight-blue">GridLine Configuration</mark></a>
+* <a href="https://www.notion.so/charts/GridBand-Configuration-2be401b64d5f44189f25d8e972404a8e"><mark class="highlight-blue">GridBand Configuration</mark></a></p><p id="877eb260-57d7-4b1e-903b-883ac9fbca2e" class="">*  <a href="https://www.notion.so/charts/ScrollBar-Configuration-4f850579371146859e79a848ae280f24"><mark class="highlight-blue">ScrollBar Configuration</mark></a></p><p id="e65b84f0-0ee1-4277-81df-df4af326ddc2" class=""><strong>Returns</strong></p><p id="c115cd4f-ef26-4da1-9fa5-1169ee7c555c" class="">Instance of environment.</p><p id="0cc840e8-8787-4fde-8d88-7337b78b33ed" class=""><strong>Usage :-</strong></p><pre id="23c1425b-5e2b-4e7f-a36c-5f3df8b9874c" class="code"><code>const env = muze(); // Creates an environment
+const canvas = env.canvas(); // Creates an instance of canvas.
+
+canvas.config({
+	showHeaders: true,
+	axes: {
+			x: {
+					show: false
+			}
+	}
+});</code></pre><figure id="b7562826-7886-46f7-984b-5e8a486dcad1"><div class="source"><a href="https://codepen.io/chartshq/pen/482392571f44a9e34dac32076478402d">https://codepen.io/chartshq/pen/482392571f44a9e34dac32076478402d</a></div></figure><p id="9fea704a-06b1-41c9-87bc-7a1d99d65ae0" class="">When used as a getter,</p><blockquote id="5a8e89d7-b355-4635-8a94-15eaba222f59" class="">Syntax: <code>config()</code></blockquote><p id="8a6f33ee-c824-4d32-8fcb-26703104a1ad" class=""><strong>Returns</strong></p><p id="df1079ae-8280-44c4-a1a5-e960976e4c57" class="">Configuration of canvases.</p><p id="fd296cc6-d396-43ae-9b7a-4c53155a19ea" class="">
+</p></div></article></body></html>

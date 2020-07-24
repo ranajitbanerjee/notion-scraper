@@ -15,6 +15,20 @@ const TABLE_ID = '__id';
 const PAGE_LINK_CLASS = '.link-to-page';
 const CODE_PEN_HEIGHT = 600;
 
+const stripEndSHAFromFileName = (filePath) => {
+    const { name, ext, dir } = path.parse(filePath);
+    const words = name.split(' ');
+    const strippedFileName = `${words
+        .slice(0, words.length - 1)
+        .join(' ')}${ext}`;
+
+    return dir === ''
+        ? strippedFileName
+        : dir === path.sep
+            ? `${dir}${strippedFileName}`
+            : `${dir}${path.sep}${strippedFileName}`;
+};
+
 const createExamplesJson = (examplesFile, outDirPath) => {
     fs.readFile(examplesFile, 'utf8', (err, data) => {
         if (err) throw rej(err);
@@ -128,36 +142,42 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         let flag = false;
         $('a').each(function () {
             const href = $(this).attr('href');
-            const fileName = path.basename(href).replace('.html', '').replace('%20', '-').toLowerCase();
             const currentPath = path.dirname(destFilePath);
             // const sourceDir = path.dirname(sourceDir);
             const destFileName = path.basename(destFilePath).replace('.html', '');
             const sourceFileName = path.basename(sourceFilePath).replace('.html', '').replace(/\s/g, '%20');
-            const sourcePathInLink = new RegExp(sourceFileName).test(href) && !href.startsWith('https://') &&
-                !href.startsWith('http://');
 
-            if (/notion\.so/g.test(href)) {
-                const hash = href.substring(href.lastIndexOf('-') + 1);
-                const [id, hashStr] = hash.split('#');
-                if (pagesMap[id]) {
-                    const relativePath = path.relative(currentPath, pagesMap[id]);
+            if (href) {
+                const fileName = path.basename(href).replace('.html', '').replace('%20', '-').toLowerCase();
+                const sourcePathInLink = new RegExp(sourceFileName).test(href) && !href.startsWith('https://') &&
+                    !href.startsWith('http://');
 
-                    const withHash = hashStr ? `#${hyphenate(hashStr)}` : '';
-                    $(this).attr('href', `${relativePath}${withHash}`);
+                if (/notion\.so/g.test(href)) {
+                    const hash = href.substring(href.lastIndexOf('-') + 1);
+                    const [id, hashStr] = hash.split('#');
+                    if (pagesMap[id]) {
+                        const relativePath = path.relative(currentPath, pagesMap[id]);
+
+                        const withHash = hashStr ? `#${hyphenate(hashStr)}` : '';
+                        $(this).attr('href', `${relativePath}${withHash}`);
+                    }
+                } else if (pageLinksMap[fileName]) {
+
+                    // console.log(currentPath, pageLinksMap[fileName])
+                    // const relPath = path.relative(currentPath, pageLinksMap[fileName]);
+                    $(this).attr('href', path.relative(currentPath, pageLinksMap[fileName]));
+                } else if (sourcePathInLink) {
+                    // console.log(sourcePathInLink, sourceFileName, href, destFileName);
+                    $(this).attr('href', href.replace(sourceFileName, destFileName));
+                    const imgs = $(this).find('img');
+                    imgs.each(function () {
+                        const src = $(this).attr('src');
+                        $(this).attr('src', src.replace(sourceFileName, destFileName));
+                    });
                 }
-            } else if (pageLinksMap[fileName]) {
-
-                // console.log(currentPath, pageLinksMap[fileName])
-                // const relPath = path.relative(currentPath, pageLinksMap[fileName]);
-                $(this).attr('href', path.relative(currentPath, pageLinksMap[fileName]));
-            } else if (sourcePathInLink) {
-                // console.log(sourcePathInLink, sourceFileName, href, destFileName);
-                $(this).attr('href', href.replace(sourceFileName, destFileName));
-                const imgs = $(this).find('img');
-                imgs.each(function () {
-                    const src = $(this).attr('src');
-                    $(this).attr('src', src.replace(sourceFileName, destFileName));
-                });
+            } else {
+                console.warn("Anchor tag with no href attribute detected. Is this intentional?");
+                console.info(`Path to file: ${sourceFilePath}`);
             }
         });
         return flag;
@@ -173,7 +193,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             const html = $(this);
             const id = html.attr('id');
             const href = html.find('a').attr('href');
-            const name = path.basename(href).replace('.html', '').replace(/%20/g, ' ');
+            const name = stripEndSHAFromFileName(path.basename(href).replace('.html', '').replace(/%20/g, ' '));
             linkNames[name] = i;
             pagesMap[id.replace(/-/g, '')] =
                 `${outFilePath.replace('.html', '')}/${name.toLowerCase().split(' ').join('-')}.html`;
@@ -206,9 +226,9 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
         });
     });
 
-    async function traverseDirectory (dir, linksOrder = {}) {
+    async function traverseDirectory (dir, writeDir, linksOrder = {}) {
         const files = await readdir(dir);
-        const subDirectoryPath = `${dir.replace(`${inputDir}`, '')}`.toLowerCase().split(' ').join('-');
+        const subDirectoryPath = `${writeDir.replace(`${stripEndSHAFromFileName(inputDir)}`, '')}`.toLowerCase().split(' ').join('-');
         const outDir = `${outPageDirPath}${subDirectoryPath}`;
         const subPages = [];
 
@@ -217,14 +237,15 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             const extname = path.extname(file);
             if (extname === '.html') {
                 const filePath = path.resolve(dir, file);
-                const basename = path.basename(filePath).replace('.html', '');
+                const writeFilePath = stripEndSHAFromFileName(path.resolve(writeDir, file));
+                const data = await readFile(filePath);
+                const basename = path.basename(writeFilePath).replace('.html', '');
                 const lowerCaseHyphenatedBaseName = basename.toLowerCase().split(' ').join('-');
                 const newFilePath = `${outDir}/${lowerCaseHyphenatedBaseName}.html`;
-                const data = await readFile(filePath);
                 const { hasLinks, links, title } = createPagesMap(data, newFilePath);
 
                 if (hasLinks) {
-                    const pages = await traverseDirectory(filePath.replace('.html', ''), links);
+                    const pages = await traverseDirectory(filePath.replace('.html', ''), writeFilePath.replace('.html', ''), links);
                     subPages.push({
                         title,
                         path: newFilePath.replace(outPageDirPath, '.'),
@@ -304,12 +325,13 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
             if (extname === '.html') {
                 const fullPath = path.resolve(inputDir, filePath);
                 const data = await readFile(fullPath);
-                const { hasLinks, links } = createPagesMap(data, fullPath);
+                const outFullPath = stripEndSHAFromFileName(fullPath);
+                const { hasLinks, links } = createPagesMap(data, outFullPath);
 
                 if (hasLinks) {
                     inputDir = fullPath.replace('.html', '');
                     rootDirPath = inputDir;
-                    traverseDirectory(inputDir, links).then(async (data) => {
+                    traverseDirectory(inputDir, stripEndSHAFromFileName(inputDir), links).then(async (data) => {
 
                         await createFiles(data);
                         console.log('Docs generation done');

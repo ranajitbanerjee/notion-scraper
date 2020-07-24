@@ -1,0 +1,629 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Dimensional Values and Faceting</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/iframe-docs/css/github.css"><link rel="stylesheet" href="/iframe-docs/css/style.css"><script src="/iframe-docs/js/highlight.pack.js"></script><script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script></head><body><article id="33300922-9ede-46f6-bd8a-fcbea1f55d60" class="page sans"><header><h1 class="page-title"><strong>Dimensional Values and Faceting</strong></h1></header><div class="page-body"><p id="ac9f9c10-4e78-44c0-aac1-a6bf2175e81d" class><strong>Table of Contents</strong></p><div class="indented"><nav id="5562991a-abbc-4c21-8826-8d77d2c63ce8" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ee926b3f-67ef-4d28-a404-9cfa39700c69"><strong>Data</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#69a911b7-d2af-40c6-8005-b57dceb0767f"><strong>Simple chart to faceted visualization</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1e3ef94c-1841-4a0f-9866-42e3a78d6119"><strong>Facets</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#db6e95f8-2f84-447d-96a1-e201a10fbe09"><strong>So what exactly do we mean by Faceting?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#120e14a6-3a93-4a6b-a360-6c57276f7077"><strong>How Muze establishes Faceting?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#37a62d33-38a5-4d1f-b76e-0ffdfa72646b"><strong>Wrapping Up</strong></a></div></nav></div><p></p><hr id="7ad8ec59-f743-43b0-b56b-d04af54184e2"><p id="d8c5fcc9-5ab1-4b4b-b297-c3744bebba74" class>In this document we will be building an intuition on what faceting is and how dimensional values play an important role in the process.</p><h2 id="ee926b3f-67ef-4d28-a404-9cfa39700c69" class><strong>Data</strong></h2><p id="f3fad724-824a-46e3-8fd1-57d820f9c021" class>We will be taking&#xA0;<a href="https://muzejs.org/data/cars.csv"><mark class="highlight-blue">cars.csv</mark></a>&#xA0;as sample data source for illustration.</p><h2 id="69a911b7-d2af-40c6-8005-b57dceb0767f" class><strong>Simple chart to faceted visualization</strong></h2><p id="c86d75c4-5d4c-42f1-b976-6808dd7488ce" class>Let&apos;s see what happens conceptually if we want to create a simple bar graph from this data. We plot the field&#xA0;<em>Origin</em>&#xA0;in x axis and&#xA0;<em>Horsepower</em>&#xA0;in y axis.</p><figure id="6d41b4b4-4130-4e17-a685-15ad8df47ecb"><div class="source"><iframe id="cp_embed_16699730e7492c5c4c7b01c4948e64bf" src="https://codepen.io/chartshq/embed/preview/gOPKjoZ?height=600&amp;slug-hash=gOPKjoZ&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Concepts: Simple Chart to Faceted Visualization" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="ee75f7b8-6424-470f-bb08-8f06526a0a00" class>When we pass data to&#xA0;<code>canvas</code>, it does not takes the data as is for rendering. Canvas performs a&#xA0;<mark class="highlight-blue"><a href="../datamodel/operators.html#342d532d-ddd5-48ef-a9fd-8b3dedcbae72">group by</a></mark><mark class="highlight-blue">&#xA0;</mark>operation with all the&#xA0;<a href="../datamodel/introducing-datamodel.html#65eee3fd-b2f9-4c5c-99f7-00c302b4e812"><mark class="highlight-blue">dimensions</mark></a>&#xA0;present in the encoding channels (<code>rows</code>,&#xA0;<code>columns</code>,&#xA0;<code>color</code>,&#xA0;<code>shape</code>,&#xA0;<code>size</code>). In this case two fields are assigned to&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>, due to which the data gets transformed to the following form for rendering. Out of these two fields, one field is&#xA0;<a href="../datamodel/introducing-datamodel.html#65eee3fd-b2f9-4c5c-99f7-00c302b4e812"><mark class="highlight-blue">dimension</mark></a>&#xA0;which is used to perform the&#xA0;<code>groupBy</code>&#xA0;operation.</p><figure id="a1ed2679-dd76-413f-8048-89ef59a420d3"><div class="source"><iframe id="cp_embed_ee3a1fe3d6f18c3b65d38e48ec60777d" src="https://codepen.io/chartshq/embed/preview/LYGrBQe?height=600&amp;slug-hash=LYGrBQe&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Concepts: Faceting Explained by GroupBy" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="9eb34d7b-e4a9-48e9-9057-74da2b6df047" class>In this example canvas applies&#xA0;<code>groupBy</code>&#xA0;operation using&#xA0;<em>Origin</em>&#xA0;dimension. As you can see the resultant instance of<mark class="highlight-blue">&#xA0;</mark><a href="https://www.notion.so/charts/Introducing-DataModel-d1e43f0257104c92be88d77454388e2c#1f0b87c2a32440ea999f47a0cce8b4ea"><mark class="highlight-blue">DataModel</mark></a><mark class="highlight-blue">&#xA0;</mark>contains only the unique values of the dimension(i.e.,&#xA0;<em>Origin</em>). The values of the measure fields get aggregated when groupBy happens. Every unique value of a&#xA0;<a href="../datamodel/introducing-datamodel.html#65eee3fd-b2f9-4c5c-99f7-00c302b4e812"><mark class="highlight-blue">dimension</mark></a><mark class="highlight-blue">&#xA0;</mark>is called&#xA0;<strong>dimensional value</strong>.</p><p id="597d216a-5922-4c56-b757-c98a62cbcc07" class>Now when we add another dimension in&#xA0;<em>columns</em>, and we get the following visualization.</p><figure id="52658593-2be9-4b69-9f76-dcf698cc24b7"><div class="source"><iframe id="cp_embed_010a616a5dc98d88849ded0e1ae936b4" src="https://codepen.io/chartshq/embed/preview/BajVPYE?height=600&amp;slug-hash=BajVPYE&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Concepts: Adding a Dimension in Column" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="b9b02acd-f8b4-44ff-ad97-510d23f5a8c4" class>Let&#x2019;s pause and think about how this visualization is created from the code before reading any further.</p><p id="13862c60-11f3-45e2-b5da-db2e83ee0a81" class>Just like last example, canvas applies&#xA0;<a href="../datamodel/operators.html#342d532d-ddd5-48ef-a9fd-8b3dedcbae72"><mark class="highlight-blue">group by operator</mark></a>&#xA0;with all the two&#xA0;<a href="../datamodel/introducing-datamodel.html#65eee3fd-b2f9-4c5c-99f7-00c302b4e812"><mark class="highlight-blue">dimensions</mark></a>&#xA0;(out of three fields) mentioned in the encoding channels, and the data gets transformed to the following form.</p><figure id="570e137a-d21e-4a5e-bb4d-a380a2eb5bb2"><div class="source"><iframe id="cp_embed_56c8525dcb5336743b134281406d4127" src="https://codepen.io/chartshq/embed/preview/VwedBdd?height=600&amp;slug-hash=VwedBdd&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Concepts: GroupBy Using Two Dimensions" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="a5355907-a4ba-4feb-b714-aba91da5f817" class>The fields&#xA0;<em>Origin</em>&#xA0;and&#xA0;<em>Horsepower</em>&#xA0;are used to create the axes while the field&#xA0;<em>Cylinders</em>&#xA0;is used to create the facets. Just like&#xA0;<em>Origin</em>&#xA0;and&#xA0;<em>Horsepower</em>&#xA0;were repeated for all of the&#xA0;<em>Cylinders</em>&#xA0;in the above instance of&#xA0;<em>DataModel</em>, a unit of visualization is repeated for all the dimensional values of&#xA0;<em>Cylinders</em>.</p><p id="904de40f-45b9-40b9-9342-73cff1af053e" class>The above example was a use case of&#xA0;<strong>column faceting</strong>. If you provide more than one variable in&#xA0;<code>rows</code>&#xA0;then&#xA0;<strong>row faceting</strong>&#xA0;happens.</p><p id="45d20b86-20e2-4226-9d84-74442f72e9c6" class>And thats the simple concept of faceting.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="162305d5-70ea-42f9-9333-d8f5069e9aa0"><div style="font-size:1.5em"><span class="icon">&#x2705;</span></div><div style="width:100%"><strong><mark class="highlight-teal">Check out
+</mark></strong>Do rename&#xA0;<code>rows</code>&#xA0;to&#xA0;<code>columns</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;to&#xA0;<code>rows</code>&#xA0;to checkout the effect.</div></figure><h2 id="1e3ef94c-1841-4a0f-9866-42e3a78d6119" class><strong>Facets</strong></h2><p id="2447ed50-205e-4948-a85a-6ae6dd7ded01" class>Muze mandatorily needs X and Y axis to create a visualization (with cartesian coordinate). This information is passed through&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>. Muze creates a unit chart with this information. If more than one&#xA0;<a href="../datamodel/introducing-datamodel.html#65eee3fd-b2f9-4c5c-99f7-00c302b4e812"><mark class="highlight-blue">dimension</mark></a><mark class="highlight-blue">&#xA0;</mark>is present in&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>, Muze repeats that unit visualization for all dimensional values of the newly added&#xA0;<a href="../datamodel/introducing-datamodel.html#65eee3fd-b2f9-4c5c-99f7-00c302b4e812"><mark class="highlight-blue">dimension</mark></a>&#xA0;, which was not used to create axes.</p><p id="80729695-75a4-4866-b48c-b93b20d98c6e" class>For example, consider that we have the distribution of&#xA0;<em>Horsepower</em>&#xA0;for each value in&#xA0;<em>Cylinders</em>. This way we get to know what is the average&#xA0;<em>Horsepower</em>&#xA0;generated by each&#xA0;<em>Cylinders</em>. But, what if we wanted to know the average&#xA0;<em>Horsepower</em>&#xA0;per&#xA0;<em>Cylinders</em>&#xA0;of the cars coming out of every country (<em>Origin</em>).</p><p id="ea50eb22-1174-43b2-9299-bee4dd107a0f" class>We will need to draw multiple charts for each combination of&#xA0;<em>Origin and Cylinders</em>. Muze can do that for you. All you have to do is give the encodings in right order.</p><p id="005c2a9a-d7ce-4389-8de3-7f2b94b19af1" class>This creates three separate bar charts as shown below:</p><figure id="f03848ea-129e-4eb5-8beb-a271fbc60a63"><div class="source"><iframe id="cp_embed_d42e0b9513271bc9f164d0d89fc19b0d" src="https://codepen.io/chartshq/embed/preview/WNryKgN?height=600&amp;slug-hash=WNryKgN&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Concepts: Facet by Origin, Three Bar Charts" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="be08bc19-607b-4303-93cb-9afec9f4c56d" class>We have faceted our chart by Origin and as such we get a row for each unique facet.</p><p id="ac33e8aa-de0f-4b59-9f92-88767e1ce65c" class>Scaling the last example, we might want to see this visualization with a different facet. For instance, we could facet the visualization based on the&#xA0;<em>Year</em>&#xA0;of manufacturing of a car.</p><figure id="cbbe2efe-b92b-4223-b06c-a70f0c9d1d18"><div class="source"><iframe id="cp_embed_30c1f454bfdc2a21544907a12d748c69" src="https://codepen.io/chartshq/embed/preview/vYLrazV?height=600&amp;slug-hash=vYLrazV&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Concepts: Facet by Year" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><h2 id="db6e95f8-2f84-447d-96a1-e201a10fbe09" class><strong>So what exactly do we mean by Faceting?</strong></h2><p id="0642d6af-a083-4f4c-91ab-3664a0e8e9c1" class>In a faceted classification system, each information element is classified along multiple explicit dimensions, called facets. This enables the classifications to be accessed and ordered in multiple ways rather than in any one single way.</p><p id="a1212c2b-4493-4c8b-a569-90f9fb411224" class>In Muze, faceting is spawning instance of DataModel corresponding to a dimensional values of a particular dimension.</p><p id="8cb773d3-1c70-4e1f-aa9c-2b8ed41e809b" class>Therefore, in the earlier example, when we facet the DataModel with the respective&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>column</code>&#xA0;fields, Muze is essentially creating multiple faceted DataModels with each combination of facet and based on the visual encoding applied to it, it gets transformed to respective chart.</p><h2 id="120e14a6-3a93-4a6b-a360-6c57276f7077" class><strong>How Muze establishes Faceting?</strong></h2><p id="036c642d-365b-4aae-8460-680979c307d4" class>First, we facet the original DataModel with a particular dimension. We get the faceted set of instances of DataModels corresponding to each dimensional value of the dimension.</p><figure id="4e8c560c-45da-49ac-9092-c35d99095900" class="image"><a href="dimensional-values-and-faceting/facet-flow1.png"><img style="width:221px" src="dimensional-values-and-faceting/facet-flow1.png"></a></figure><p id="4c34b5ce-ade0-4f24-ad86-3308acde49b8" class>For instance, If we have three&#xA0;<em>Origin</em>&#xA0;values as&#xA0;<em>European Union, USA</em>&#xA0;and&#xA0;<em>Japan</em>&#xA0;in the original DataModel, we will get three DataModels, each of which has the set of fields corresponding to the particular&#xA0;<em>Origin:</em></p><figure id="2e5c8c4d-013a-45d6-a43f-b003ce52bef7" class="image"><a href="dimensional-values-and-faceting/facet-flow2.png"><img style="width:261px" src="dimensional-values-and-faceting/facet-flow2.png"></a></figure><p id="d3c4cf70-83cd-4131-9525-b184aa953f39" class>Similarly, for multiple sets of facets, we get multiple layers of faceted models, for example a faceting with&#xA0;<em>Origin</em>&#xA0;and&#xA0;<em>Cylinders:</em></p><figure id="96310a24-5cfa-4f96-a4a9-eaf75ff392af" class="image"><a href="dimensional-values-and-faceting/facet-flow3.png"><img style="width:411px" src="dimensional-values-and-faceting/facet-flow3.png"></a></figure><p id="c8b73000-cc81-43ee-9a19-79f7d933bc39" class>The above row faceting achieves in providing rows for each of the facet combinations.</p><p id="03bf45bb-5568-4eb1-b832-ea732cb99e0e" class>Thereafter, we can add column facets to further expand the faceting. Consider that we need to see how the distribution for&#xA0;<em>Horsepower</em>&#xA0;gets affected per&#xA0;<em>Cylinders</em>&#xA0;for every&#xA0;<em>Origin</em>&#xA0;and&#xA0;<em>Year</em></p><p id="b44058b9-6935-4114-84bb-b5143ce31977" class>First we facet all the DataModels row-wise and then, each of the rows gets further faceted for each Year Value in the column. Here&apos;s how the above process takes place:</p><figure id="7c843b86-ad42-4640-a099-ae4c125ef235" class="image"><a href="dimensional-values-and-faceting/facet-flow4.png"><img style="width:912px" src="dimensional-values-and-faceting/facet-flow4.png"></a></figure><p id="5d192ed4-3baf-49e0-95de-6478ea33853a" class>By faceting, we can compose a whole set of visualizations based on the values in the DataModel and we can control the direction of faceting.</p><h2 id="37a62d33-38a5-4d1f-b76e-0ffdfa72646b" class><strong>Wrapping Up</strong></h2><p id="f156c6c3-847a-41db-91d6-7992b2c5b128" class>We now have a fair idea of what faceting does. It divides a particular DataModel into a set of DataModels which can be consumed by Muze to make several visualizations. These DataModels are obtained based on different dimensional values of different sets of dimensions, each of which can be represented as a visualization by applying the appropriate visual encodings to it. Also, we learnt that Muze provides us two ways of faceting, row-wise and column-wise and we can combine the two to create powerful visualizations.</p><p id="4d4101cf-d0c8-4eca-a093-7b97b4c4089c" class>
+</p></div></article></body><script>hljs.initHighlightingOnLoad();</script><script src="/iframe-docs/js/test.js"></script></html>

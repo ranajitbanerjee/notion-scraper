@@ -1,0 +1,725 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Creating a Custom Interaction</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/iframe-docs/css/github.css"><link rel="stylesheet" href="/iframe-docs/css/style.css"><script src="/iframe-docs/js/highlight.pack.js"></script><script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script></head><body><article id="8219e21f-9d47-42ba-8afe-aafd973242ab" class="page sans"><header><h1 class="page-title"><strong>Creating a Custom Interaction</strong></h1></header><div class="page-body"><p id="5a4fdbf0-1bfa-4f4d-922b-2c40c64d4776" class><strong>Table of Contents</strong></p><div class="indented"><nav id="23241677-0757-4f40-b4a8-5191efc484f7" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#90cc4617-323c-43ba-8033-28a887b98898"><strong>Registering a physical action</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#948b97fa-4c86-4622-9076-fb996a8c685f"><strong>Registering a Behaviour</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f56224ba-163d-4102-b922-96a37013459e"><strong>Mapping the behaviour to the physical action</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a11283e4-b5e4-4bfb-9363-1626ec6206bb"><strong>Custom Interaction Using A Spawnable Side Effect</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8d7c8181-cb5e-418e-b23c-1e9e8e7779c1"><strong>Registering a Spawnable Side Effect</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9bd2507d-5dc2-47a1-ac9e-d0b3ca2a2e56"><strong>Mapping the side effects to the behaviour</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#414e5f1d-bbab-427a-9b7a-84bfae28a966"><strong>Putting it all together</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6b677c1d-7785-4ac2-a039-851fd5778079"><strong>Custom Interaction Using A Surrogate Side Effect</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#63b20f6a-e260-4b02-9e66-71ffa907d1a9"><strong>Registering a Surrogate Side Effect</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#787a6e67-a169-4c3a-90f5-507cfd1d59d0"><strong>Mapping the side effects to the behaviour</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#74a3c10a-9fe0-4365-8e0a-9564f3ce1b26"><strong>Putting it all together</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a8f20058-daca-4df2-944d-7b22be7eb939"><strong>Wrapping Up</strong></a></div></nav></div><p></p><hr id="e6a54dc3-274f-43c2-bda0-d75cf9fba6d7"><p id="8b171f73-048c-4a37-852c-9b0663b9feee" class>In this section, we will be creating a completely custom interaction based on all the interaction topics covered so far. Thus, before you proceed, make sure you have learnt about:</p><ul id="989642e0-859f-4798-ac0f-1d54f1549d89" class="bulleted-list"><li><a href="registering-physical-actions.html"><mark class="highlight-blue">Registering physical actions</mark></a></li></ul><ul id="ad82723c-68a1-401f-8b17-1e7fe0825541" class="bulleted-list"><li><a href="registering-behaviours.html"><mark class="highlight-blue">Registering a new behaviour</mark></a></li></ul><ul id="8e41d08c-fc5c-4e82-ba21-5c1a0391327e" class="bulleted-list"><li><a href="registering-side-effects.html"><mark class="highlight-blue">Registering new side effects with a behaviour</mark></a></li></ul><ul id="e9ccc613-8cad-418e-af20-181d3fc8d028" class="bulleted-list"><li><a href="registering-physical-actions.html"><mark class="highlight-blue">Mapping a behaviour to a physical action</mark></a></li></ul><ul id="0d1fe4fc-47aa-43e6-986f-63a69a8be6b7" class="bulleted-list"><li><a href="mapping-side-effects-to-behaviours.html"><mark class="highlight-blue">Mapping side effects to a behaviour</mark></a></li></ul><p id="5e337f52-1718-4504-8e62-8eaa087bc4ce" class>Let&apos;s put it all together with two examples, one each for Surrogate and Spawnable Side Effects. We will be using the&#xA0;<a href="https://muzejs.org/data/cars.json"><mark class="highlight-blue">cars.json</mark></a><mark class="highlight-blue">&#xA0;</mark>data for this section. However, you can use any data and any canvas definition with the same interaction model to get the desired output, since the interaction model does not necessarily depend on those criteria.</p><h2 id="90cc4617-323c-43ba-8033-28a887b98898" class><strong>Registering a physical action</strong></h2><p id="d967ba6c-a6f4-408e-a530-cf0ace38f419" class>We start off by registering a custom physical action. We had created a&#xA0;<code>doubleClick</code>&#xA0;physical action while learning about registering physical actions. You can find it&#xA0;here. The code can be found below:</p><pre id="9d6d5322-6712-41f6-b986-3f4eecb2c99d" class="code"><code>ActionModel
+.for(canvas)
+.registerPhysicalActions({  /* to register the action */
+  doubleClick: firebolt =&gt; (targetEl, behaviours) =&gt; {
+    targetEl.on(&apos;dblclick&apos;, function (data) {
+        const event = utils.getEvent();
+        const mousePos = utils.getClientPoint(this, event);
+        const interactionConfig = {
+            data,
+            event
+        };
+        const nearestPoint = firebolt.context.getNearestPoint(mousePos.x, mousePos.y, interactionConfig);
+        firebolt.triggerPhysicalAction(&apos;doubleClick&apos;, {
+            criteria: nearestPoint.id
+        });
+      });
+    }
+})</code></pre><h2 id="948b97fa-4c86-4622-9076-fb996a8c685f" class><strong>Registering a Behaviour</strong></h2><p id="bbb1350b-97fa-4556-a527-1069723f8c6d" class>Thereafter, we will be registering a new behaviour. This behaviour will be mapped to the physical action we just created. We will be using the&#xA0;<code>singleSelect</code>&#xA0;behaviour we created while learning about registering behaviours. The code for the same is provided below:</p><pre id="6311fd8f-dbf5-4f94-a700-ca3906c1ec70" class="code"><code>ActionModel
+          .for(canvas)
+          .registerBehaviouralActions(class SingleSelectBehaviour extends GenericBehaviour {
+            static formalName () {
+              return &apos;singleSelect&apos;;
+            }
+            setSelectionSet (addSet, selectionSet) {
+      
+              if (addSet === null || !addSet.length) {
+                selectionSet.reset();
+              } else {
+                  selectionSet.reset();
+                  selectionSet.add(addSet);
+              }
+            }
+      });</code></pre><h2 id="f56224ba-163d-4102-b922-96a37013459e" class><strong>Mapping the behaviour to the physical action</strong></h2><p id="0302fd4c-21ab-4004-99ee-a8cb701b5c6f" class>We will now map the&#xA0;<code>singleSelect</code>&#xA0;behaviour with the&#xA0;<code>doubleClick</code>&#xA0;physical action we have created. Find the code for the same below:</p><pre id="b6bbde6d-d6ae-42cd-bd1c-b70972e8adbc" class="code"><code>ActionModel
+.for(canvas)
+.registerPhysicalBehaviouralMap({
+     doubleClick: {
+          behaviours: [&apos;singleSelect&apos;]
+      }
+})</code></pre><h2 id="a11283e4-b5e4-4bfb-9363-1626ec6206bb" class><strong>Custom Interaction Using A Spawnable Side Effect</strong></h2><h3 id="8d7c8181-cb5e-418e-b23c-1e9e8e7779c1" class><strong>Registering a Spawnable Side Effect</strong></h3><p id="dfdbd41a-4d82-409a-8784-ad23a7e5f3d2" class>We will first register the spawnable side effect,&#xA0;<code>TextSideEffect</code>&#xA0;that we have learned earlier. The code for the same can be found below:</p><pre id="af8c7c18-fc79-4610-bb6f-10a0e99c977b" class="code"><code>ActionModel
+          .for(canvas)
+          .registerSideEffects(class TextSideEffect extends SpawnableSideEffect {
+            static formalName () {
+              return &apos;selection-text&apos;;
+            }
+
+            apply (selectionSet) {
+              const dataModel = selectionSet.mergedEnter.model;
+              const drawingContext = this.drawingContext();
+
+              const textGroups = this.createElement(drawingContext.sideEffectGroup, &apos;text&apos;, [1]);
+
+              /* createElement is a utility method for side effects */
+              textGroups.html(`Selected:${dataModel.getData().data.map(e =&gt; e.join(&apos;, &apos;))}`);
+
+              textGroups.attr(&apos;y&apos;, &apos;30&apos;);
+              return this;
+            }
+          })</code></pre><h3 id="9bd2507d-5dc2-47a1-ac9e-d0b3ca2a2e56" class><strong>Mapping the side effects to the behaviour</strong></h3><p id="1f326d52-6bc7-4708-9ee2-86b5f2344edc" class>Now we will map the new side effect,&#xA0;<code>TextSideEffect</code>&#xA0;with the behaviour&#xA0;<code>singleSelect</code>. The code to do the same is found below:</p><pre id="61afad89-0847-424c-acb3-cd90b23ca2e4" class="code"><code>.mapSideEffects({
+    singleSelect: [&apos;selection-text&apos;]
+})</code></pre><h3 id="414e5f1d-bbab-427a-9b7a-84bfae28a966" class><strong>Putting it all together</strong></h3><p id="32a4d2f0-155a-4d30-b39a-da69ea9ebdda" class>Once we have mapped the physical action with behaviours and behaviours with side effects, we can see it work every time we double click on the bars, we get a spawnable side effect along with the single select behaviour:</p><figure id="88718ea1-7973-4ab5-a011-1b285d3a4b7e"><div class="source"><iframe id="cp_embed_ad1e45019f7861c2821819893f044755" src="https://codepen.io/chartshq/embed/preview/JjGBBRR?height=600&amp;slug-hash=JjGBBRR&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Advanced Concepts: Creating a Custom Interaction" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="4aafafec-0e59-4d75-b921-77a22ecae19c" class>We can see text appear over the bar when we press&#xA0;<code>doubleclick</code>&#xA0;on a bar. It shows us the exact bar selected on the top of the chart. When we select a different bar, that corresponding bar is now the selected set and hence, the data for the same appears on the top of the canvas.</p><h2 id="6b677c1d-7785-4ac2-a039-851fd5778079" class><strong>Custom Interaction Using A Surrogate Side Effect</strong></h2><h3 id="63b20f6a-e260-4b02-9e66-71ffa907d1a9" class><strong>Registering a Surrogate Side Effect</strong></h3><p id="fd261965-a0b6-4784-9363-117867285b34" class>We will first register the surrogate side effect,&#xA0;<code>ColorChanger</code>&#xA0;that we have learned earlier. The code for the same can be found below:</p><pre id="149f5a9f-27d0-4b42-a8bc-51e5a4bf6229" class="code"><code>// Define a new interaction effect in the layers
+canvas.layers([{
+    mark: &apos;bar&apos;,
+    interaction: {
+			// When this effect will be applied the color of the bars will change to this color.
+      colorChange: {
+        style: {
+          fill: &apos;#626262&apos;
+        }
+      }
+    }
+  }]);
+
+ActionModel.registerSideEffects(class ColorChanger extends SurrogateSideEffect {
+  static formalName() {
+      return &apos;color-changer&apos;;
+  }
+
+  apply(selectionSet) {
+      const { completeSet, mergedExit, mergedEnter } = selectionSet;
+      const context = this.firebolt.context;
+    if (!mergedExit.length &amp;&amp; !mergedEnter.length) {
+      this.applyInteractionStyle(completeSet, {
+          interactionType: &apos;colorChange&apos;,
+          apply: false
+      });
+    }
+      
+      this.applyInteractionStyle(mergedEnter, {
+          interactionType: &apos;colorChange&apos;,
+          apply: true
+      });
+      this.applyInteractionStyle(mergedExit, {
+          interactionType: &apos;colorChange&apos;,
+          apply: false
+      });
+  }
+})</code></pre><h3 id="787a6e67-a169-4c3a-90f5-507cfd1d59d0" class><strong>Mapping the side effects to the behaviour</strong></h3><p id="6347235c-0220-4db5-b0d3-cfeb7954f673" class>Now we will map the new side effect,&#xA0;<code>ColorChanger</code>&#xA0;with the behaviour&#xA0;<code>singleSelect</code>. The code to do the same is found below:</p><pre id="5b4a4e1e-a2a8-4ad8-bd6d-4e5dadbddf6a" class="code"><code>.mapSideEffects({
+    singleSelect: [&apos;color-changer&apos;]
+})</code></pre><h3 id="74a3c10a-9fe0-4365-8e0a-9564f3ce1b26" class><strong>Putting it all together</strong></h3><p id="4c56ebd4-b5c6-4bbb-9fdd-88f14647af7a" class>Once we have mapped the physical action with behaviours and behaviours with side effects, we can see it work every time we double click on the bars, we get a spawnable side effect along with the single select behaviour:</p><figure id="d7ea4a1f-23b4-4940-b6e2-6b7ff9ec48b1"><div class="source"><iframe id="cp_embed_8bb434637270744cf389df6dd715a656" src="https://codepen.io/chartshq/embed/preview/vYLaamW?height=600&amp;slug-hash=vYLaamW&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Advanced Concepts: Custom Interaction with Surrogate Side Effect" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="daa24839-494c-468f-b910-0cf40f39c285" class>You can see the bar color changes whenever we double click on the bars.</p><h2 id="a8f20058-daca-4df2-944d-7b22be7eb939" class><strong>Wrapping Up</strong></h2><p id="7a05c656-4c1a-4aa1-bf7b-219a0765adc4" class>This marks the end of the concepts regarding the interaction in Muze. These interactions play a vital role in making the canvases dynamic and the data driven conceptualization of the same plays a vital role in creating completely custom interactions.</p></div></article></body><script>hljs.initHighlightingOnLoad();</script><script src="/iframe-docs/js/test.js"></script></html>

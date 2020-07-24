@@ -1,0 +1,308 @@
+[
+    {
+        "title": "Installation",
+        "path": "./installation.html",
+        "subPages": [
+            {
+                "title": "Getting Started",
+                "path": "./installation/getting-started.html"
+            },
+            {
+                "title": "Use existing Muze Samples with your data",
+                "path": "./installation/use-existing-muze-samples-with-your-data.html"
+            }
+        ]
+    },
+    {
+        "title": "Tutorials",
+        "path": "./tutorials.html",
+        "subPages": [
+            {
+                "title": "Preparing your Data",
+                "path": "./tutorials/preparing-your-data.html"
+            },
+            {
+                "title": "Creating your first visualization with Muze",
+                "path": "./tutorials/creating-your-first-visualization-with-muze.html"
+            },
+            {
+                "title": "Changing Plot Type",
+                "path": "./tutorials/changing-plot-type.html"
+            },
+            {
+                "title": "Adding Legends",
+                "path": "./tutorials/adding-legends.html"
+            },
+            {
+                "title": "Configuring Tooltips",
+                "path": "./tutorials/configuring-tooltips.html"
+            },
+            {
+                "title": "Creating a SPLOM Chart",
+                "path": "./tutorials/creating-a-splom-chart.html"
+            },
+            {
+                "title": "Creating a Crosstab Chart",
+                "path": "./tutorials/creating-a-crosstab-chart.html"
+            },
+            {
+                "title": "Creating a Box-Plot Chart",
+                "path": "./tutorials/creating-a-box-plot-chart.html"
+            }
+        ]
+    },
+    {
+        "title": "Concepts",
+        "path": "./concepts.html",
+        "subPages": [
+            {
+                "title": "DataModel",
+                "path": "./concepts/datamodel.html",
+                "subPages": [
+                    {
+                        "title": "Introducing  DataModel",
+                        "path": "./concepts/datamodel/introducing-datamodel.html"
+                    },
+                    {
+                        "title": "Operators",
+                        "path": "./concepts/datamodel/operators.html"
+                    }
+                ]
+            },
+            {
+                "title": "Muze",
+                "path": "./concepts/muze.html",
+                "subPages": [
+                    {
+                        "title": "Introducing Muze",
+                        "path": "./concepts/muze/introducing-muze.html"
+                    },
+                    {
+                        "title": "Rows + Columns + Layout Variations",
+                        "path": "./concepts/muze/rows-+-columns-+-layout-variations.html"
+                    },
+                    {
+                        "title": "Dimensional Values and Faceting",
+                        "path": "./concepts/muze/dimensional-values-and-faceting.html"
+                    },
+                    {
+                        "title": "Retinal Encoding & Legends",
+                        "path": "./concepts/muze/retinal-encoding-&-legends.html"
+                    },
+                    {
+                        "title": "Introducing Layers",
+                        "path": "./concepts/muze/introducing-layers.html"
+                    },
+                    {
+                        "title": "Title and Subtitle",
+                        "path": "./concepts/muze/title-and-subtitle.html"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Advanced Concepts",
+        "path": "./advanced-concepts.html",
+        "subPages": [
+            {
+                "title": "Composing Layers",
+                "path": "./advanced-concepts/composing-layers.html"
+            },
+            {
+                "title": "Interactions in Muze",
+                "path": "./advanced-concepts/interactions-in-muze.html",
+                "subPages": [
+                    {
+                        "title": "Interaction Model",
+                        "path": "./advanced-concepts/interactions-in-muze/interaction-model.html"
+                    },
+                    {
+                        "title": "Physical Actions",
+                        "path": "./advanced-concepts/interactions-in-muze/physical-actions.html"
+                    },
+                    {
+                        "title": "Behaviours",
+                        "path": "./advanced-concepts/interactions-in-muze/behaviours.html"
+                    },
+                    {
+                        "title": "Side Effects",
+                        "path": "./advanced-concepts/interactions-in-muze/side-effects.html"
+                    },
+                    {
+                        "title": "Establishing Cross Interaction",
+                        "path": "./advanced-concepts/interactions-in-muze/establishing-cross-interaction.html"
+                    },
+                    {
+                        "title": "Mapping a Behaviour to a Physical Action",
+                        "path": "./advanced-concepts/interactions-in-muze/mapping-a-behaviour-to-a-physical-action.html"
+                    },
+                    {
+                        "title": "Mapping Side Effects to Behaviours",
+                        "path": "./advanced-concepts/interactions-in-muze/mapping-side-effects-to-behaviours.html"
+                    },
+                    {
+                        "title": "Registering Behaviours",
+                        "path": "./advanced-concepts/interactions-in-muze/registering-behaviours.html"
+                    },
+                    {
+                        "title": "Registering Physical Actions",
+                        "path": "./advanced-concepts/interactions-in-muze/registering-physical-actions.html"
+                    },
+                    {
+                        "title": "Registering Side Effects",
+                        "path": "./advanced-concepts/interactions-in-muze/registering-side-effects.html"
+                    },
+                    {
+                        "title": "Dissociation of Behavioural and Physical Actions",
+                        "path": "./advanced-concepts/interactions-in-muze/dissociation-of-behavioural-and-physical-actions.html"
+                    },
+                    {
+                        "title": "Dissociation of Side Effects and Behavioural Actions",
+                        "path": "./advanced-concepts/interactions-in-muze/dissociation-of-side-effects-and-behavioural-actio.html"
+                    },
+                    {
+                        "title": "Creating a Custom Interaction",
+                        "path": "./advanced-concepts/interactions-in-muze/creating-a-custom-interaction.html"
+                    }
+                ]
+            },
+            {
+                "title": "Trend Lines and Reference Zones",
+                "path": "./advanced-concepts/trend-lines-and-reference-zones.html"
+            }
+        ]
+    },
+    {
+        "title": "API Reference",
+        "path": "./api-reference.html",
+        "subPages": [
+            {
+                "title": "Datamodel",
+                "path": "./api-reference/datamodel.html",
+                "subPages": [
+                    {
+                        "title": "Datamodel",
+                        "path": "./api-reference/datamodel/datamodel.html"
+                    },
+                    {
+                        "title": "Data Loaders",
+                        "path": "./api-reference/datamodel/data-loaders.html"
+                    },
+                    {
+                        "title": "Operations",
+                        "path": "./api-reference/datamodel/operations.html"
+                    },
+                    {
+                        "title": "Data Wranglers",
+                        "path": "./api-reference/datamodel/data-wranglers.html"
+                    },
+                    {
+                        "title": "Dateformat",
+                        "path": "./api-reference/datamodel/dateformat.html"
+                    },
+                    {
+                        "title": "Schema",
+                        "path": "./api-reference/datamodel/schema.html"
+                    },
+                    {
+                        "title": "Fields",
+                        "path": "./api-reference/datamodel/fields.html"
+                    },
+                    {
+                        "title": "Enums",
+                        "path": "./api-reference/datamodel/enums.html"
+                    },
+                    {
+                        "title": "Invalid Data Handling",
+                        "path": "./api-reference/datamodel/invalid-data-handling.html"
+                    }
+                ]
+            },
+            {
+                "title": "Muze",
+                "path": "./api-reference/muze.html",
+                "subPages": [
+                    {
+                        "title": "Environment",
+                        "path": "./api-reference/muze/environment.html"
+                    },
+                    {
+                        "title": "Canvas",
+                        "path": "./api-reference/muze/canvas.html"
+                    },
+                    {
+                        "title": "Layers",
+                        "path": "./api-reference/muze/layers.html"
+                    },
+                    {
+                        "title": "Physical Actions , Behaviours and SideEffects  ",
+                        "path": "./api-reference/muze/physical-actions-,-behaviours-and-sideeffects.html"
+                    },
+                    {
+                        "title": "Firebolt",
+                        "path": "./api-reference/muze/firebolt.html"
+                    },
+                    {
+                        "title": "Operators",
+                        "path": "./api-reference/muze/operators.html"
+                    },
+                    {
+                        "title": "Action Model",
+                        "path": "./api-reference/muze/action-model.html"
+                    },
+                    {
+                        "title": "Axis Configuration",
+                        "path": "./api-reference/muze/axis-configuration.html"
+                    },
+                    {
+                        "title": "Legend Configuration",
+                        "path": "./api-reference/muze/legend-configuration.html"
+                    },
+                    {
+                        "title": "Border Configuration",
+                        "path": "./api-reference/muze/border-configuration.html"
+                    },
+                    {
+                        "title": "GridLine Configuration",
+                        "path": "./api-reference/muze/gridline-configuration.html"
+                    },
+                    {
+                        "title": "GridBand Configuration",
+                        "path": "./api-reference/muze/gridband-configuration.html"
+                    },
+                    {
+                        "title": "ScrollBar Configuration",
+                        "path": "./api-reference/muze/scrollbar-configuration.html"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Changelog",
+        "path": "./changelog.html",
+        "subPages": [
+            {
+                "title": "DataModel Versions",
+                "path": "./changelog/datamodel-versions.html",
+                "subPages": [
+                    {
+                        "title": "v2.3.1",
+                        "path": "./changelog/datamodel-versions/v2-3-1.html"
+                    }
+                ]
+            },
+            {
+                "title": "Muze Versions",
+                "path": "./changelog/muze-versions.html",
+                "subPages": [
+                    {
+                        "title": "v1.3.1",
+                        "path": "./changelog/muze-versions/v1-3-1.html"
+                    }
+                ]
+            }
+        ]
+    }
+]

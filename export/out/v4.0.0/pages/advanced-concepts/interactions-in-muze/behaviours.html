@@ -1,0 +1,634 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Behaviours</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/iframe-docs/css/github.css"><link rel="stylesheet" href="/iframe-docs/css/style.css"><script src="/iframe-docs/js/highlight.pack.js"></script><script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script></head><body><article id="e11577ad-735f-471a-8c24-e6c70d4afb2d" class="page sans"><header><h1 class="page-title"><strong>Behaviours</strong></h1></header><div class="page-body"><p id="d5fcbbf1-1a81-459a-81a1-4057fe38a966" class><strong>Table of Contents</strong></p><div class="indented"><nav id="d5b2ae0b-6bfd-4876-a1fb-517889f84722" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b4cb3c90-4ed5-4d09-8347-2a876e53eaa1"><strong>How does a behaviour change?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d33dbf90-520f-47cb-81b1-43cd5ff47773"><strong>Understanding the change in behaviour</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4a3d2eea-50f8-4622-b74f-0f0538902937"><strong>Types of selection and rejection sets</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5dc73b97-3e77-45e0-9bc8-1537098758c2"><strong>Volatile and Persistent Behaviours</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#96632868-4761-420f-a0ca-59910d2f8799"><strong>Firebolt Manages Behavioural Action</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e346f83f-ed37-4ec2-b11a-28fdce671b23"><strong>Wrapping Up</strong></a></div></nav></div><p></p><hr id="49b9b644-d1d6-403f-8470-317dcc93ba4f"><p id="3f0fd792-24fa-446c-a22f-015bce1ec023" class>In this section, we will get an insight of what behaviours are and what happens when a behaviour changes.</p><p id="04f3f3b7-589f-46b1-904c-873ea267996a" class>Behaviours are how the canvas reacts to a particular interaction. A change in behaviour is a deviation from the default view of the canvas and thus is usually accompanied by a visual change. For example, when we hover over a point in the canvas, we change the behaviour of the canvas by&#xA0;<strong>highlighting</strong>&#xA0;the point ( thereby getting a tooltip). This happens because the behaviour of the chart has changed from the default rendered view to the&#xA0;<strong>highlighted</strong>&#xA0;view.</p><p id="5b0bc47c-efc0-4351-ab74-4975e21c665c" class>Let&apos;s try and understand how this works with the simple&#xA0;<a href="https://muzejs.orga/data/cars.json"><mark class="highlight-blue">cars.json</mark></a>&#xA0;data.</p><h2 id="b4cb3c90-4ed5-4d09-8347-2a876e53eaa1" class><strong>How does a behaviour change?</strong></h2><p id="32eb9749-724d-4cc6-8cca-5be14e98d8a6" class>There are two ways to change the behaviour of a canvas :</p><ul id="1b6e56f0-fcac-409e-95c3-685faa20575d" class="bulleted-list"><li><strong>Interacting with a chart</strong>: When we interact with a chart, it causes a physical action to be triggered which changes the behaviour(s) attached to it</li></ul><ul id="2f47dc76-246c-4915-a1cc-ced6ff7c7bd0" class="bulleted-list"><li><strong>Dispatching a behaviour dynamically:</strong> We can dynamically dispatch a behaviour with the required payloads, which can cause the behaviour to change. Dispatching behaviours are found&#xA0;<a href="https://www.notion.so/charts/Behaviours-c3bdbbb3624c4da19949c765bc0fc333"><mark class="highlight-blue">here</mark></a>.</li></ul><h3 id="d33dbf90-520f-47cb-81b1-43cd5ff47773" class><strong>Understanding the change in behaviour</strong></h3><p id="cc1fa660-6ef5-476e-835b-fd815f252ff1" class>In order to change the behaviour by using any of the above two ways, it has to be dispatched with a payload containing the criteria for the behaviour. The payload looks like this:</p><pre id="db67e5c7-d36d-410c-a65f-26350af702b3" class="code"><code>payload: {
+      criteria: {
+          dimensions: {
+						Origin: [&apos;Japan&apos;],
+	          Cylinders: [3, 6, 8]
+					}
+      }
+  }</code></pre><p id="f44c8183-1f77-4b3c-b803-6ecc188ad3fc" class>Once the behaviour gets the payload, it searches for all the rows in the associated DataModel and identifies the rows that satisfy the criteria for the behaviour.</p><p id="2ef6a901-091b-4747-94b7-db392c1b9465" class>The rows that satisfy the criteria together comprise of the&#xA0;<strong>selection set</strong>. The rows that do not satisfy the criteria together comprise of the&#xA0;<strong>rejection set</strong>.</p><p id="a0acb900-ae3f-4fb2-a2ac-2fbf3a94715f" class>These two sets form the basis of all kinds of output of an interaction. The selection and the rejection set taken together thus form the&#xA0;<strong>complete set</strong>, i.e., the complete set of rows in the DataModel.</p><p id="9dd1a5f7-726d-44c2-a9d4-43f28ba1187f" class><em>For instance</em>, from the payload above, the set of rows which contain the&#xA0;<em>Origin</em>&#xA0;as&#xA0;<strong>Japan</strong>&#xA0;and the&#xA0;<em>Cylinder</em>&#xA0;values as&#xA0;<strong>3</strong>,&#xA0;<strong>6</strong>&#xA0;and&#xA0;<strong>8</strong>&#xA0;form the selection set as is seen below:</p><figure id="863cc561-5f8b-4d10-959d-00a71f8769ed"><div class="source"><iframe id="cp_embed_72b23fab79ae5e4460b430b3deb72011" src="https://codepen.io/chartshq/embed/preview/wvMxyWd?height=600&amp;slug-hash=wvMxyWd&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Advanced Concepts: Selection Set" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="7d276fb8-e28f-4087-be8f-93418ec94d0f" class>Similarly, the rejection set would contain the set of rows that do not satisfy this set:</p><figure id="9cd11d9c-e33f-467c-99da-1ed1c5776f94"><div class="source"><iframe id="cp_embed_a116fbf34dce0e6a0e6d41c109e7daea" src="https://codepen.io/chartshq/embed/preview/MWKBQrz?height=600&amp;slug-hash=MWKBQrz&amp;default-tabs=css,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Advanced Concepts: Rejection Set" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="a6640b54-6306-4e26-9df4-65e6189d3351" class>This way, every behaviour always has two sets and any action that needs to be performed after a behaviour can be applied on either of the sets based on the actual use case.</p><p id="cfaa0949-ae4f-4fef-b461-009744c29bb9" class>Let&apos;s understand sets a bit further with a visual example. First, let us create a scatter plot of&#xA0;<em>Horsepower</em>&#xA0;vs&#xA0;<em>Displacement</em>&#xA0;as show below:</p><figure id="976eb9af-7f3a-49ed-a103-96c362dcd02f"><div class="source"><iframe id="cp_embed_e37ce775e32c80a8fe495b6401d17d14" src="https://codepen.io/chartshq/embed/preview/GRoBQxW?height=600&amp;slug-hash=GRoBQxW&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Advanced Concepts: Simple Scatter Plot" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="ce8b91c9-930c-4ab9-b8aa-c20e31b09f64" class>Every time we drag in the chart, we see a selection box being drawn. Any set of circles inside the box are highlighted while the others fade out:</p><figure id="f3761939-7d39-4c9e-b069-665a148c7956" class="image"><a href="behaviours/Screenshot_2019-12-26_at_4.57.01_PM.png"><img style="width:1702px" src="behaviours/Screenshot_2019-12-26_at_4.57.01_PM.png"></a></figure><p id="85de2620-f269-479a-b5fb-555e288aa5c0" class>The circles that are enclosed within the box are part of the&#xA0;<strong>selection set</strong>, while the ones outside are part of the&#xA0;<strong>rejection sets</strong>.</p><p id="99c64b8a-01e2-4796-97b8-e84717433cd1" class>How did that rectangular box appear when we dragged? That&apos;s a side-effect of the behaviour. You can also choose to have a different visual interpretation of this physical action using side-effects(which you can read about&#xA0;<a href="side-effects.html"><mark class="highlight-blue">here</mark></a>).</p><p id="69882b95-0f77-47ec-85fb-8c93cc78475d" class>Each set can be affected varyingly as per the choice of the interaction. And since every behaviour can be configured to have their own side effects, you can customize virtually any part of the chart you want.</p><p id="51bd3102-74d7-4cd3-86ea-519925f4e515" class>The goal of the behaviours are to manage the selection and rejection sets which are then propagated to the respective DataModels. Once the propagation occurs, each canvas individually reacts based on that propagation. The sideeffects are also caused due to that propagation.</p><p id="d16c50a6-3e80-4dd3-a9d5-9da0f5f399a1" class>Let us understand the types of selection and rejection sets.</p><h3 id="4a3d2eea-50f8-4622-b74f-0f0538902937" class><strong>Types of selection and rejection sets</strong></h3><p id="138d4955-e60e-451d-be11-d5fe5372eef5" class>There are multiple types of selection and rejection sets and you can use all of these sets to get the sort of interactions you desire from the canvas.</p><p id="d59bc350-f9f3-4d0f-ac14-efe52f192211" class>Let us look into all the sets:</p><ul id="037d0f8d-58bc-483a-b4b7-4db163744d66" class="bulleted-list"><li><mark class="highlight-gray_background"><strong>Types of selections sets:</strong></mark><p id="6b457ef5-ba87-4c46-9db2-983c88f61d97" class>There are two types of selection sets :&#xA0;<strong>New Entry Set</strong>&#xA0;and&#xA0;<strong>Old Entry Set</strong>. In order to understand these sets, let&apos;s understand them with an example where we have a bar chart between&#xA0;<em>Horsepower</em>&#xA0;and&#xA0;<em>Origin</em>:</p><figure id="49813405-30ca-4215-900a-02a3c6519655"><div class="source"><iframe id="cp_embed_2f248af47a5eecec2e1f4e1de59aee7a" src="https://codepen.io/chartshq/embed/preview/JjGBLLN?height=600&amp;slug-hash=JjGBLLN&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Advanced Concepts: Default Behaviour and Actions" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="978fc53f-e35e-494f-98ec-db66379cb7bf" class>Now when we click on a bar, we get the following interaction:</p><figure id="ddf8d339-b361-4add-9f49-6a37601ed7e4" class="image"><a href="behaviours/Screenshot_2020-07-13_at_8.40.26_PM.png"><img style="width:1690px" src="behaviours/Screenshot_2020-07-13_at_8.40.26_PM.png"></a></figure><p id="6767ac99-2cf4-4a4f-9932-22e60b557068" class>As we know, in the above interaction, the rows in the DataModel that uniquely identify rows for the&#xA0;<em>Origin</em>&#xA0;value of&#xA0;<strong>USA</strong>&#xA0;form the&#xA0;<strong>selection set</strong>.</p><p id="e5feceb1-7a1e-48e3-aa2e-68968ee0babc" class>Before interacting with the canvas, the&#xA0;<strong>selection set</strong>&#xA0;was empty. On clicking the bar, a new entry has been made to the set. Hence, every time we interact with the chart and a new entry is made to the&#xA0;<strong>selection set</strong>, it becomes a part of the&#xA0;<strong>New Entry Set</strong>.</p><p id="8562e2b6-db8a-460a-94d1-f264de4f95be" class>Thus, the rows for USA in the above example are part of the&#xA0;<strong>New Entry Set</strong>.</p><p id="cb2e0fdf-dc9e-47eb-9057-5697e007c874" class>On clicking on another bar in the chart, we get the following interaction:</p><figure id="0ab15093-9ec8-43d9-92f9-b752db1887dd" class="image"><a href="behaviours/Screenshot_2020-07-13_at_8.41.05_PM.png"><img style="width:1788px" src="behaviours/Screenshot_2020-07-13_at_8.41.05_PM.png"></a></figure><p id="0f8b5448-64c2-40ca-ac0a-b22ea9621006" class>As we can see, this time the&#xA0;<strong>selection set</strong>&#xA0;consists of the rows for the&#xA0;<em>Origin</em>&#xA0;values of&#xA0;<strong>USA</strong>&#xA0;and&#xA0;<strong>Europe</strong>. Before this interaction, the&#xA0;<strong>selection set</strong>&#xA0;was not empty, but contained the set of rows for&#xA0;<strong>USA</strong>.</p><p id="2b1bfa4c-0353-4580-b7f5-e15da6aff2b0" class>Hence, the new entries only count for the rows for the&#xA0;<em>Origin</em>&#xA0;value of&#xA0;<strong>Europe</strong>. Thus, in this interaction, all of the rows satisfying&#xA0;<em>Origin</em>&#xA0;value of&#xA0;<strong>Europe</strong>&#xA0;are a part of the&#xA0;<strong>New Entry Set</strong>. Consequently, the set of rows which were present in the&#xA0;<strong>selection set</strong>&#xA0;before interaction(those for&#xA0;<strong>USA</strong>) are the old entries for that set and hence are a part of the&#xA0;<strong>Old Entry Set</strong>.</p><p id="a9deab3f-72be-45c4-8c70-167edc7231f0" class>Therefore, the&#xA0;<strong>selection set</strong>&#xA0;consists of all the rows present in the&#xA0;<strong>New Entry Set</strong>&#xA0;and the&#xA0;<strong>Old Entry Set</strong>.</p><p id="150e5578-bc07-481d-aeaf-a2bb49a54a9f" class>To recapitulate:</p><ul id="49958f11-1297-4fb1-a43e-404978bf9c75" class="bulleted-list"><li><strong>New Entry Set</strong> consists of the rows that have been currently interacted with and are not already a part of the selection set</li></ul><ul id="dee81871-eb15-4008-849f-4cae68f7e2c9" class="bulleted-list"><li><strong>Old Entry Set</strong> consists of the rows already present in the selection set which satisfy the condition for selection</li></ul></li></ul><ul id="8402d0e5-3977-437c-a1f2-553a979d570d" class="bulleted-list"><li><mark class="highlight-gray_background"><strong>Types of rejection sets</strong></mark><p id="46c8df0c-71a7-4558-881a-c82ffb2bf1b9" class>As there are two types of&#xA0;<strong>selection sets</strong>, similarly there are two types of&#xA0;<strong>rejection sets</strong>&#xA0;as well ie.&#xA0;<strong>New Exit Set</strong>&#xA0;and&#xA0;<strong>Old Exit Set</strong>. In order to understand these sets, let&apos;s understand them with the previous example where we have a bar chart between Horsepower and Origin. When we first click on a bar, we get the following interaction:</p><figure id="70bbdc22-369a-4356-be91-65d3c54654d1" class="image"><a href="behaviours/Screenshot_2020-07-13_at_8.40.26_PM.png"><img style="width:1690px" src="behaviours/Screenshot_2020-07-13_at_8.40.26_PM.png"></a></figure><p id="5c0eb39a-f0fa-48fa-a3b0-577f6492c5fe" class>As we know, in the above interaction, the rows in the DataModel that uniquely identify rows for the&#xA0;<em>Origin</em>&#xA0;value of&#xA0;<strong>USA</strong>&#xA0;form the&#xA0;<strong>selection set</strong>. Thus, the set of rows not satisfying this condition form the&#xA0;<strong>rejection set</strong>.</p><p id="03d49111-b824-4f1f-a6ff-e92c853f8d8a" class>Before interacting with the canvas, the&#xA0;<strong>rejection set</strong>&#xA0;is empty. On clicking the bar, the rows not satisfying&#xA0;<em>Origin</em>&#xA0;value of&#xA0;<strong>USA</strong>&#xA0;are the new entries in the rejection set and the make up the&#xA0;<strong>New Exit Set</strong>. Thus, everytime an interaction occurs, the new set of entries in the rejection set constitute the&#xA0;<strong>New Exit Set</strong>.</p><p id="22004355-2464-4ba7-b92a-eb4b3361ed86" class>On clicking on another bar in the chart, we get the following interaction:</p><figure id="c2191325-0909-4cb5-af82-fa83138785c9" class="image"><a href="behaviours/Screenshot_2020-07-13_at_8.40.26_PM.png"><img style="width:1690px" src="behaviours/Screenshot_2020-07-13_at_8.40.26_PM.png"></a></figure><p id="efccb10b-209c-4783-aac9-e5f1d0f08f55" class>As we can see, this time the&#xA0;<strong>rejection set</strong>&#xA0;consists of the rows nor satisfying the condition for the&#xA0;<em>Origin</em>&#xA0;values of&#xA0;<strong>USA</strong>&#xA0;and&#xA0;<strong>Europe</strong>. Before this interaction, the&#xA0;<strong>rejection set</strong>&#xA0;was not empty, but contained the set of rows for&#xA0;<strong>Japan</strong>&#xA0;and&#xA0;<strong>Europe</strong>.</p><p id="50c0a93f-a8f9-4b4d-8cc3-bf40a26726a2" class>Hence, there are no new entries in the rejection set. Rather the set for the&#xA0;<em>Origin</em>&#xA0;-&#xA0;<strong>Europe</strong>&#xA0;is removed from this set and so the&#xA0;<strong>New Exit Set</strong>&#xA0;will be empty in this case.</p><p id="354d78f5-c4c8-4236-a70f-aeee7bb9a6d9" class>Consequently, the set of rows which were present in the&#xA0;<strong>rejection set</strong>&#xA0;before interaction(those for&#xA0;<strong>Japan</strong>&#xA0;and&#xA0;<strong>Europe</strong>&#xA0;) are now updated with only the old entries for&#xA0;<strong>Japan</strong>&#xA0;present and these set of rows become part of the&#xA0;<strong>Old Exit Set</strong>.</p><p id="c3fb3c0a-5180-497c-b762-35d229659e9f" class>Therefore, the&#xA0;<strong>rejection set</strong>&#xA0;consists of all the rows present in the&#xA0;<strong>New Exit Set</strong>&#xA0;and the&#xA0;<strong>Old Exit Set</strong>.</p><p id="3409f431-5c7d-49b2-afc3-8e8dbc432af9" class>To recapitulate:</p><ul id="0d0c1c2a-35e7-4156-8ad5-5832900ad470" class="bulleted-list"><li><strong>New Exit Set</strong>: consists of the elements that are now part of the rejection set with and weren&apos;t previously a part of it.</li></ul><ul id="d3b2c17e-a928-4af3-970c-3fbea9f88def" class="bulleted-list"><li><strong>Old Exit Set</strong>: stores the rejected rows prior to the current exit. If a set of rows is already in the rejection set and isn&apos;t interacted with, it will stay in the old exit set.</li></ul></li></ul><h2 id="5dc73b97-3e77-45e0-9bc8-1537098758c2" class><strong>Volatile and Persistent Behaviours</strong></h2><p id="36525e4d-fbfc-4dec-9052-4766ef7184a6" class>There are two types of behaviours that are pre existing in Muze. They are only different in the way they use the selection and rejection sets and thus it is up to you to use those sets as you want.</p><ul id="d0d1b644-ed87-4bd4-aab1-c2f045c58864" class="bulleted-list"><li><mark class="highlight-gray_background"><strong>Volatile Behaviour</strong></mark><p id="38ba4097-4ede-4093-9a85-29600987371b" class>A volatile behaviour is a type of behaviour that does not retain the&#xA0;<strong>Old Entry Set</strong>&#xA0;whenever the same behaviour changes. For instance, when we hover over bars in the chart, the&#xA0;<strong>selection set</strong>&#xA0;consists only of the bar currently being hovered upon. Thus, only the new entries or the&#xA0;<strong>New Entry Set</strong>&#xA0;constitute the&#xA0;<strong>selection set</strong>.</p></li></ul><ul id="fb42bbf9-f156-4f8a-99bf-38e228e69c65" class="bulleted-list"><li><mark class="highlight-gray_background"><strong>Persistent Behaviour</strong></mark><p id="963b7762-988e-42cd-9d42-f1bfe5aeb15d" class>A persistent behaviour is a type of behaviour that retains the&#xA0;<strong>Old Entry Set</strong>&#xA0;whenever the same behaviour changes. For instance, when we click multiple bars in the chart, the&#xA0;<strong>selection set</strong>&#xA0;consists of all the bars that have been clicked on. Thus, both the&#xA0;<strong>New Entry Set</strong>&#xA0;and&#xA0;<strong>Old Entry Set</strong>&#xA0;constitute the&#xA0;<strong>selection set</strong>&#xA0;for every interaction.</p></li></ul><h2 id="96632868-4761-420f-a0ca-59910d2f8799" class><strong>Firebolt Manages Behavioural Action</strong></h2><p id="31bd72be-49dc-49a0-a955-d0b0baa8ee6f" class>Once the behavioural action has done creating the selection and rejection sets, Muze&apos;s Firebolt retrieves the set of rows from the&#xA0;<strong>Selection Set</strong>&#xA0;and initiates the propagation to the DataModel. This propagation is integral for the data driven interaction and we&apos;ll know more about it separately. </p><p id="504c63b5-d9df-4098-a63c-be9ec4418721" class>As mentioned earlier, each behaviour has a Side Effect mapped to it. Firebolt dispatches this Side Effect which brings about a change in the visualization. You can read more about Side Effects&#xA0;<mark class="highlight-blue"><a href="side-effects.html">here</a></mark>.</p><h2 id="e346f83f-ed37-4ec2-b11a-28fdce671b23" class><strong>Wrapping Up</strong></h2><p id="ac5377b3-8057-4a63-8a36-e3bcd25bdca9" class>In this section, we had an in depth idea of what behaviours are and how they work. In the future, we will learn more about how to use those rejection sets for custom interactions. To summarize:</p><ul id="6dd70bbe-a548-4178-b575-1fc1d22ffe85" class="bulleted-list"><li>Behaviours are how the canvas(es) react/act during an interaction</li></ul><ul id="f66c0c8d-3432-427e-85e3-821af9f1bde9" class="bulleted-list"><li>Behaviours receive a payload and create selection and rejection sets based on that from the DataModel</li></ul><ul id="df4d80a4-e3e1-4b22-9c6d-ae659c3effaa" class="bulleted-list"><li>It propagates data of the selection set to the DataModel and triggers respective side effects to occur</li></ul><ul id="c7b6cba3-85e8-44d0-b0e2-018ca07a5d6d" class="bulleted-list"><li>There are two types of selection sets: new entry set(which stores the new entries in the selection) and the old entry set(which stores the already present entries in the selection set)</li></ul><ul id="72473777-7f7e-4efa-b62b-19e9158d47b3" class="bulleted-list"><li>There are also two types of rejection sets: new exit set(which stores the new entries in the rejection) and the old exit set(which stores the already present entries in the rejection set)</li></ul><ul id="c14cc813-b32d-4af0-b487-c608d917f401" class="bulleted-list"><li>There are two types of behaviours: volatile and persistent behaviours</li></ul><ul id="35088d97-9d72-4389-b87a-12dcf5f9dcf1" class="bulleted-list"><li>Volatile Behaviours do not retain the previous selections while the persistent behaviours retain the old selections in the Old Entry Set</li></ul><ul id="05f72979-128c-4e37-9995-2be0844a8aec" class="bulleted-list"><li>Firebolt is responsible for managing the propagation and triggering sideeffects once the selection and rejection sets have been made</li></ul></div></article></body><script>hljs.initHighlightingOnLoad();</script><script src="/iframe-docs/js/test.js"></script></html>

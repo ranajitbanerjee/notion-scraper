@@ -1,0 +1,645 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Creating a Crosstab Chart</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/iframe-docs/css/github.css"><link rel="stylesheet" href="/iframe-docs/css/style.css"><script src="/iframe-docs/js/highlight.pack.js"></script><script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script></head><body><article id="93459163-2832-496e-8930-59c986d19140" class="page sans"><header><h1 class="page-title">Creating a Crosstab Chart</h1></header><div class="page-body"><nav id="baf95105-07fc-473d-a005-ad3681640dc5" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#341c23d5-bb31-416a-9d02-9e98b3ee52d6">What is visual crosstab?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0143263d-8095-485f-9a82-608144cade45">Data</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#85f47003-6808-4a8e-9bf1-01c9b936afab">Steps to create visual crosstab</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5ef61c28-945d-4666-bcbf-9191155b9d35">Create an instance of&#xA0;<code>DataModel</code>&#xA0;from data and schema</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#59d81766-6973-490f-9c23-e8eb0d04b09b">Provide the&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;to the canvas for layouting</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#621602a4-7d53-4377-931a-303c81e47fe9">Format axis labels</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2958da0d-7656-482b-98db-4a9bb89763f5">Add title and subtitle to canvas</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d94e1957-c8fa-4eda-8df0-466abd4389a5">Mount the chart to the DOM</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#82812b73-03b6-469e-80f3-97aedfe99b90">Crosstab Chart</a></div></nav><hr id="6c46c6fb-8df1-403f-aa0f-daf5890d363b"><h2 id="341c23d5-bb31-416a-9d02-9e98b3ee52d6" class>What is visual crosstab?</h2><p id="f4fa4fc0-d961-45cc-9b02-b561cf208a0c" class>Visual crosstab is a simple table where instead of numbers in table cells a bar is shown. The length of the bar is proportional to the value of the cell.</p><h2 id="0143263d-8095-485f-9a82-608144cade45" class>Data</h2><p id="0d1d25ec-ea9b-47bd-aa19-c565d3acbc09" class>The above visualization is created from&#xA0;<code>cars.json</code></p><h2 id="85f47003-6808-4a8e-9bf1-01c9b936afab" class>Steps to create visual crosstab</h2><p id="7f5aa0c6-cb7b-42d8-b24d-03aca3823423" class>Following are the steps we need to do to create the above visualization</p><ul id="2429df23-54d8-43ab-b266-2df86797e21e" class="bulleted-list"><li>Create an instance of&#xA0;<code>DataModel</code>&#xA0;from data and schema</li></ul><ul id="6ed42cb6-33c5-47a3-888e-bcdc3185a9ee" class="bulleted-list"><li>Provide the&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;to the canvas for layouting</li></ul><ul id="4a07de78-ab14-49c1-a346-e265dfe48a2a" class="bulleted-list"><li>Format axis labels show that values like 200000 get converted to 200K</li></ul><ul id="fc093d04-ddfc-430f-ae66-acb11e7d04ce" class="bulleted-list"><li>Add&#xA0;<code>title</code>&#xA0;and&#xA0;<code>subtitle</code>&#xA0;to canvas</li></ul><ul id="8c4a2f71-1a8e-4905-945d-c4dbf9745fb1" class="bulleted-list"><li>Finally, mount the chart to the DOM.</li></ul><h3 id="5ef61c28-945d-4666-bcbf-9191155b9d35" class>Create an instance of&#xA0;<code>DataModel</code>&#xA0;from data and schema</h3><p id="22ee3ff7-ab14-48b5-a573-30fe129561cd" class>The execution environment has stored the data and schema in&#xA0;<code>data</code>&#xA0;and&#xA0;<code>schema</code>&#xA0;variable.&#xA0;<code>DataModel</code>&#xA0;is retrieved from&#xA0;<code>muze</code>&#xA0;namespace. Here we write the following code to create an instance of&#xA0;<strong>DataModel</strong>&#xA0;from CSV data</p><pre id="85352641-d980-4edb-80f9-de667af76231" class="code"><code>const DataModel = muze.DataModel;
+const rootData = new DataModel(data, schema);</code></pre><p id="df964789-a116-482f-9a9c-c904b075dedf" class>
+</p><h3 id="59d81766-6973-490f-9c23-e8eb0d04b09b" class>Provide the&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;to the canvas for layouting</h3><p id="0ec3d9c0-b49c-47a5-9b1f-5b0a1434fa23" class>Crosstab is all about layouting. We have to call&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;with the correct fields to achieve the above chart.&#xA0;<a href="https://muzejs.org/muze/docs/rows-columns-and-layout-variations">Here</a>&#xA0;is an intuitive guide on how&#xA0;<code>rows</code>&#xA0;and&#xA0;<code>columns</code>&#xA0;determine the layouting.</p><p id="9d1b9309-d80c-4e8d-bf0c-ebace4d6ea7e" class>In the above chart, Y-Axis is created from&#xA0;<em>Product Type</em>&#xA0;and the visualization is faceted by&#xA0;<em>Market</em>. Similarly, there are two measure which gets plotted in two X-Axes. The following code does that</p><pre id="d2ecc087-7ddc-4cb9-832b-fb5e12506eea" class="code"><code>canvas
+    .rows([&apos;Market&apos;, &apos;Product Type&apos;])
+    .columns([[&apos;Revenue&apos;, &apos;Expense&apos;], [&apos;Revenue&apos;, &apos;Expense&apos;]])</code></pre><p id="e4dddf2c-2e69-4520-b517-d33d27c7c38f" class>Notice X-Axis is drawn at top and bottom, hence we have passed same fields twice in&#xA0;<code>columns</code>. First argument draws the axis at top and second argument draws the axis at bottom.</p><h3 id="621602a4-7d53-4377-931a-303c81e47fe9" class>Format axis labels</h3><p id="fa804c44-47c3-4bcf-ad4d-87b3c45272a9" class>Axis labels are originally not formatted, it shows raw numbers as part of axis tick label. However we can format those ticks in the following way</p><pre id="163c299b-72f9-4d4f-8498-566ed546d73e" class="code code-wrap"><code>.config({
+    axes: {
+        y: { showAxisName: false },
+        x: {
+            tickFormat: (d) =&gt; {
+                if (d &lt; 1000) return d;
+		            if (d &gt; 1000 &amp;&amp; d &lt; 1000000) return `${d / 1000}K`
+								if (d &gt; 1000000) return `${d / 1000}M`return d
+            }
+        }
+    }
+})</code></pre><h3 id="2958da0d-7656-482b-98db-4a9bb89763f5" class>Add title and subtitle to canvas</h3><p id="751288e3-0b15-4618-8a09-435c409bd223" class>Add a&#xA0;<code>title</code>&#xA0;and&#xA0;<code>subtitle</code>&#xA0;to the canvas</p><pre id="9d77d453-43ae-4345-8c19-f88a07cdb52e" class="code"><code>canvas
+    .title(&apos;Visual Crosstab&apos;)
+    .subtitle(&apos;Revenue and Expense by Product type and Market&apos;)</code></pre><p id="0cde39f7-12b4-4a60-8f07-a3acbf392df2" class>Read more about title and subtitle&#xA0;<mark class="highlight-blue"><a href="../concepts/muze/title-and-subtitle.html">here</a></mark>.</p><h3 id="d94e1957-c8fa-4eda-8df0-466abd4389a5" class>Mount the chart to the DOM</h3><p id="4b48af91-d982-481e-bcbd-d643d8bfb89e" class>Finally attach the canvas instance to DOM which houses the visualization</p><pre id="6def1772-44a0-43aa-aee2-2f9e069d1a5f" class="code"><code>canvas.mount(&apos;#chart&apos;);</code></pre><p id="b4b14a95-92fb-4f40-905b-b5b9263052fa" class>An element with id&#xA0;<code>chart</code>&#xA0;is available in the DOM to house the visualization.</p><h2 id="82812b73-03b6-469e-80f3-97aedfe99b90" class>Crosstab Chart</h2><figure id="6b48da90-0908-4a68-b9b1-bb9ae4d8e494"><div class="source"><iframe id="cp_embed_38983bccd2ade867f0df37090d37f90c" src="https://codepen.io/chartshq/embed/preview/YzwvNej?height=600&amp;slug-hash=YzwvNej&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Tutorials: Creating a Crosstab Chart" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="d11fee71-0aee-483d-bd65-193ad11274ca" class>
+</p></div></article></body><script>hljs.initHighlightingOnLoad();</script><script src="/iframe-docs/js/test.js"></script></html>

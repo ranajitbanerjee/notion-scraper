@@ -1,0 +1,628 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Interaction Model</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="/iframe-docs/css/github.css"><link rel="stylesheet" href="/iframe-docs/css/style.css"><script src="/iframe-docs/js/highlight.pack.js"></script><script src="https://cdn.jsdelivr.net/npm/postmate@1.5.2/build/postmate.dev.js"></script></head><body><article id="3fc42a95-a08c-41c0-817b-8eaa7ac87a33" class="page sans"><header><h1 class="page-title">Interaction Model</h1></header><div class="page-body"><p id="bf0e3352-1286-40a2-8208-1372a7389dae" class><strong>Table of Contents</strong></p><div class="indented"><nav id="633ef3cd-aa28-4a6e-ae41-a73d74b9a872" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0dd7c267-2dac-46d2-9af3-944ce7754740"><strong>Simple interaction in Muze</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5c59954f-4cd1-4e15-b247-df3ca0df727a"><strong>Aspects of the Interaction Model</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1166ce12-7188-4eda-9d50-964021a9a339"><strong>Understanding how the interaction works</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e331e026-41bc-43d4-ab2a-586a51fbf4b2"><strong>Wrapping Up</strong></a></div></nav></div><p></p><hr id="1ed82e09-402d-431e-98ca-44815c88dfb9"><p id="2f6567d1-d179-4da9-b32a-18c993efa3b9" class>In most visualization libraries, interaction is established by binding an event to a DOM element and executing a set of functions on the dataset associated with that element. While this establishes event interaction, but trying to achieve the same functionality dynamically (for instance, through an API or some other external event) is quite difficult and sometimes nearly unachievable.</p><p id="3632598b-a8ea-4e9a-9c2f-585a09af9e79" class>Muze follows a data driven interaction model . This means that any interaction in Muze occurs due to the data bound to it and not the element itself. Hence, any interaction can be triggered in Muze irrespective of the source of the trigger. Muze achieves this using&#xA0;<strong>Firebolt</strong>, which is responsible for handling these interactions.</p><p id="81ac02d4-21d3-4442-b94d-121558eff21d" class>Let&apos;s try and understand how this works with the simple&#xA0;<a href="https://muzejs.org/data/cars.json"><mark class="highlight-blue">cars.json</mark></a>&#xA0;data.</p><h2 id="0dd7c267-2dac-46d2-9af3-944ce7754740" class><strong>Simple interaction in Muze</strong></h2><p id="ea9dea2b-432a-4dcc-928d-b082086b200e" class>Let us start with a simple bar chart, of&#xA0;<em>Miles per Gallon</em>&#xA0;v/s&#xA0;<em>Number of Cylinders</em>&#xA0;in a car:</p><figure id="4cb562fd-1dcd-442c-a92e-9e8e2c4c9568"><div class="source"><iframe id="cp_embed_65b77267067c0095027c154ac96f598f" src="https://codepen.io/chartshq/embed/preview/ZEQjrEo?height=600&amp;slug-hash=ZEQjrEo&amp;default-tabs=js,result&amp;host=https://codepen.io&amp;editable=true&amp;theme-id=undefined" title="Advanced Concepts: Default Interactions in Muze" scrolling="no" frameborder="0" height="600" allowtransparency="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></div></figure><p id="484a78c5-a6c5-489c-a57e-e740ff613957" class>Notice, that every time we hover on any of the bars, we get a tooltip displaying the information for that bar :</p><figure id="240e24df-04e7-4126-8d7f-e307916caef1" class="image"><a href="interaction-model/Screenshot_2019-12-16_at_12.34.28_PM.png"><img style="width:672px" src="interaction-model/Screenshot_2019-12-16_at_12.34.28_PM.png"></a></figure><p id="28260b32-8ec4-4876-a25f-b48f15dff40c" class>It may seem that it is an event driven interaction but that is not what happens here. To understand this, we have to first understand the three aspects of Muze&apos;s Interaction Model</p><h3 id="5c59954f-4cd1-4e15-b247-df3ca0df727a" class><strong>Aspects of the Interaction Model</strong></h3><p id="e541dbb4-282c-4baa-ad70-9363ad5c44df" class>Muze has three aspects. We will deal with them more comprehensively later. A brief explanation is as follows:</p><ul id="daadda34-be0b-4642-b334-35fd6488148e" class="bulleted-list"><li><strong>Physical Actions</strong>: A physical action can trigger an interaction in Muze. Events like hover and click constitute Physical Actions. Additionally, you can define your own set of physical actions</li></ul><ul id="6388637e-2c86-416e-9add-5dbde01bc581" class="bulleted-list"><li><strong>Behaviours</strong>: Behaviours are how the canvas(es) acts/reacts to a particular interaction. For instance, hovering a bar creates a visual change(tooltip), this is a change from the normal behaviour of the chart.</li></ul><ul id="0aa21487-bb7f-4a50-8fe4-329b46b4f565" class="bulleted-list"><li><strong>Side-effects</strong>: Side-effects are the actual visual changes occurring whenever a behaviour changes due to an interaction. For instance, the tooltip that occurs on hover is the side effect.</li></ul><p id="140a2ea6-e83b-40a0-961f-3829b16316e8" class>So how do these aspects fit into the interaction of Muze?</p><h3 id="1166ce12-7188-4eda-9d50-964021a9a339" class><strong>Understanding how the interaction works</strong></h3><p id="4b7cc83c-91c9-4db8-bd36-b3a89924d505" class>We follow the following steps:</p><ol id="74b0c230-f05d-4c05-9dd8-1b29de85c34b" class="numbered-list" start="1"><li><strong><mark class="highlight-gray_background"> Determining the data set through the physical action</mark></strong><p id="213cb13b-c1cf-41e0-a0a3-bc7d8060cf96" class>As mentioned earlier, when we hovered over the chart, we triggered an interaction. This is a type of physical action. Once the physical action is executed, it determines the dataset attached to the bar to affect the behaviour of the chart.</p><figure id="a356f31d-0491-46d4-a898-01ae74eedaa3" class="image"><a href="interaction-model/interaction-model-2.png"><img style="width:672px" src="interaction-model/interaction-model-2.png"></a></figure><p id="77274c45-0158-4c34-b669-f6a9587d16ca" class>For instance, in the example above, we hovered over the bar, the physical action retrieves the dataset attached to it, i.e., the&#xA0;<em>Cylinder</em>&#xA0;value of <strong>5.</strong></p></li></ol><ol id="8c1b539c-b4e7-4f0e-9c59-65c306c39218" class="numbered-list" start="2"><li><mark class="highlight-gray_background"><strong>Getting the set of affected rows in the DataModel</strong></mark><p id="7a490212-a5a8-448d-8c3f-62d5b21c8de8" class>Interactions in Muze are data driven. Hence, any interaction affects a set of rows in the DataModel attached to the canvas.</p><p id="c5c02fa2-dbab-4abe-902c-dff4f407b2f6" class>When the physical action retrieves the dataset on interaction, it passes this information by triggering a change in the behaviour and causing a behavioural action.</p><p id="af9672fd-3b60-4efe-b02a-9aad7741cb8f" class>A behaviour is how the canvas acts/reacts to an interaction. Thus, when it receives a set of data from the physical action(or by dynamic dispatching), it uses the DataModel of the canvas to retrieve the set of rows affected by this dataset.</p><figure id="597c9052-38de-4efa-9b10-57b6046aa469" class="image"><a href="interaction-model/interaction-model-3.png"><img style="width:672px" src="interaction-model/interaction-model-3.png"></a></figure><p id="f9e8ea4b-425b-474b-abb8-55653776eed1" class>For instance, in our example, when we hovered over the bar, it retrieves all the rows in the DataModel having the&#xA0;<em>Cylinder</em>&#xA0;value as&#xA0;<strong>5</strong>. This way, no matter what appears on the chart, you have control over the dataset since it is bound to the DataModel.</p></li></ol><ol id="56a6f619-661a-4c2c-9ef1-bdb2740ef1d4" class="numbered-list" start="3"><li><mark class="highlight-gray_background"><strong>Applying visual Sideeffects</strong></mark><p id="dd6177d0-c3b4-4c6b-b860-79ba57dec935" class>A behavioural action only determines the set of affected rows. In order to produce a visual change in the chart based on that behaviour, a side-effect is applied to it. Basically, every time a behaviour changes, the corresponding side effects get applied based on the affected set of rows from the DataModel.</p><figure id="fcfc1db3-df9c-41ca-aa88-1e66d32e0010" class="image"><a href="interaction-model/interaction-model-4.png"><img style="width:711px" src="interaction-model/interaction-model-4.png"></a></figure><p id="38dcdcba-f367-4239-a25d-1c764852949a" class>Thus, in the example above, the tooltip is the side-effect generated from the change in the behaviour.</p></li></ol><h2 id="e331e026-41bc-43d4-ab2a-586a51fbf4b2" class><strong>Wrapping Up</strong></h2><p id="ac773221-2421-4ea2-a90e-9971b6ea1fb6" class>This section introduced you to the interaction model for Muze. To summarize:</p><ul id="3fdc9eeb-af73-4546-8bcb-4fb745457bb9" class="bulleted-list"><li>Muze follows a data driven Interaction Model</li></ul><ul id="58ad3b53-6836-4c6a-974a-63c7a55e25d1" class="bulleted-list"><li>This model has three aspects: physical actions, behaviours and side-effects</li></ul><ul id="d2d1fbac-29e2-4c9e-ac2e-6f6067f563f7" class="bulleted-list"><li><code>Physical actions</code> are actual events which can trigger an interaction</li></ul><ul id="3902443c-388b-4cce-80c1-7ef53adfe73d" class="bulleted-list"><li><code>Behaviours</code> are how the chart would act/react to change during an interaction</li></ul><ul id="42c47666-725f-44df-8371-e9edd1bc3d68" class="bulleted-list"><li><code>Side effects</code> are visual changes occurring due to any change in behaviour</li></ul><p id="6584e137-0af4-48d1-9ba5-295116c39103" class>Read up on&#xA0;<a href="physical-actions.html"><mark class="highlight-blue">Physical Actions</mark></a>,&#xA0;<a href="behaviours.html"><mark class="highlight-blue">Behaviours</mark></a>&#xA0;and&#xA0;<a href="side-effects.html"><mark class="highlight-blue">Side effects</mark></a>&#xA0;to get in-depth understanding on how they work</p><p id="af85bdd7-aad0-434c-877b-bbb9a882fba9" class>
+</p></div></article></body><script>hljs.initHighlightingOnLoad();</script><script src="/iframe-docs/js/test.js"></script></html>

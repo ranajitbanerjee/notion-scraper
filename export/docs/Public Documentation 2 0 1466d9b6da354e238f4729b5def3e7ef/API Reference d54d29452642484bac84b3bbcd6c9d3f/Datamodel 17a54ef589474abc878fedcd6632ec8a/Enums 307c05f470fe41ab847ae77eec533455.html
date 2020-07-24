@@ -1,0 +1,627 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Enums</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="307c05f4-70fe-41ab-847a-e77eec533455" class="page sans"><header><h1 class="page-title"><strong>Enums</strong></h1></header><div class="page-body"><p id="50e7bb85-c6d8-45d3-9610-1715f823e714" class=""><strong>Table of Contents</strong><div class="indented"><nav id="b38d1d59-12f3-4edf-9d9f-c9fbf0e98a9f" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cb4744f4-bb34-497d-b323-ad1e8c67285f"><strong>FilteringMode</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c5382167-085d-4af4-9e4b-815d958f27ba">AggregationFunctions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d94cf29d-6594-4099-acf6-89b1fca17afb">ComparisonOperators</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#50da3022-5c72-49fe-95da-6c7717076241">LogicalOperators</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11710489-b813-4468-a6a4-7cfe005f8bac">FieldType</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c4f30c2a-1bed-4d39-9925-233b37059e2e">FieldSubtype</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fdff8323-297a-48b5-95c2-3237d4ac68e4">DerivationOperations</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#65d15da5-527f-4779-9bb6-282d582c7434">Sort Order</a></div></nav></div></p><hr id="79b7302c-2d7d-4137-9661-f032177ee9e4"/><h2 id="cb4744f4-bb34-497d-b323-ad1e8c67285f" class=""><strong>FilteringMode</strong></h2><p id="0efa32f4-7923-4c63-a403-95d1ec0a6cc5" class="">FilteringMode determines if resultant DataModel should be created from selection set or rejection set.</p><p id="f414d7ab-5a74-412e-b7b7-6cb86d2032dc" class="">The following modes are available</p><ul id="e6d4d7eb-622f-460f-b8a9-923218c2f456" class="bulleted-list"><li><code>NORMAL</code>: Only entries from selection set are included in the resulatant DataModel instance</li></ul><ul id="6807f110-2344-44c3-8213-826a226f1e38" class="bulleted-list"><li><code>INVERSE</code>: Only entries from rejection set are included in the resulatant DataModel instance</li></ul><ul id="8b5329f3-c6c8-4a32-9ed8-2d2a50fea05a" class="bulleted-list"><li><code>ALL</code>: Both the entries from selection and rejection set are returned in two different DataModel instance</li></ul><p id="f1753425-136e-45be-9de1-4db4b563e090" class="">You can access this enums from <code>DataModel.FilteringMode</code>.</p><h2 id="c5382167-085d-4af4-9e4b-815d958f27ba" class="">AggregationFunctions</h2><p id="33073f93-f0fe-4a41-a302-f6a38931a16a" class="">AggregationFunctions are the aggregation that needs to be applied on all measures.</p><p id="fff7cb0b-d9cc-4c85-8c8b-36ca4ad2011c" class="">The AggregationFunctions are available:</p><ul id="eba4b9e7-2797-42a3-8adc-9aed00830ef5" class="bulleted-list"><li><code>SUM</code>: Returns the sum of all the numbers</li></ul><ul id="8bca9f8f-0847-4c08-842f-31372b895ee2" class="bulleted-list"><li><code>AVG</code>: Returns the average of all the numbers</li></ul><ul id="9ede55fa-c5bb-4c72-96a8-348efc38b7d7" class="bulleted-list"><li><code>MAX</code>: Returns the maximum of all the numbers</li></ul><ul id="f477fcad-4bcc-444b-b9b9-a5fc4b77c789" class="bulleted-list"><li><code>MIN</code>: Returns the minimum of all the numbers</li></ul><ul id="ed383cbb-c3a9-4770-b870-22f3e9e48355" class="bulleted-list"><li><code>COUNT</code>: Returns the count of all the numbers</li></ul><ul id="4317df6c-17f9-416b-b14a-329f811b0ede" class="bulleted-list"><li><code>STD</code>: Returns the standard deviation of the numbers</li></ul><p id="f923622d-cfc9-401d-a730-6401313f22bf" class="">You can access this enums from <code>DataModel.AggregationFunctions</code></p><h2 id="d94cf29d-6594-4099-acf6-89b1fca17afb" class="">ComparisonOperators</h2><p id="2f11664b-8217-4437-8291-5045e6d7a1f1" class="">Comparison operators are used in statements to determine equality or difference between variables or values.</p><ul id="170befde-d295-4791-8598-9a6c468380bc" class="bulleted-list"><li><code>EQUAL</code> : Returns true if the operands are equal.</li></ul><ul id="aceb4788-11a7-4d81-8c01-c0f128783c91" class="bulleted-list"><li><code>NOT_EQUAL</code> : Returns true if the operands are not equal.</li></ul><ul id="8f86932f-7a4e-4b36-a639-bcde7bcd2be9" class="bulleted-list"><li><code>GREATER_THAN</code> : Returns true if the left operand is greater than the right operand.</li></ul><ul id="d3c810db-4193-42a7-82df-be161c2c94ba" class="bulleted-list"><li><code>LESS_THAN</code> : Returns true if the left operand is less than the right operand.</li></ul><ul id="6308345a-5690-4736-b181-14c78700de31" class="bulleted-list"><li><code>GREATER_THAN_EQUAL</code> : Returns true if the left operand is greater than or equal to the right operand.</li></ul><ul id="230b3726-3b4d-4bc3-be00-dd1ee230f634" class="bulleted-list"><li><code>LESS_THAN_EQUAL</code> : Returns true if the left operand is less than or equal to the right operand.</li></ul><ul id="697010f3-fe6b-49e3-a9a7-a5216854bd45" class="bulleted-list"><li><code>IN</code> : Returns true is left operand( single value) is present in right operand (an array of values);</li></ul><ul id="e4e2c25b-a0fd-4185-8100-dda30bc701e8" class="bulleted-list"><li><code>NIN</code> : Returns true is left operand( single value) is not present in right operand (an array of values);</li></ul><ul id="a100f923-a385-420b-a6b4-f98a20e651f5" class="bulleted-list"><li><code>EQUAL_TO</code> : Same as <mark class="highlight-blue"><a href="https://www.notion.so/charts/Enums-307c05f470fe41ab847ae77eec533455#170befded295479185989a6c468380bc">this</a></mark>.</li></ul><ul id="bbfe932f-7e20-4f01-a27b-a38c74236a08" class="bulleted-list"><li><code>NOT_EQUAL_TO</code> : Same as <a href="https://www.notion.so/charts/Enums-307c05f470fe41ab847ae77eec533455#aceb478811a74d818c01c0f128783c91"><mark class="highlight-blue">this</mark></a><mark class="highlight-blue">.</mark></li></ul><p id="ea630339-ed60-48c3-b0fd-859d357b7d69" class="">You can access this enums from <code>Datamodel.ComparisonOperators</code> .</p><h2 id="50da3022-5c72-49fe-95da-6c7717076241" class="">LogicalOperators</h2><p id="8feca1fc-b594-4047-a1cb-6f8bf5af0d34" class="">Logical Operators are used in statements to determine equality to establish a relation between one or more comparison operations.</p><ul id="93acc2d7-a0f1-4e7c-9e59-73647e1e3053" class="bulleted-list"><li><code>AND</code> : Returns true if all the conditions are TRUE.</li></ul><ul id="fbdeea52-85e6-420a-9314-9d1f10a37733" class="bulleted-list"><li><code>OR</code> : Returns true if any of the conditions is TRUE.</li></ul><p id="c0c37087-e0de-4949-96f9-3d08aefd145c" class="">You can access this enums from <code>Datamodel.LogicalOperators</code> .</p><h2 id="11710489-b813-4468-a6a4-7cfe005f8bac" class="">FieldType</h2><p id="bf4617ff-add8-4461-9fa2-57abba4fbe20" class="">Defined Datamodel&#x27;s Field Type:</p><ul id="e4e538b9-f22b-413d-b60a-0b396391d27c" class="bulleted-list"><li><code>DIMENSION</code> : <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a#65eee3fdb2f94c5c99f700c302b4e812">Field Type Dimension</a></li></ul><ul id="723effb0-e314-44bf-9eac-1d0dc146f182" class="bulleted-list"><li><code>MEASURE</code> : <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a#88297aa28bba41ed9f8c3dc7bf816d1e">Field Type Measure</a></li></ul><p id="69c05a0c-fec2-46e8-b25b-5f1587716b88" class="">You can access this enums from <code>Datamodel.FieldType</code> .</p><h2 id="c4f30c2a-1bed-4d39-9925-233b37059e2e" class="">FieldSubtype</h2><p id="5af931e8-3495-49a1-bfc6-28792e7397f7" class="">Defined Datamodel&#x27;s Field Sub Type:</p><ul id="5baff334-6dc9-4eda-b195-f56211fd5053" class="bulleted-list"><li><code>CATEGORICAL</code> : <a href="https://www.notion.so/charts/Schema-644a8d923147463c9b1745434b0ea979#7ecb7d1fd7684bcc9450bfaf68ab0749">Field Sub Type Categorical</a></li></ul><ul id="3262edca-507e-4f72-9235-36e18fc6fb94" class="bulleted-list"><li><code>CONTINUOUS</code> : <a href="https://www.notion.so/charts/Schema-644a8d923147463c9b1745434b0ea979#f123414072ee465f8f9e13024f97f93d">Field Sub Type Continuous</a></li></ul><ul id="6df67a0a-1fbe-4de7-9b4f-6ee33bf6cbcb" class="bulleted-list"><li><code>TEMPORAL</code> : <a href="https://www.notion.so/charts/Schema-644a8d923147463c9b1745434b0ea979#7ecb7d1fd7684bcc9450bfaf68ab0749">Field Sub Type Temporal</a></li></ul><p id="861f9a77-9eaf-4b1b-b09d-aff996894313" class="">You can access this enums from <code>Datamodel.FieldSubType</code> .</p><h2 id="fdff8323-297a-48b5-95c2-3237d4ac68e4" class="">DerivationOperations</h2><p id="1c537a17-0796-4192-bdd3-58f2ed8a34a7" class="">Derivation Params determine, what derivation has been used to create a DataModel</p><ul id="072ead1b-7bc5-43d5-afc4-06cfd47dfe4a" class="bulleted-list"><li><code>SELECT</code> : <a href="https://www.notion.so/charts/Operations-fd69c1959ad149b9b8c77a5109d0c00c#7377d096c615439ca911f5d3421ae4aa">Selection Operation</a></li></ul><ul id="dd9c2c72-c35c-4979-b81b-e4986f92a8c2" class="bulleted-list"><li><code>GROUPBY</code> : <a href="https://www.notion.so/charts/Operations-fd69c1959ad149b9b8c77a5109d0c00c#301b0fc32baa4d4abce773a5e4efd489">Grouping Operation</a> </li></ul><ul id="2c779488-9a04-44be-819d-65fd8048a478" class="bulleted-list"><li><code>PROJECT</code> : <a href="https://www.notion.so/charts/Operations-fd69c1959ad149b9b8c77a5109d0c00c#42a9e474371a45fb8004bfd6babc4bb1">Projection Operation</a></li></ul><ul id="e23d5aaa-4f10-426e-af94-1cc86a2e97c8" class="bulleted-list"><li><code>SPLIT</code> : <a href="https://www.notion.so/charts/Operations-fd69c1959ad149b9b8c77a5109d0c00c#5937cf56447441859833b62d5438a10d">Splitting Operation</a></li></ul><ul id="3d55d2de-4692-434b-a82f-fea244cbf04e" class="bulleted-list"><li><code>SORT</code> : <a href="https://www.notion.so/charts/Operations-fd69c1959ad149b9b8c77a5109d0c00c#c231acd7fba24c63b413449a4626a550">Sorting Operation</a></li></ul><ul id="01d9f4bd-a036-4695-a09a-6558107acc85" class="bulleted-list"><li><code>CALCULATE</code> : <a href="https://www.notion.so/charts/Operations-fd69c1959ad149b9b8c77a5109d0c00c#7c7ba22b8e334b7d93bfd45298498d23">Calculation of a Variable</a></li></ul><p id="96aa9c08-cdbe-459e-8419-27edfd8b4690" class="">You can access this enums from <code>DataModel.DerivationOperations</code> .</p><h2 id="65d15da5-527f-4779-9bb6-282d582c7434" class="">Sort Order</h2><p id="fa189dd0-94f1-4f36-97e7-b7020ee7ccc4" class="">Sorting Order is used to arrange data in a particular.</p><ul id="f06778fc-c5de-4333-962f-8ba725a6a74f" class="bulleted-list"><li><code>ASC</code> : To arrange values in increasing order.</li></ul><ul id="e1f2d12d-951d-4ef6-9125-daa54b11b2ec" class="bulleted-list"><li><code>DESC</code> : To arrange values in decreasing order.</li></ul><ul id="6d116e5c-79b9-4f89-997d-e8211ee45797" class="bulleted-list"><li><code>NO_ORDER</code> : To arrange values in default order if any.</li></ul><p id="c20cb8af-5d00-4d95-89f5-9e62805fd64f" class="">You can access this enums from <code>DataModel.SortOrder</code> .</p></div></article></body></html>

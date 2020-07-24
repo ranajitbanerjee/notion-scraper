@@ -1,0 +1,709 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Trend Lines and Reference Zones</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="751c4e0e-14b0-43c9-8800-c1b8601c0077" class="page sans"><header><h1 class="page-title"><strong>Trend Lines and Reference Zones</strong></h1></header><div class="page-body"><p id="a260b130-f095-40ef-a6e4-75b65d62b058" class=""><strong>Table of Contents</strong><div class="indented"><nav id="9fd0a6bd-4a2c-45ec-9325-b6cbfcebd865" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#92125fae-1bc9-4b44-ba07-956942a9d08f"><strong>A Single Reference Line</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fabc7c13-3426-420b-aca1-32c08ca8e453"><strong>Implicit encoding and resolving encoding for composed layer</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a5924e14-6c12-48d0-9214-1f4fe45001ca"><strong>Encoding transform</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aed750d4-bc6e-4308-9ef2-1a690b490e3e"><strong>Reusablility</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#838ee579-3341-4aba-903e-48ef33b3d234"><strong>Wrapping up</strong></a></div></nav></div></p><hr id="cbb27451-28fb-43a5-af8c-d39c3a1d9383"/><p id="ffbb9bff-6982-4422-8c10-a41df4822405" class="">This tutorial provides an intuitive understanding of how any kind of trend / reference lines / zone can be created. Having the power of  <a href="https://www.notion.so/charts/Composing-Layers-726e9fc0e1464459b6123e802e5ea182"><mark class="highlight-blue">layers</mark></a> provides you with all the necessary tools required to create reference zones and trend lines.</p><p id="56202afd-e0e2-4ed0-b01a-4837120403ff" class="">You can read about <a href="https://www.notion.so/charts/Composing-Layers-726e9fc0e1464459b6123e802e5ea182"><mark class="highlight-blue">composing layers</mark></a> to know what it is capable of doing.</p><h2 id="92125fae-1bc9-4b44-ba07-956942a9d08f" class=""><strong>A Single Reference Line</strong></h2><p id="4f3e3dd4-7c76-4ed8-8916-ded89c68a7b1" class="">Let&#x27;s create a single reference line on a bar chart, in our case, the average mileage throughout all the years. Scroll down to see the end result we are gonna achieve.</p><p id="0f467476-6c64-463b-8bd7-facf459d81ef" class="">In order to get a reference line, we need to create a <strong>tick layer</strong> for drawing the line and a <strong>text layer</strong> to draw any kind of text to annotate the line.</p><ul id="06543d7b-507e-4708-87f9-3aa69e1175b9" class="bulleted-list"><li>First we have to calculate average value of all data points to show the average line.<p id="17a5f318-336a-4d8d-8559-c6044397af9d" class="">Canvas supports <code>transform</code> method which allows creation of additional data required for rendering from the root data using <a href="https://www.notion.so/charts/Operators-9413dc6743ed42cb887fa7a68fe55d03"><mark class="highlight-blue">operators</mark></a><a href="https://www.notion.so/charts/Operators-9413dc6743ed42cb887fa7a68fe55d03">.</a> A visualization can have multiple layers. Layers can have same or different data source. All the layers take instance of <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">DataModel</mark></a> as source of data.</p><p id="0f43e999-9ec0-4a65-ad63-ba6213f2c01c" class="">The reference line layer shows the average value of <em>Horsepower</em> across the years, hence it needs an instance of <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">DataModel</mark></a> which holds the average value. Here we are gonna transform the root DataModel instance to retrieve an instance of DataModel which holds the average value and give it a name so that we can refer it some other place.</p><pre id="803b1b21-15bb-42d6-afc7-5457e821a203" class="code"><code>canvas
+    .transform({
+        calculatedAverage: dt =&gt; dt.groupBy([&#x27;&#x27;], { Miles_per_Gallon: &#x27;avg&#x27; })
+    })</code></pre><p id="bd28c4f6-cdc5-4516-88c6-6599fcd20ede" class="">
+</p></li></ul><ul id="b53a0f32-2231-4e8b-b04c-ae811592dae7" class="bulleted-list"><li>We&#x27;ll start by creating a defining a composition of the reference line. Look at the final chart and think what is the line composed of. Obviously, it renders a line and text. So lets define the reference line<pre id="a00ea7e2-1dc7-479a-8cfd-3ea64efdddca" class="code"><code>layerFactory.composeLayers(&#x27;referenceLine&#x27;, [ averageLine, averageText ])</code></pre><p id="6a0b5047-ff26-4cfc-9543-03e4d3df2e0f" class=""><code>layerFactory</code> takes the definition of custom layers. It accepts a name for the newly created composite layer and definition in terms of atomic or another custom layer.</p><p id="cb4b6469-5d56-453d-94ba-009073889ce0" class="">We haven&#x27;t yet defined what <code>averageLine</code> and <code>averageText</code> are supposed to be. So our next step is to define each of them</p></li></ul><ul id="a83f0164-c8fa-4e46-9ef7-de0da4474f34" class="bulleted-list"><li>We&#x27;ll define individual layers:<ul id="7e69ee21-6f20-4692-aad6-43fbabf0d972" class="bulleted-list"><li>First we&#x27;ll use a <code>tick</code> layer which gives us average line. The average value is already calculated in step 1, we just need to pass the name of the DataModel containing average value to layers. We use <code>source</code> property to pass the data source for a layer.</li></ul><pre id="0761f31b-2ab8-4033-97cd-629cb2b27331" class="code"><code>const averageLine = {
+    name: &#x27;averageLine&#x27;,
+    mark: &#x27;tick&#x27;,
+    source: &#x27;calculatedAverage&#x27;,
+    className: &#x27;average-line&#x27;,
+    encoding: {
+        y: &#x27;referenceLine.encoding.y&#x27;,
+        x: null
+    }
+}</code></pre><ul id="0451680c-e23b-40d7-a5e9-5866abee916b" class="bulleted-list"><li>Then we&#x27;ll describe the text layer which will give us the display the average in text format.</li></ul><pre id="0e6b38e7-0c4e-4ea4-955a-ec7c8009722e" class="code"><code>const averageText = {
+    name: &#x27;averageText&#x27;,
+    mark: &#x27;text&#x27;,
+    source: &#x27;calculatedAverage&#x27;,
+    className: &#x27;averageText&#x27;,
+    encoding: {
+        y: &#x27;referenceLine.encoding.y&#x27;,
+        text: &#x27;referenceLine.encoding.text&#x27;
+    }
+}</code></pre><ul id="dde6db9a-5ffa-4002-91ca-0e8ba4c8f06e" class="bulleted-list"><li>Now that we created everything we need, we&#x27;ll now use this composite layer along with the simple bar layer in the canvas</li></ul><pre id="02520a9b-abf1-420e-ba1d-934374f0cbb7" class="code"><code>canvas
+    .layers([
+        { mark: &#x27;bar&#x27; },
+        {
+            mark: &#x27;referenceLine&#x27;,
+            encoding: {
+                text: { field: &#x27;Horsepower&#x27; }
+        }
+    }
+])</code></pre></li></ul><p id="febb38f6-286c-49ad-924f-90333f0993c3" class="">The text encoding is Miles Per Gallon to display the average mileage.</p><figure id="10ac7f87-bb11-4767-b16c-51cec18f51a5"><div class="source"><a></a></div></figure><h3 id="fabc7c13-3426-420b-aca1-32c08ca8e453" class=""><strong>Implicit encoding and resolving encoding for composed layer</strong></h3><p id="7ce90799-3202-48dc-9526-32b69190b073" class="">In the above sample the definition of <code>averageLine</code> or <code>averageText</code> is explained in the code with comments</p><pre id="1429301e-dd00-4a2d-bced-a2d6e127be6f" class="code"><code>{
+    name: &#x27;averageLine&#x27;, // Name of the line layer only
+    mark: &#x27;tick&#x27;, // Defines what kind of plot to be used
+    source: &#x27;calulatedAverage&#x27;, // Defines datasource from which it gets the data
+    className: &#x27;average-line&#x27;, // CSS class name which the layer appends on group
+    encoding: {
+        y: &#x27;referenceLine.encoding.y&#x27;,
+        x: null,
+        color: { value: () =&gt; &#x27;#414141&#x27; }
+    },
+    calculateDomain: false // Dont calculate domain of axis from this layer
+},</code></pre><p id="07655e9a-14e1-42de-b65c-04183f063c49" class="">But it feels like, there is something weird going on with the <code>encoding</code> object. We have seen <code>encoding</code> object before in <code>layers</code> method</p><pre id="609bfd22-4004-4f0e-9847-687d511bc3e8" class="code"><code>canvas.layers([{
+    mark: &#x27;bar&#x27;,
+    encoding: {
+        y: &#x27;Horsepower&#x27;,
+        x: &#x27;Year&#x27;,
+        color: { value: () =&gt; &#x27;#000000&#x27; }
+    }
+}])</code></pre><p id="e4a74e12-f858-4a45-80d7-0c801915ca31" class="">Here using <code>encoding</code> we determine how y value (height of a bar) and x value (x position of a bar) are calculated for a point. Like, in the above example, we are essentially telling muze to calculate the height of a bar from the value of <em>Horsepower</em> field in DataModel instance. Similarly, we are assigning a static color to the plot using <code>color</code> property.</p><p id="dc7167a8-8f7b-4f7e-addf-9bd0f41fb19c" class="">Lets see how <code>layers</code> for the reference line example looks like</p><pre id="b05271af-1e8b-4922-ae77-4f30c1e9b722" class="code"><code>.layers([
+    { mark: &#x27;bar&#x27; }, 
+    {
+        mark: &#x27;referenceLine&#x27;,
+        encoding: {
+            text: {
+                field: &#x27;Horsepower&#x27;,
+                formatter: value =&gt; `Average Horsepower: ${Math.round(value)}`}
+        }
+    }
+])</code></pre><p id="04c7dd64-f92d-4dd4-90a1-4e95c7dfc9ef" class="">Here we have not mentioned <code>x</code>, <code>y</code> in <code>encoding</code> but it still works. This is because Muze internally populates <code>x</code> and <code>y</code> encoding from <code>rows</code> and <code>columns</code>, if you don&#x27;t provide it from outside. Muze internally translates the config to</p><pre id="af1c4cf9-2283-42dc-8577-e3400d47bcfe" class="code"><code>.layers([
+    { 
+        mark: &#x27;bar&#x27;,
+        encoding: {
+            y: &#x27;Horsepower&#x27;,
+            x: &#x27;Year&#x27;
+        }
+    }, 
+    {
+        mark: &#x27;referenceLine&#x27;,
+        encoding: {
+            text: {
+                y: &#x27;Horsepower&#x27;,
+                x: &#x27;Year&#x27;,
+                field: &#x27;Horsepower&#x27;,
+                formatter: value =&gt; `Average Horsepower: ${Math.round(value)}`}
+        }
+    }
+])</code></pre><p id="a4f17f72-ff6a-4972-b6bf-0544bd17fa6f" class="">Now have a look at the newly composed <code>averageLine</code> layer&#x27;s encoding</p><pre id="c5a337d0-f2c2-46ae-bc54-e9d379cbf998" class="code"><code>encoding: {
+    y: &#x27;referenceLine.encoding.y&#x27;,
+    x: null,
+    color: { value: () =&gt; &#x27;#414141&#x27; }
+},</code></pre><p id="0a08cf7e-ca52-41aa-8156-d97f2e513553" class="">Here for a composed layer we dont have the field&#x27;s name from DataModel instance as <code>y</code> encoding value, it has some weird dot notation. Composed layers wont get access to DataModel&#x27;s instance field directly. It has to be accessed through a path <code>referenceLine.encoding.y</code>. Refer the following image to understand the reference mechanism.</p><figure id="225bc62c-e367-44a0-8a94-bd5112edd9fb" class="image"><a href="Trend%20Lines%20and%20Reference%20Zones%20751c4e0e14b043c98800c1b8601c0077/composed-layer-encoding-resolving.png"><img style="width:815px" src="Trend%20Lines%20and%20Reference%20Zones%20751c4e0e14b043c98800c1b8601c0077/composed-layer-encoding-resolving.png"/></a></figure><p id="a5d04b5a-b436-4eaf-9817-ab7a373807d4" class="">The left hand side code block is for composing layers where as the right hand side&#x27;s code block is for layer definition. Check the color mapping in the image to understand how we are referring members from one section to another.</p><p id="b3394e47-be77-4d4b-96c8-9cfdcd3cf950" class="">For example when <code>referenceLine.encoding.text</code> for <code>referenceLine</code> from the left block is getting resolved, it gets the value from <code>{ ... , encoding: { text: ... }}</code> for layer which has <code>referenceLine</code> mark.</p><h3 id="a5924e14-6c12-48d0-9214-1f4fe45001ca" class=""><strong>Encoding transform</strong></h3><p id="8067e639-4ba3-461c-af16-e560bfaf6756" class="">Once layer finish computing value for a encoding , we might need to change the value for various reasons, like change x, y to eliminate overlapping, change color to improve readability etc...</p><p id="a1e555df-eaae-4f82-a346-4f48a424ab09" class="">In all those cases you can use <code>encodingTransform</code> to further transform the encoding of points. Here in the example, <code>encodingTransform</code> pushes the text towards right margin and leaves a padding between line and text.</p><p id="c4a160dd-b728-4983-aec6-d17e37e2baa3" class="">You can remove the property from configuration and see what happens if you don&#x27;t provide <code>encodingTransform</code>.</p><h2 id="aed750d4-bc6e-4308-9ef2-1a690b490e3e" class=""><strong>Reusablility</strong></h2><p id="eab4c031-b958-4ca4-b7c3-fbb987c51fce" class="">If you notice the code to draw average line example carefully, you will realize that definition of custom layers are completely independent from the rest of the system. This is an immensely powerful feature with versatile use case.</p><p id="30ee7514-75fd-4ae2-b233-334ea1996d5b" class="">You might have complex plot definitions, annotations, markers saved as separate file as store, serve it to different visualization system and have it attached to any visualization you want.</p><h2 id="838ee579-3341-4aba-903e-48ef33b3d234" class=""><strong>Wrapping up</strong></h2><p id="1954e081-2a34-44c9-b046-5e93ac066fe9" class="">By now you probably have some understanding how powerful Muze&#x27;s layers are. We will discuss layers in more details <a href="https://www.notion.so/charts/Composing-Layers-726e9fc0e1464459b6123e802e5ea182"><mark class="highlight-blue">here</mark></a>.</p><p id="7e1e47c5-2d6f-47e3-9309-f944c7dbf56a" class="">
+</p></div></article></body></html>

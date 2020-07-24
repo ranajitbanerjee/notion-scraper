@@ -1,0 +1,635 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Getting Started</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ab589b89-f358-49b8-a611-ced07d751314" class="page sans"><header><h1 class="page-title">Getting Started</h1></header><div class="page-body"><p id="dd3b5047-7bdf-4c71-a522-adf4df8dffca" class=""><strong>Table of Content</strong><div class="indented"><nav id="7a456669-0dfd-4a81-99a8-5e65dc4ca349" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#357a996f-cc24-4d1d-8899-52f4e1d48ffb"><strong>Installing Muze for your app or project</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f738a253-eff3-4e98-82c2-7d4b606d80dc"><strong>NPM</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#29e03e02-646c-41a2-8ebb-f2a65918a713"><strong>CDN</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5456885b-e7a2-4efb-a6c5-b966579cb1b9"><strong>Getting started with Muze</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c4efe218-93e3-4365-8c53-0aeaa50f37d4"><strong>Tutorials</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2217b9ae-425c-4e26-90b3-536f4773cd26"><strong>Concepts</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1ec51f77-5952-412e-aa97-ef1be0d23544"><strong>API</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dbd83067-4f66-417f-969f-83c2a8cc1890"><strong>Support, Licensing and Contribution</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#329405ab-54d0-4d34-a992-0259240f0eec"><strong>Supported browsers &amp; devices</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7e552428-0964-45c4-9c47-32de0078ef40"><strong>Contribute to our public roadmap</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b7cadb79-d520-441a-84a6-feec238fafcc"><strong>Get Support</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1c2c2469-0bc8-48ce-908c-4e8bca87e94c"><strong>Licensing</strong></a></div></nav></div></p><hr id="a19445ca-10ef-4906-9e56-2d26c8d3483f"/><p id="d87aba98-7fee-4da2-8afe-7ceda998941c" class=""><a href="https://www.notion.so/charts/Introducing-Muze-4223fff1ef5043dfb55f78434fb6d524"><strong>Muze</strong></a><strong> </strong>enables you to create composable, complex &amp; interactive data visualizations in JavaScript easily</p><p id="2173e8b9-3c76-4c51-a09a-f63e87c9720a" class="">If you&#x27;ve not already checked out what you can build using Muze, explore <mark class="highlight-blue"><a href="https://muzejs.org/examples">examples here</a></mark>.</p><p id="dcf5b41c-816e-43b6-be81-791c50ea3f6f" class="">
+</p><hr id="b29d1b9c-fc51-456f-89ff-2b664e187e21"/><h2 id="357a996f-cc24-4d1d-8899-52f4e1d48ffb" class=""><strong>Installing Muze for your app or project</strong></h2><p id="06fcbef9-6a32-4f09-b472-8864394ec0e6" class="">You can install Muze from NPM, directly use from our CDN, or get it from Github. In addition, you can also download the JavaScript files locally and include it in your application.</p><p id="fe971133-ec1e-419d-b5a7-5dcbf7b1b637" class="">
+</p><h3 id="f738a253-eff3-4e98-82c2-7d4b606d80dc" class=""><strong>NPM</strong></h3><ol id="7bb61f4a-5f2b-4cef-8b02-918a6f686565" class="numbered-list" start="1"><li>Copy the following command and paste it in the terminal<pre id="2c5bad19-6f3d-4277-b5f7-838b218837e0" class="code"><code>npm install --save muze</code></pre></li></ol><ol id="2c2ece3e-c6e8-4567-9449-547c3ba6a0b3" class="numbered-list" start="2"><li>Import the relevant components in your app or project:<pre id="6c40d009-2a51-4a59-b2dd-d13a625f8831" class="code"><code>import { DataModel }, muze from &#x27;muze&#x27;;</code></pre></li></ol><ol id="aa1dd4f6-5d6c-4753-9af0-33f9b6d7df80" class="numbered-list" start="3"><li>Import the Muze CSS file to apply theme to all the visualizations:<pre id="b3d6d44b-bd2e-49f6-9644-3a1cc177297f" class="code"><code>import &#x27;muze/dist/muze.css&#x27;</code></pre><p id="2ab16863-583e-4f46-8dd1-f3892c39ded1" class=""><div class="indented"><blockquote id="f7805e43-b64e-45a0-92e9-08abca861801" class="">If you don&#x27;t have a node project to start with, you can use this<mark class="highlight-blue"> </mark><mark class="highlight-blue"><a href="https://github.com/chartshq/generator-muze">seed project</a></mark> with yeoman generator to setup boilerplate.</blockquote></div></p></li></ol><p id="0ca1454e-24cd-4ece-9561-ce3bdfb419a5" class="">
+</p><h3 id="29e03e02-646c-41a2-8ebb-f2a65918a713" class=""><strong>CDN</strong></h3><ol id="16629553-cb72-4f20-ade3-71303e3b4427" class="numbered-list" start="1"><li>Include the script tag in your html page to load <code>muze.js</code> from our CDN<pre id="10886166-7891-4dd7-8b32-50e8b9acef04" class="code"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;https://cdn.muzejs.org/lib/muze/core/latest/muze.js&quot;&gt;&lt;/script&gt;</code></pre></li></ol><ol id="eec17c12-d3f8-4e1a-9cbd-be36ddd7551d" class="numbered-list" start="2"><li>Include the Muze CSS file to apply theme to all the visualizations:<pre id="ec2ba9b0-39b3-4440-99ce-c4b36c9109f1" class="code"><code>&lt;link href=&quot;https://cdn.muzejs.org/lib/muze/core/latest/themes/muze.css&quot; rel=&quot;stylesheet&quot;&gt;</code></pre></li></ol><ol id="3659c281-b2ed-4c16-a2ab-38b48a47025c" class="numbered-list" start="3"><li>In your page, use the components available, inside an async function under the namespace object <a href="https://www.notion.so/charts/Introducing-Muze-4223fff1ef5043dfb55f78434fb6d524"><code>muze</code></a>:<pre id="f905531b-4d4f-4531-a501-9a99b3145a93" class="code"><code>async () =&gt; {
+  const DataModel = await muze.DataModel;
+}</code></pre></li></ol><p id="2727b0bc-904c-4e37-9c49-a928e4b5c2f8" class="">
+</p><hr id="d257ec76-f989-4be6-943b-2a169c0c5987"/><h2 id="5456885b-e7a2-4efb-a6c5-b966579cb1b9" class=""><strong>Getting started with Muze</strong></h2><p id="2ef125a6-b2fc-4a41-a928-befd3e71b94c" class="">Since Muze is a composable visualization library, you can either use our existing implementations (samples) and build on them, compose your own using our building blocks, or even extend the core JavaScript library to achieve any custom requirements. As such, we&#x27;ve divided the documentation into four sections as below:</p><h3 id="c4efe218-93e3-4365-8c53-0aeaa50f37d4" class=""><strong>Tutorials</strong></h3><p id="c27a1d89-5cb1-45ce-b85a-481f79c867f6" class="">For a guided explanation on creating different types of visualizations, head to the <strong>Tutorials</strong> section. All  tutorials are editable, with a step by step interactive guide. You can make changes to the code and see live changes on the same page.</p><h3 id="2217b9ae-425c-4e26-90b3-536f4773cd26" class=""><strong>Concepts</strong></h3><p id="ce8a7426-156d-4b20-a4c6-55ffeb97a515" class="">Muze is powered by two core components:<mark class="highlight-blue"> </mark><a href="https://www.notion.so/charts/Introducing-Muze-4223fff1ef5043dfb55f78434fb6d524"><mark class="highlight-blue">Muze</mark></a> (the composable visualization library) and <a href="https://www.notion.so/charts/Introducing-DataModel-8ba032ab43344508a6b4ad227cc2378a"><mark class="highlight-blue">DataModel</mark></a> (in-memory tabular data store with data operators). If you&#x27;re looking to compose your own visualizations from ground up, we recommend going through the concepts of these first. It does has a slight learning curve, but once you know the concepts, you can build your own composable &amp; complex visualizations. This section also introduces you to powerful features like rendering custom interaction element, stacking multiple canvas with common elements, etc.</p><h3 id="1ec51f77-5952-412e-aa97-ef1be0d23544" class=""><strong>API</strong></h3><p id="b5ffb465-6215-47a9-bb4c-a4066d311227" class="">Head to API reference for concise explanations of all modules and member functions.</p><p id="daf6f009-6216-4589-8e77-398ca7332510" class="">
+</p><hr id="39c7da2f-bc9b-4b8a-ae95-fcb56d248753"/><h2 id="dbd83067-4f66-417f-969f-83c2a8cc1890" class=""><strong>Support, Licensing and Contribution</strong></h2><h3 id="329405ab-54d0-4d34-a992-0259240f0eec" class=""><strong>Supported browsers &amp; devices</strong></h3><p id="fd4a6bec-e2d2-4bc8-a40a-8526b7001158" class="">Muze supports modern browsers like Firefox, Safari, Chrome, and modern touch devices.</p><h3 id="7e552428-0964-45c4-9c47-32de0078ef40" class=""><strong>Contribute to our public roadmap</strong></h3><p id="f0fc0c76-1181-4045-90b9-1e664e2a2897" class="">We have a backlog of features that we are going to add to Muze in future releases. You can request a feature or provide a feedback from the <mark class="highlight-blue"><a href="http://muzejs.org">muzejs.org</a></mark> website header, or reach out to us on our <a href="https://github.com/orgs/chartshq/projects/1"><mark class="highlight-blue">Github</mark></a>.</p><h3 id="b7cadb79-d520-441a-84a6-feec238fafcc" class=""><strong>Get Support</strong></h3><p id="fd4586f3-11c1-4378-bf48-8493196b5bf5" class="">While we&#x27;re constantly trying to evolve and improve Muze, there could be instances where you run into an issue, despite our best efforts. For all those cases please raise a <mark class="highlight-blue"><a href="https://github.com/chartshq/muze/issues">Github issue</a></mark> or contact us directly at<mark class="highlight-blue"> </mark><mark class="highlight-blue"><a href="mailto:muze@muzejs.org">muze@muzejs.org</a></mark>. We will pick it up as soon as possible.</p><p id="18c3e742-16e0-4ef5-8840-941262dd1ec5" class="">If you need priority support, custom visualizations or enterprise support please mail to us at <mark class="highlight-blue"><a href="mailto:help@muzejs.org">muze@muzejs.org</a></mark></p><h3 id="1c2c2469-0bc8-48ce-908c-4e8bca87e94c" class=""><strong>Licensing</strong></h3><p id="88c0a758-fd1d-4215-a1cd-c72643dbe5eb" class="">Muze and DataModel are available under the <mark class="highlight-blue"><a href="http://opensource.org/licenses/MIT">MIT license</a></mark>.</p><p id="b9fd2c25-16c9-4092-903a-756509a84974" class="">
+</p></div></article></body></html>

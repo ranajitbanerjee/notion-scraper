@@ -149,7 +149,7 @@ module.exports = (inputDir, outDirPath, { IFRAME_ASSETS_PATH, LOCAL_CSS, LOCAL_S
 
             if (href) {
                 const fileName = path.basename(href).replace('.html', '').replace('%20', '-').toLowerCase();
-                const sourcePathInLink = new RegExp(sourceFileName).test(href) && !href.startsWith('https://') &&
+                const sourcePathInLink = href.includes(sourceFileName) && !href.startsWith('https://') &&
                     !href.startsWith('http://');
 
                 if (/notion\.so/g.test(href)) {
